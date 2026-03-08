@@ -4,133 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Habit Tracker</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      color: #333;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    input[type="text"],
-    input[type="number"] {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    select {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    #add-habit-btn {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    #add-habit-btn:hover {
-      background-color: #3e8e41;
-    }
-
-    #habit-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    #habit-list li {
-      background-color: #f4f4f4;
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
-    }
-
-    #habit-list li:last-child {
-      border-bottom: none;
-    }
-
-    #habit-list li span {
-      font-weight: bold;
-      margin-right: 10px;
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>Habit Tracker</h1>
-    <form id="habit-form">
-      <label for="habit-name">Habit Name:</label>
-      <input type="text" id="habit-name" required>
-      <label for="habit-duration">Duration:</label>
-      <input type="number" id="habit-duration" required>
-      <label for="habit-frequency">Frequency:</label>
-      <select id="habit-frequency" required>
-        <option value="daily">Daily</option>
-        <option value="weekly">Weekly</option>
-        <option value="monthly">Monthly</option>
-      </select>
+    <header>
+      <h1>Habit Tracker</h1>
       <button id="add-habit-btn">Add Habit</button>
-    </form>
-    <div class="habit-list">
-      <h2>Tracked Habits:</h2>
-      <ul id="habit-list">
-        <!-- Habit list will be rendered here -->
-      </ul>
-    </div>
+    </header>
+    <main>
+      <section class="habits">
+        <h2>Tracked Habits:</h2>
+        <ul id="habit-list">
+          <!-- Habit list will be rendered here -->
+        </ul>
+      </section>
+      <section class="stats">
+        <h2>Stats:</h2>
+        <ul>
+          <li>Streak: <span id="streak">0</span></li>
+          <li>Total Habits: <span id="total-habits">0</span></li>
+          <li>Completed Habits: <span id="completed-habits">0</span></li>
+        </ul>
+      </section>
+    </main>
   </div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const habitForm = document.getElementById('habit-form');
-      const habitList = document.getElementById('habit-list');
-      const addHabitBtn = document.getElementById('add-habit-btn');
-
-      habitForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const habitName = document.getElementById('habit-name').value;
-        const habitDuration = document.getElementById('habit-duration').value;
-        const habitFrequency = document.getElementById('habit-frequency').value;
-
-        const habit = {
-          name: habitName,
-          duration: habitDuration,
-          frequency: habitFrequency
-        };
-
-        // Render habit list
-        const habitLi = document.createElement('li');
-        habitLi.innerHTML = `
-          <span>${habit.name}</span>
-          <span>Duration: ${habit.duration}</span>
-          <span>Frequency: ${habit.frequency}</span>
-        `;
-        habitList.appendChild(habitLi);
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
