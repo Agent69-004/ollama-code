@@ -5,7 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Habit Tracker</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    #add-habit-btn {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #add-habit-btn:hover {
+      background-color: #3e8e41;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      margin: 20px 0;
+    }
+
+    #habit-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #habit-list li {
+      background-color: #f4f4f4;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    #habit-list li:last-child {
+      border-bottom: none;
+    }
+
+    #habit-list li span {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .stats ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .stats li {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .stats li:last-child {
+      border-bottom: none;
+    }
+
+    .stats span {
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -30,6 +118,77 @@
       </section>
     </main>
   </div>
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const habitForm = document.getElementById('habit-form');
+      const habitList = document.getElementById('habit-list');
+      const addHabitBtn = document.getElementById('add-habit-btn');
+      const streakSpan = document.getElementById('streak');
+      const totalHabitsSpan = document.getElementById('total-habits');
+      const completedHabitsSpan = document.getElementById('completed-habits');
+
+      habitForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const habitName = document.getElementById('habit-name').value;
+        const habitDuration = document.getElementById('habit-duration').value;
+        const habitFrequency = document.getElementById('habit-frequency').value;
+
+        const habit = {
+          name: habitName,
+          duration: habitDuration,
+          frequency: habitFrequency
+        };
+
+        // Render habit list
+        const habitLi = document.createElement('li');
+        habitLi.innerHTML = `
+          <span>${habit.name}</span>
+          <span>Duration: ${habit.duration}</span>
+          <span>Frequency: ${habit.frequency}</span>
+          <button class="delete-habit-btn">Delete</button>
+        `;
+        habitList.appendChild(habitLi);
+
+        // Update stats
+        const totalHabits = parseInt(totalHabitsSpan.textContent) + 1;
+        totalHabitsSpan.textContent = totalHabits.toString();
+        const completedHabits = parseInt(completedHabitsSpan.textContent) + 1;
+        completedHabitsSpan.textContent = completedHabits.toString();
+
+        // Check for streak
+        const currentHabit = habitList.children[habitList.children.length - 1];
+        const previousHabit = habitList.children[habitList.children.length - 2];
+        if (previousHabit && currentHabit && previousHabit.children[0].textContent === currentHabit.children[0].textContent) {
+          streakSpan.textContent = parseInt(streakSpan.textContent) + 1;
+        } else {
+          streakSpan.textContent = 1;
+        }
+      });
+
+      // Add event listener for delete habit button
+      habitList.addEventListener('click', function(e) {
+        if (e.target.classList.contains('delete-habit-btn')) {
+          const habitLi = e.target.parentNode;
+          habitList.removeChild(habitLi);
+          // Update stats
+          const totalHabits = parseInt(totalHabitsSpan.textContent) - 1;
+          totalHabitsSpan.textContent = totalHabits.toString();
+          const completedHabits = parseInt(completedHabitsSpan.textContent) - 1;
+          completedHabitsSpan.textContent = completedHabits.toString();
+          // Check for streak
+          const currentHabit = habitList.children[habitList.children.length - 1];
+          if (currentHabit) {
+            streakSpan.textContent = 0;
+          }
+        }
+      });
+    });
+  </script>
+  <form id="habit-form">
+    <input id="habit-name" type="text" placeholder="Habit Name">
+    <input id="habit-duration" type="number" placeholder="Duration (in minutes)">
+    <input id="habit-frequency" type="number" placeholder="Frequency (in days)">
+    <button type="submit">Add Habit</button>
+  </form>
 </body>
 </html>
