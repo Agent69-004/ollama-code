@@ -1,194 +1,197 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Habit Tracker</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-    }
 
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    header {
-      background-color: #4CAF50;
-      color: #fff;
-      padding: 10px;
-      text-align: center;
-    }
-
-    header h1 {
+ <!DOCTYPE html>                                                                                                                                                                                              
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Habit Tracker</title>
+      <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+      <!-- Header Section -->
+      <header>
+          <nav>
+              <ul>
+                  <li><a href="#">Habit Tracker</a></li>
+                  <li><a href="#">Goals</a></li>
+                  <li><a href="#">Stats</a></li>
+              </ul>
+          </nav>
+      </header>
+      <!-- Main Content Section -->
+      <main>
+          <!-- Habit Tracking Section -->
+          <section id="habit-tracking">
+              <h2>Habit Tracking</h2>
+              <ul>
+                  <!-- Habits will be listed here -->
+              </ul>
+              <button id="add-habit">Add Habit</button>
+          </section>
+          <!-- Goal Setting Section -->
+          <section id="goal-setting">
+              <h2>Goal Setting</h2>
+              <form>
+                  <label for="goal-name">Goal Name:</label>
+                  <input type="text" id="goal-name" name="goal-name">
+                  <label for="goal-description">Goal Description:</label>
+                  <textarea id="goal-description" name="goal-description"></textarea>
+                  <button id="set-goal">Set Goal</button>
+              </form>
+          </section>
+          <!-- Stats Section -->
+          <section id="stats">
+              <h2>Stats</h2>
+              <ul>
+                  <!-- Stats will be listed here -->
+              </ul>
+          </section>
+      </main>
+      <!-- Footer Section -->
+      <footer>
+          <p>&copy; 2023 Habit Tracker</p>
+      </footer>
+      <script src="script.js"></script>
+  </body>
+  </html>
+  CSS ( styles.css )
+  /* Global Styles */
+  * {
+      box-sizing: border-box;
       margin: 0;
-    }
+      padding: 0;
+  }
 
-    #add-habit-btn {
-      background-color: #4CAF50;
+  body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+  }
+
+  header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+  }
+
+  header nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+  }
+
+  header nav ul li {
+      margin-right: 20px;
+  }
+
+  header nav a {
+      color: #fff;
+      text-decoration: none;
+  }
+
+  main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+  }
+
+  section {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+      margin-top: 0;
+  }
+
+  ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+  }
+
+  li {
+      margin-bottom: 10px;
+  }
+
+  button {
+      background-color: #333;
       color: #fff;
       border: none;
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
-    }
+  }
 
-    #add-habit-btn:hover {
-      background-color: #3e8e41;
-    }
+  button:hover {
+      background-color: #444;
+  }
 
-    main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+  /* Animations */
+  .animate {
+      animation: fade-in 0.5s;
+  }
 
-    h2 {
-      margin: 20px 0;
-    }
+  @keyframes fade-in {
+      0% {
+          opacity: 0;
+      }
+      100% {
+          opacity: 1;
+      }
+  }
 
-    #habit-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+  /* Custom Animations */
+  .habit-tracking {
+      animation: habit-tracking 2s;
+  }
 
-    #habit-list li {
-      background-color: #f4f4f4;
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
-    }
+  @keyframes habit-tracking {
+      0% {
+          transform: scale(1);
+      }
+      50% {
+          transform: scale(1.2);
+      }
+      100% {
+          transform: scale(1);
+      }
+  }
+  JavaScript ( script.js )
+  // Add Habit Button Click Event Listener
+  document.getElementById('add-habit').addEventListener('click', () => {
+      // Add habit logic here
+  });
 
-    #habit-list li:last-child {
-      border-bottom: none;
-    }
+  // Set Goal Form Submission Event Listener
+  document.getElementById('set-goal').addEventListener('click', (e) => {
+      e.preventDefault();
+      // Set goal logic here
+  });
 
-    #habit-list li span {
-      font-weight: bold;
-      margin-right: 10px;
-    }
+  // Stats Section Logic
+  const statsSection = document.getElementById('stats');
+  const statsList = statsSection.querySelector('ul');
 
-    .stats ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+  // Habit Tracking Section Logic
+  const habitTrackingSection = document.getElementById('habit-tracking');
+  const habitsList = habitTrackingSection.querySelector('ul');
 
-    .stats li {
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
-    }
+  // Add Habit Function
+  function addHabit(habitName) {
+      const habitListItem = document.createElement('LI');
+      habitListItem.textContent = habitName;
+      habitsList.appendChild(habitListItem);
+  }
 
-    .stats li:last-child {
-      border-bottom: none;
-    }
-
-    .stats span {
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>Habit Tracker</h1>
-      <button id="add-habit-btn">Add Habit</button>
-    </header>
-    <main>
-      <section class="habits">
-        <h2>Tracked Habits:</h2>
-        <ul id="habit-list">
-          <!-- Habit list will be rendered here -->
-        </ul>
-      </section>
-      <section class="stats">
-        <h2>Stats:</h2>
-        <ul>
-          <li>Streak: <span id="streak">0</span></li>
-          <li>Total Habits: <span id="total-habits">0</span></li>
-          <li>Completed Habits: <span id="completed-habits">0</span></li>
-        </ul>
-      </section>
-    </main>
-  </div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const habitForm = document.getElementById('habit-form');
-      const habitList = document.getElementById('habit-list');
-      const addHabitBtn = document.getElementById('add-habit-btn');
-      const streakSpan = document.getElementById('streak');
-      const totalHabitsSpan = document.getElementById('total-habits');
-      const completedHabitsSpan = document.getElementById('completed-habits');
-
-      habitForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const habitName = document.getElementById('habit-name').value;
-        const habitDuration = document.getElementById('habit-duration').value;
-        const habitFrequency = document.getElementById('habit-frequency').value;
-
-        const habit = {
-          name: habitName,
-          duration: habitDuration,
-          frequency: habitFrequency
-        };
-
-        // Render habit list
-        const habitLi = document.createElement('li');
-        habitLi.innerHTML = `
-          <span>${habit.name}</span>
-          <span>Duration: ${habit.duration}</span>
-          <span>Frequency: ${habit.frequency}</span>
-          <button class="delete-habit-btn">Delete</button>
-        `;
-        habitList.appendChild(habitLi);
-
-        // Update stats
-        const totalHabits = parseInt(totalHabitsSpan.textContent) + 1;
-        totalHabitsSpan.textContent = totalHabits.toString();
-        const completedHabits = parseInt(completedHabitsSpan.textContent) + 1;
-        completedHabitsSpan.textContent = completedHabits.toString();
-
-        // Check for streak
-        const currentHabit = habitList.children[habitList.children.length - 1];
-        const previousHabit = habitList.children[habitList.children.length - 2];
-        if (previousHabit && currentHabit && previousHabit.children[0].textContent === currentHabit.children[0].textContent) {
-          streakSpan.textContent = parseInt(streakSpan.textContent) + 1;
-        } else {
-          streakSpan.textContent = 1;
-        }
-      });
-
-      // Add event listener for delete habit button
-      habitList.addEventListener('click', function(e) {
-        if (e.target.classList.contains('delete-habit-btn')) {
-          const habitLi = e.target.parentNode;
-          habitList.removeChild(habitLi);
-          // Update stats
-          const totalHabits = parseInt(totalHabitsSpan.textContent) - 1;
-          totalHabitsSpan.textContent = totalHabits.toString();
-          const completedHabits = parseInt(completedHabitsSpan.textContent) - 1;
-          completedHabitsSpan.textContent = completedHabits.toString();
-          // Check for streak
-          const currentHabit = habitList.children[habitList.children.length - 1];
-          if (currentHabit) {
-            streakSpan.textContent = 0;
-          }
-        }
-      });
-    });
-  </script>
-  <form id="habit-form">
-    <input id="habit-name" type="text" placeholder="Habit Name">
-    <input id="habit-duration" type="number" placeholder="Duration (in minutes)">
-    <input id="habit-frequency" type="number" placeholder="Frequency (in days)">
-    <button type="submit">Add Habit</button>
-  </form>
-</body>
-</html>
+  // Set Goal Function
+  function setGoal(goalName, goalDescription) {
+      const goalListItem = document.createElement('LI');
+      goalListItem.textContent = `${goalName} - ${goalDescription}`;
+      statsList.appendChild(goalListItem);
+  }
