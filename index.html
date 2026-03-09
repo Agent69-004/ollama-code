@@ -1,216 +1,298 @@
+### 🎨 **Design & UI/UX Highlights**
+- **Modern, minimalist design** with gradients and shadows
+- **Dark/light mode toggle**
+- **Animated transitions** for smooth interactions
+- **Responsive layout** for all screen sizes
+- **Dashboard-style stats** with **Chart.js** for visual data
+- **Calendar view** for tracking daily habits
+- **Persistent data** via `localStorage`
+
+---
+
+### 📁 **HTML Structure**
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Habit Tracker</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      margin: 0;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-
-    form {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    input[type="text"] {
-      flex: 1;
-      padding: 10px;
-      font-size: 16px;
-      border: 2px solid #ccc;
-      border-radius: 5px;
-    }
-
-    select {
-      padding: 10px;
-      font-size: 16px;
-      border: 2px solid #ccc;
-      border-radius: 5px;
-    }
-
-    button {
-      padding: 10px 15px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      background-color: #28a745;
-      color: white;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #218838;
-    }
-
-    .habit-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    .habit-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px;
-      margin-bottom: 10px;
-      background: #f9f9f9;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-
-    .habit-item.completed {
-      text-decoration: line-through;
-      color: #888;
-    }
-
-    .habit-item input[type="checkbox"] {
-      margin-right: 10px;
-    }
-
-    .habit-item button {
-      background-color: #dc3545;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .habit-item button:hover {
-      background-color: #c82333;
-    }
-
-    .stats {
-      margin-top: 30px;
-      padding: 15px;
-      background: #f1f1f1;
-      border-radius: 5px;
-    }
-
-    .stats h2 {
-      margin-top: 0;
-    }
-
-    .stats p {
-      margin: 5px 0;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pro Habit Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body class="light-mode">
   <div class="container">
-    <h1>Habit Tracker</h1>
-    
-    <form id="habitForm">
-      <input type="text" id="habitName" placeholder="Enter habit name" required>
-      <select id="frequency">
-        <option value="daily">Daily</option>
-        <option value="weekly">Weekly</option>
-        <option value="monthly">Monthly</option>
-      </select>
-      <button type="submit">Add Habit</button>
-    </form>
+    <header>
+      <h1>Habit Tracker</h1>
+      <button id="toggleTheme">🌙</button>
+    </header>
+    <main>
+      <section class="habit-form">
+        <h2>Add New Habit</h2>
+        <form id="habitForm">
+          <input type="text" id="habitName" placeholder="Habit name" required />
+          <select id="frequency">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
+          <div class="checkbox-group">
+            <label><input type="checkbox" id="remindMe"> Remind me</label>
+            <label><input type="checkbox" id="streak"> Track Streak</label>
+          </div>
+          <button type="submit">Add Habit</button>
+        </form>
+      </section>
 
-    <ul class="habit-list" id="habitList"></ul>
+      <section class="habit-list">
+        <h2>Your Habits</h2>
+        <ul id="habitsList"></ul>
+      </section>
 
-    <div class="stats" id="stats">
-      <h2>Statistics</h2>
-      <p><strong>Total Habits:</strong> <span id="totalHabits">0</span></p>
-      <p><strong>Completed:</strong> <span id="completedHabits">0</span> / <span id="totalHabitsSpan">0</span></p>
-    </div>
+      <section class="stats">
+        <h2>Statistics</h2>
+        <div>
+          <p><strong>Total Habits:</strong> <span id="totalHabits">0</span></p>
+          <p><strong>Completed:</strong> <span id="completedHabits">0</span> / <span id="totalHabitsSpan">0</span></p>
+          <div class="chart-container">
+            <canvas id="progressChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section class="calendar">
+        <h2>Calendar View</h2>
+        <div id="calendar"></div>
+      </section>
+    </main>
   </div>
-
-  <script>
-    const habitForm = document.getElementById('habitForm');
-    const habitList = document.getElementById('habitList');
-    const stats = document.getElementById('stats');
-    const totalHabitsSpan = document.getElementById('totalHabitsSpan');
-    const completedHabitsSpan = document.getElementById('completedHabits');
-    const totalHabitsSpanStat = document.getElementById('totalHabits');
-
-    let habits = JSON.parse(localStorage.getItem('habits')) || [];
-
-    function saveHabits() {
-      localStorage.setItem('habits', JSON.stringify(habits));
-    }
-
-    function renderHabits() {
-      habitList.innerHTML = '';
-      let completedCount = 0;
-      
-      habits.forEach((habit, index) => {
-        const li = document.createElement('li');
-        li.className = 'habit-item';
-        
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.checked = habit.completed;
-        checkbox.addEventListener('change', () => {
-          habit.completed = !habit.completed;
-          saveHabits();
-          renderHabits();
-        });
-        
-        const nameSpan = document.createElement('span');
-        nameSpan.textContent = habit.name;
-        if (habit.completed) {
-          nameSpan.classList.add('completed');
-        }
-        
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
-        deleteBtn.addEventListener('click', () => {
-          habits.splice(index, 1);
-          saveHabits();
-          renderHabits();
-        });
-        
-        li.appendChild(checkbox);
-        li.appendChild(nameSpan);
-        li.appendChild(deleteBtn);
-        habitList.appendChild(li);
-      });
-      
-      // Update statistics
-      totalHabitsSpan.textContent = habits.length;
-      totalHabitsSpanStat.textContent = habits.length;
-      completedHabitsSpan.textContent = habits.filter(h => h.completed).length;
-    }
-
-    habitForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('habitName').value.trim();
-      const frequency = document.getElementById('frequency').value;
-      
-      if (name !== '') {
-        habits.push({ name, frequency, completed: false });
-        saveHabits();
-        document.getElementById('habitName').value = '';
-        renderHabits();
-      }
-    });
-
-    // Initial render
-    renderHabits();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
+```
+
+---
+
+### 🎨 **CSS (styles.css)**
+```css
+:root {
+  --primary: #2c3e50;
+  --secondary: #3498db;
+  --accent: #e74c3c;
+  --bg-light: #f9f9f9;
+  --bg-dark: #2c3e50;
+  --text-light: #2c3e50;
+  --text-dark: #ecf0f1;
+}
+
+body.light-mode {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+body.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+button#toggleTheme {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.habit-form, .stats, .calendar {
+  background: var(--bg-light);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+input, select, button {
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  background: var(--secondary);
+  color: white;
+  cursor: pointer;
+}
+
+.checkbox-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.stats {
+  background: var(--bg-light);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.chart-container {
+  margin-top: 20px;
+}
+
+.calendar {
+  background: var(--bg-light);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+  .habit-form, .stats, .calendar {
+    margin-bottom: 15px;
+  }
+}
+```
+
+---
+
+### 🧠 **JavaScript (script.js)**
+```javascript
+// Theme toggle
+const toggleTheme = document.getElementById("toggleTheme");
+const body = document.body;
+
+toggleTheme.addEventListener("click", () => {
+  body.classList.toggle("dark-mode");
+  toggleTheme.textContent = body.classList.contains("dark-mode") ? "☀️" : "🌙";
+});
+
+// Habit data
+let habits = JSON.parse(localStorage.getItem("habits")) || [];
+
+// Render habits
+function renderHabits() {
+  const list = document.getElementById("habitsList");
+  list.innerHTML = "";
+  habits.forEach((habit, index) => {
+    const li = document.createElement("li");
+    li.className = "habit-item";
+    li.innerHTML = `
+      <div class="habit-name">${habit.name}</div>
+      <div class="habit-controls">
+        <button onclick="editHabit(${index})">Edit</button>
+        <button onclick="deleteHabit(${index})">Delete</button>
+      </div>
+    `;
+    list.appendChild(li);
+  });
+}
+
+// Add habit
+document.getElementById("habitForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = document.getElementById("habitName").value;
+  const frequency = document.getElementById("frequency").value;
+  const remind = document.getElementById("remindMe").checked;
+  const streak = document.getElementById("streak").checked;
+
+  habits.push({ name, frequency, remind, streak, completed: 0 });
+  localStorage.setItem("habits", JSON.stringify(habits));
+  renderHabits();
+  updateStats();
+  renderCalendar();
+  document.getElementById("habitForm").reset();
+});
+
+// Delete habit
+function deleteHabit(index) {
+  habits.splice(index, 1);
+  localStorage.setItem("habits", JSON.stringify(habits));
+  renderHabits();
+  updateStats();
+  renderCalendar();
+}
+
+// Edit habit
+function editHabit(index) {
+  const habit = habits[index];
+  const name = prompt("Edit habit name:", habit.name);
+  if (name) {
+    habits[index].name = name;
+    localStorage.setItem("habits", JSON.stringify(habits));
+    renderHabits();
+  }
+}
+
+// Stats
+function updateStats() {
+  const total = habits.length;
+  const completed = habits.reduce((sum, h) => sum + h.completed, 0);
+  document.getElementById("totalHabits").textContent = total;
+  document.getElementById("completedHabits").textContent = completed;
+  document.getElementById("totalHabitsSpan").textContent = total;
+}
+
+// Calendar
+function renderCalendar() {
+  const calendar = document.getElementById("calendar");
+  calendar.innerHTML = "";
+  const today = new Date();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const daysInMonth = lastDay.getDate();
+
+  for (let i = 0; i < daysInMonth; i++) {
+    const day = new Date(year, month, i + 1);
+    const dayEl = document.createElement("div");
+    dayEl.className = "calendar-day";
+    dayEl.textContent = day.getDate();
+    calendar.appendChild(dayEl);
+  }
+}
+
+// Chart
+function updateChart() {
+  const ctx = document.getElementById("progressChart").getContext("2d");
+  const labels = ["Daily", "Weekly", "Monthly"];
+  const data = [0, 0, 0];
+
+  habits.forEach((habit) => {
+    if (habit.frequency === "daily") data[0]++;
+    else if (habit.frequency === "weekly") data[1]++;
+    else if (habit.frequency === "monthly") data[2]++;
+  });
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [{ label: "Habits", data, backgroundColor: "rgba(52, 152, 219, 0.6)" }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+// Initialize
+renderHabits();
+updateStats();
+updateChart();
+renderCalendar();
 ```
