@@ -725,6 +725,277 @@
       line-height: 1.45;
     }
 
+    .item-app {
+      min-height: 100vh;
+      padding: 18px 14px 42px;
+      color: #e8fbff;
+      background:
+        radial-gradient(circle at 22% 18%, rgba(0, 212, 255, .22), transparent 22rem),
+        radial-gradient(circle at 80% 8%, rgba(147, 51, 234, .20), transparent 24rem),
+        linear-gradient(135deg, #061a2b, #07101f 58%, #030712);
+      font-family: Montserrat, Arial, sans-serif;
+    }
+
+    .item-app.brainrot-theme {
+      background:
+        radial-gradient(circle at 16% 16%, rgba(224, 53, 53, .20), transparent 24rem),
+        radial-gradient(circle at 84% 12%, rgba(147, 51, 234, .22), transparent 24rem),
+        linear-gradient(135deg, #180914, #0d1020 58%, #030712);
+    }
+
+    .item-shell {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .item-hero {
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+      padding: 12px 0 22px;
+      text-align: center;
+    }
+
+    .item-logo {
+      display: grid;
+      place-items: center;
+      width: 96px;
+      height: 96px;
+      border: 4px solid rgba(255, 255, 255, .92);
+      border-radius: 28px;
+      background: linear-gradient(135deg, #00d4ff, #27c93f);
+      box-shadow: 0 0 34px rgba(0, 212, 255, .28);
+      font-size: 48px;
+      animation: rewardBeat 1.7s infinite;
+    }
+
+    .brainrot-theme .item-logo {
+      background: linear-gradient(135deg, #e03535, #9333ea);
+      box-shadow: 0 0 34px rgba(224, 53, 53, .28);
+    }
+
+    .item-hero h1 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(30px, 6vw, 54px);
+      text-shadow: 0 0 18px rgba(0, 212, 255, .25);
+    }
+
+    .item-hero p {
+      margin: 0;
+      color: rgba(232, 251, 255, .74);
+      font-weight: 800;
+    }
+
+    .active-strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px auto 18px;
+      padding: 13px 18px;
+      border: 1px solid rgba(191, 233, 255, .18);
+      border-radius: 13px;
+      background: rgba(6, 26, 43, .82);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .24);
+      font-weight: 900;
+    }
+
+    .active-strip strong {
+      color: #39ff14;
+      font-size: 21px;
+      text-shadow: 0 0 12px rgba(57, 255, 20, .38);
+    }
+
+    .select-line {
+      margin: 12px 0 22px;
+      text-align: center;
+      color: #fff;
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .loot-card {
+      position: relative;
+      display: grid;
+      gap: 10px;
+      min-height: 172px;
+      padding: 14px 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .20);
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(232, 249, 255, .92));
+      color: #0f172a;
+      text-align: center;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, .20);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+
+    .loot-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(0, 212, 255, .65);
+      box-shadow: 0 20px 34px rgba(0, 0, 0, .28), 0 0 22px rgba(0, 212, 255, .16);
+    }
+
+    .brainrot-theme .loot-card:hover {
+      border-color: rgba(224, 53, 53, .60);
+      box-shadow: 0 20px 34px rgba(0, 0, 0, .28), 0 0 22px rgba(224, 53, 53, .16);
+    }
+
+    .loot-art {
+      display: grid;
+      place-items: center;
+      width: 86px;
+      height: 86px;
+      margin: 0 auto;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(0, 212, 255, .18), rgba(39, 201, 63, .16));
+      font-size: 44px;
+    }
+
+    .brainrot-theme .loot-art {
+      background: linear-gradient(135deg, rgba(224, 53, 53, .18), rgba(147, 51, 234, .16));
+    }
+
+    .loot-name {
+      display: grid;
+      place-items: center;
+      min-height: 42px;
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .rarity {
+      justify-self: center;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #111827;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .7px;
+    }
+
+    .item-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483600;
+      display: none;
+      place-items: center;
+      padding: 18px;
+      background: rgba(0, 0, 0, .72);
+      backdrop-filter: blur(8px);
+    }
+
+    .item-modal.visible {
+      display: grid;
+    }
+
+    .item-dialog {
+      width: min(430px, 100%);
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 20px;
+      background: linear-gradient(180deg, #111827, #060b16);
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .5);
+    }
+
+    .modal-art {
+      display: grid;
+      place-items: center;
+      width: 98px;
+      height: 98px;
+      margin: 6px auto 14px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .08);
+      font-size: 56px;
+    }
+
+    .item-dialog h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .item-dialog p {
+      color: rgba(255, 255, 255, .74);
+      font-weight: 700;
+    }
+
+    .item-dialog input {
+      margin: 14px 0;
+      padding-left: 16px;
+      border-color: rgba(255, 255, 255, .18);
+      background: rgba(255, 255, 255, .08);
+      color: #fff;
+      text-align: center;
+    }
+
+    .dialog-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .small-btn {
+      min-height: 48px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 900;
+      transition: transform .2s ease, filter .2s ease;
+    }
+
+    .small-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .small-btn.cancel {
+      background: #374151;
+    }
+
+    .small-btn.continue {
+      background: linear-gradient(90deg, #00c9f7, #27c93f);
+    }
+
+    .brainrot-theme .small-btn.continue {
+      background: linear-gradient(90deg, #e03535, #9333ea);
+    }
+
+    .loader-stack {
+      display: grid;
+      justify-items: center;
+      gap: 14px;
+      padding: 8px 0;
+    }
+
+    .loader-ring {
+      width: 64px;
+      height: 64px;
+      border: 6px solid rgba(255, 255, 255, .18);
+      border-top-color: #00d4ff;
+      border-radius: 50%;
+      animation: rotate-loader 700ms linear infinite;
+    }
+
+    .final-card {
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+    }
+
+    .final-card .primary-btn {
+      margin-top: 8px;
+    }
+
     .toast-wrap {
       position: fixed;
       z-index: 20;
@@ -779,6 +1050,9 @@
       .choice-title { font-size: 18px; }
       .reward-number { font-size: 32px; }
       .landing-card { padding: 38px 24px 32px; }
+      .item-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .loot-card { min-height: 150px; }
+      .loot-art { width: 72px; height: 72px; font-size: 38px; }
     }
   </style>
   <script type="text/javascript">
@@ -998,13 +1272,85 @@
     </footer>
   </main>
 
+  <section class="item-app hidden" id="itemApp">
+    <div class="item-shell">
+      <header class="item-hero">
+        <div class="item-logo" id="itemLogo">🌊</div>
+        <div>
+          <h1 id="itemTitle">Escape Tsunami Rewards</h1>
+          <p id="itemSubtitle">Choose one item, verify your username, then unlock the final reward step.</p>
+        </div>
+        <div class="active-strip">
+          <span>ACTIVE USERS</span>
+          <strong id="itemActiveUsers">12,845</strong>
+        </div>
+      </header>
+
+      <div class="select-line" id="itemSelectLine">Select Your Tsunami Reward</div>
+      <div class="item-grid" id="itemGrid"></div>
+    </div>
+  </section>
+
+  <div class="item-modal" id="itemModal" aria-hidden="true">
+    <div class="item-dialog" id="itemDialog"></div>
+  </div>
+
   <script>
     const $ = (id) => document.getElementById(id);
     const phases = ["phase0", "phase1", "phase2", "phase2_5", "phase3", "phase4"].map($);
     const state = { type: "", amount: 0, user: "" };
+    const itemState = { mode: "", selected: null, username: "" };
     let coinTotal = 8547;
     let gemTotal = 6923;
     let landingToastTimer;
+    let itemActiveTotal = 12845;
+
+    const itemConfigs = {
+      tsunami: {
+        themeClass: "",
+        logo: "🌊",
+        title: "Escape Tsunami Rewards",
+        subtitle: "Pick a rare Brainrot helper, confirm your Roblox username, and escape with your reward.",
+        selectLine: "Select Your Tsunami Reward",
+        toast: "Escaping the Tsunami...",
+        items: [
+          ["🐘", "Strawberry Elephant", "OG"],
+          ["🍔", "Burgerini Bearini", "OG"],
+          ["🚜", "Bulbito Bandito Traktorito", "Rare"],
+          ["💎", "Alessio", "Celestial"],
+          ["🌀", "Dug Dug Dug", "Celestial"],
+          ["🏫", "Esok Sekolah", "Celestial"],
+          ["🦬", "Bisonte Giuppitere", "Secret"],
+          ["🐉", "Dragon Cannelloni", "Secret"],
+          ["🦕", "Nuclearo Dinossauro", "Secret"],
+          ["🍋", "Perochello Lemonchello", "Rare"],
+          ["🐧", "Salamino Penguino", "Rare"],
+          ["🕷", "Chimpanzini Spiderini", "Mythic"]
+        ]
+      },
+      brainrot: {
+        themeClass: "brainrot-theme",
+        logo: "🧠",
+        title: "Steal a Brainrot",
+        subtitle: "Choose a limited Brainrot item and complete the final unlock step.",
+        selectLine: "Select a Brainrot Item",
+        toast: "Stealing a Brainrot...",
+        items: [
+          ["🐘", "Strawberry Elephant", "OG"],
+          ["🐱", "Meowl", "OG"],
+          ["🚽", "Skibidi Toilet", "OG"],
+          ["🐉", "Hydra Dragon Cannelloni", "Secret"],
+          ["🥤", "Fizzy Soda", "Rare"],
+          ["🐼", "Boba Panda", "Rare"],
+          ["🎄", "Festive 67", "Limited"],
+          ["🍬", "Los Candies", "Limited"],
+          ["🧟", "Headless Horseman", "Mythic"],
+          ["🐋", "Capitano Moby", "Mythic"],
+          ["💰", "$1000000", "VIP"],
+          ["⚡", "Admin Commands", "VIP"]
+        ]
+      }
+    };
 
     function iconSvg(name, extraClass = "") {
       const viewBox = name === "avatar" ? "0 0 160 160" : "0 0 128 128";
@@ -1022,19 +1368,56 @@
     function enterGeneratedApp() {
       $("landingScreen").classList.add("is-hidden");
       $("generatedApp").classList.remove("hidden");
+      $("itemApp").classList.add("hidden");
       document.body.classList.remove("landing-active");
       window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function enterItemApp(mode) {
+      const config = itemConfigs[mode];
+      itemState.mode = mode;
+      itemState.selected = null;
+      itemState.username = "";
+      $("landingScreen").classList.add("is-hidden");
+      $("generatedApp").classList.add("hidden");
+      $("itemApp").className = `item-app ${config.themeClass}`.trim();
+      $("itemLogo").textContent = config.logo;
+      $("itemTitle").textContent = config.title;
+      $("itemSubtitle").textContent = config.subtitle;
+      $("itemSelectLine").textContent = config.selectLine;
+      renderItemGrid(config);
+      document.body.classList.remove("landing-active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderItemGrid(config) {
+      $("itemGrid").innerHTML = config.items.map(([icon, name, rarity]) => `
+        <button class="loot-card" data-name="${name}" data-icon="${icon}" data-rarity="${rarity}" type="button">
+          <div class="loot-art">${icon}</div>
+          <div class="loot-name">${name}</div>
+          <div class="rarity">${rarity}</div>
+        </button>
+      `).join("");
+      document.querySelectorAll(".loot-card").forEach((card) => {
+        card.addEventListener("click", () => openItemModal({
+          icon: card.dataset.icon,
+          name: card.dataset.name,
+          rarity: card.dataset.rarity
+        }));
+      });
     }
 
     function handleLandingEntry(entry) {
       if (entry === "rbx") {
         showLandingToast("Loading your RBX...");
+        setTimeout(enterGeneratedApp, 600);
       } else if (entry === "brainrot") {
-        showLandingToast("Stealing a Brainrot...");
+        showLandingToast(itemConfigs.brainrot.toast);
+        setTimeout(() => enterItemApp("brainrot"), 600);
       } else {
-        showLandingToast("Escaping the Tsunami...");
+        showLandingToast(itemConfigs.tsunami.toast);
+        setTimeout(() => enterItemApp("tsunami"), 600);
       }
-      setTimeout(enterGeneratedApp, 600);
     }
 
     window.handleLandingEntry = handleLandingEntry;
@@ -1068,6 +1451,80 @@
     }
 
     window.triggerContentLocker = triggerContentLocker;
+
+    function openItemModal(item) {
+      itemState.selected = item;
+      $("itemModal").classList.add("visible");
+      $("itemModal").setAttribute("aria-hidden", "false");
+      $("itemDialog").innerHTML = `
+        <div class="modal-art">${item.icon}</div>
+        <h2>${item.name}</h2>
+        <p>Would you like to get this ${item.rarity} reward?</p>
+        <input id="itemUsername" type="text" placeholder="Enter your Roblox username" autocomplete="nickname">
+        <div class="dialog-actions">
+          <button class="small-btn cancel" id="itemCancel" type="button">Cancel</button>
+          <button class="small-btn continue" id="itemContinue" type="button">Continue</button>
+        </div>
+      `;
+      $("itemCancel").addEventListener("click", closeItemModal);
+      $("itemContinue").addEventListener("click", searchItemUser);
+      $("itemUsername").addEventListener("keydown", (event) => {
+        if (event.key === "Enter") searchItemUser();
+      });
+      setTimeout(() => $("itemUsername").focus(), 50);
+    }
+
+    function closeItemModal() {
+      $("itemModal").classList.remove("visible");
+      $("itemModal").setAttribute("aria-hidden", "true");
+    }
+
+    function searchItemUser() {
+      const username = $("itemUsername").value.trim();
+      if (!username) {
+        $("itemUsername").style.borderColor = "#ef4444";
+        return;
+      }
+      itemState.username = username;
+      showItemLoading(`Searching for @${username}`);
+      setTimeout(() => showItemResult(username), 1200);
+    }
+
+    function showItemLoading(text) {
+      $("itemDialog").innerHTML = `
+        <div class="loader-stack">
+          <div class="loader-ring"></div>
+          <h2>${text}</h2>
+          <p>Please wait while we prepare your request.</p>
+        </div>
+      `;
+    }
+
+    function showItemResult(username) {
+      const item = itemState.selected;
+      $("itemDialog").innerHTML = `
+        <div class="modal-art">${item.icon}</div>
+        <h2>@${username}</h2>
+        <p>${item.name} is ready to transfer.</p>
+        <button class="primary-btn" id="itemTransfer" type="button">Continue</button>
+      `;
+      $("itemTransfer").addEventListener("click", () => {
+        showItemLoading(`Transferring ${item.name} to @${username}`);
+        setTimeout(showItemFinal, 1400);
+      });
+    }
+
+    function showItemFinal() {
+      const item = itemState.selected;
+      $("itemDialog").innerHTML = `
+        <div class="final-card">
+          <div class="modal-art">${item.icon}</div>
+          <h2>${item.name} Generated!</h2>
+          <p>Final verification is required to unlock the reward page.</p>
+          <button class="primary-btn pulse" type="button" onclick="triggerContentLocker()">NEXT 🎁</button>
+        </div>
+      `;
+    }
 
     function setupStars() {
       const canvas = $("stars");
