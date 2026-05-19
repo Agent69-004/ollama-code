@@ -56,7 +56,13 @@
   padding: 20px;
   overflow: hidden;
 
-  background: radial-gradient(circle at center, #001c44 0%, #000b1a 100%);
+  background:
+  radial-gradient(circle at 20% 20%, rgba(0,180,255,.25), transparent 25%),
+  radial-gradient(circle at 80% 30%, rgba(140,0,255,.25), transparent 30%),
+  radial-gradient(circle at 50% 80%, rgba(0,255,170,.15), transparent 25%),
+  linear-gradient(135deg, #020412 0%, #081229 40%, #03060f 100%);
+background-size: 200% 200%;
+animation: spaceMove 15s ease infinite;
 }
 
     .landing-screen.is-hidden {
@@ -1053,7 +1059,19 @@
     @keyframes toastOut { to { transform: translateX(390px); opacity: 0; } }
     @keyframes landingCardIn { from { opacity: 0; transform: translateY(30px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes landingLogoPulse { 50% { box-shadow: 0 8px 40px rgba(0, 0, 0, .5); } }
+    @keyframes spaceMove {
+  0% {
+    background-position: 0% 50%;
+  }
 
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
     @media (max-width: 390px) {
       .app { padding-inline: 12px; }
       .panel { padding: 18px 14px; }
