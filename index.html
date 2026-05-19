@@ -82,8 +82,9 @@ backdrop-filter: blur(40px);
   padding: 48px 56px 40px;
 
   border-radius: 28px; /* MORE CURVED CORNERS */
-  background: rgba(22, 27, 39, 0.6);
-backdrop-filter: blur(20px);
+  background: linear-gradient(135deg, #101828, #0b1220, #111a2e);
+background-size: 300% 300%;
+animation: cardBreath 6s ease infinite;
   text-align: center;
   box-shadow: 0 24px 64px rgba(0, 0, 0, .5);
 
@@ -1061,6 +1062,11 @@ backdrop-filter: blur(20px);
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+      @keyframes cardBreath {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 }
     @media (max-width: 390px) {
       .app { padding-inline: 12px; }
