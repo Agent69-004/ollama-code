@@ -57,12 +57,11 @@
   overflow: hidden;
 
   background:
-  radial-gradient(circle at 20% 20%, rgba(0,180,255,.25), transparent 25%),
-  radial-gradient(circle at 80% 30%, rgba(140,0,255,.25), transparent 30%),
-  radial-gradient(circle at 50% 80%, rgba(0,255,170,.15), transparent 25%),
-  linear-gradient(135deg, #020412 0%, #081229 40%, #03060f 100%);
-background-size: 200% 200%;
-animation: spaceMove 15s ease infinite;
+  linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px),
+  radial-gradient(circle at center, #050814, #02030a);
+background-size: 40px 40px, 40px 40px, cover;
+animation: gridMove 8s linear infinite;
 }
 
     .landing-screen.is-hidden {
@@ -1059,18 +1058,9 @@ animation: spaceMove 15s ease infinite;
     @keyframes toastOut { to { transform: translateX(390px); opacity: 0; } }
     @keyframes landingCardIn { from { opacity: 0; transform: translateY(30px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes landingLogoPulse { 50% { box-shadow: 0 8px 40px rgba(0, 0, 0, .5); } }
-    @keyframes spaceMove {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+    @keyframes gridMove {
+  0% { background-position: 0 0, 0 0, center; }
+  100% { background-position: 40px 40px, 40px 40px, center; }
 }
     @media (max-width: 390px) {
       .app { padding-inline: 12px; }
