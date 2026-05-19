@@ -45,17 +45,19 @@
     }
 
     .landing-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 2147483500;
-      display: grid;
-      place-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      overflow: hidden;
-      background: radial-gradient(circle at center, #001c44 0%, #000b1a 100%);
-      font-family: Nunito, Montserrat, Arial, sans-serif;
-    }
+  position: fixed;
+  inset: 0;
+  z-index: 2147483500;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  overflow: hidden;
+
+  background: radial-gradient(circle at center, #001c44 0%, #000b1a 100%);
+}
 
     .landing-screen.is-hidden {
       display: none;
@@ -69,17 +71,19 @@
     }
 
     .landing-card {
-      position: relative;
-      z-index: 1;
-      width: min(420px, 95vw);
-      padding: 48px 56px 40px;
-      border: 1px solid rgba(255, 255, 255, .07);
-      border-radius: 20px;
-      background: #161b27;
-      text-align: center;
-      box-shadow: 0 24px 64px rgba(0, 0, 0, .5);
-      animation: landingCardIn .7s cubic-bezier(.22, 1, .36, 1) both;
-    }
+  width: min(420px, 95vw);
+  padding: 48px 56px 40px;
+
+  border-radius: 20px;
+  background: #161b27;
+
+  text-align: center;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .5);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
     .landing-logo {
       display: flex;
@@ -116,21 +120,22 @@
     }
 
     .landing-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  align-items: center;
+}
 
     .landing-btn {
-      width: 100%;
-      padding: 16px;
-      border-radius: 999px;
-      color: #fff;
-      font-family: Impact, fantasy;
-      font-size: 20px;
-      letter-spacing: .5px;
-      transition: transform .2s ease, filter .2s ease;
-    }
+  width: 100%;
+  max-width: 320px;
+  padding: 16px;
+  border-radius: 999px;
+  color: #fff;
+  font-family: Impact, fantasy;
+  font-size: 20px;
+}
 
     .landing-btn:hover {
       transform: translateY(-2px);
