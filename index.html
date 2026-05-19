@@ -4,84 +4,62 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MEORBX Booster 2026</title>
-  <meta name="description" content="A polished interactive reward-flow demo inspired by Roblox-style fan pages.">
+  <meta name="description" content="A polished reward-flow demo inspired by the MEORBX Booster Roblox-style page.">
   <style>
     :root {
-      --violet: #8b5cf6;
-      --violet-2: #6d28d9;
-      --cyan: #06b6d4;
-      --mint: #22c55e;
-      --gold: #fbbf24;
-      --rose: #fb7185;
-      --ink: #0f172a;
-      --muted: #64748b;
-      --line: rgba(148, 163, 184, .24);
-      --glass: rgba(255, 255, 255, .78);
-      --shadow: 0 24px 70px rgba(15, 23, 42, .18);
-      --radius: 18px;
-      --ease: cubic-bezier(.2, .8, .2, 1);
+      --purple: #9333ea;
+      --purple-dark: #7623c5;
+      --emerald: #10b981;
+      --ink: #232527;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --surface: #ffffff;
+      --page: #f3f4f6;
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
       min-height: 100vh;
-      color: var(--ink);
-      font-family: Inter, Montserrat, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(6, 182, 212, .22), transparent 28rem),
-        radial-gradient(circle at 86% 14%, rgba(139, 92, 246, .24), transparent 30rem),
-        linear-gradient(180deg, #edf7ff 0%, #f8fafc 42%, #eef2ff 100%);
+        radial-gradient(circle at 15% 8%, rgba(147, 51, 234, .12), transparent 26rem),
+        radial-gradient(circle at 85% 15%, rgba(16, 185, 129, .10), transparent 24rem),
+        var(--page);
+      color: var(--ink);
+      font-family: Montserrat, Arial, Helvetica, sans-serif;
     }
 
     body.landing-active {
       overflow: hidden;
-      background: #030712;
+      background: radial-gradient(circle at center, #001c44 0%, #000b1a 100%);
     }
 
     button, input { font: inherit; }
-    button {
-      border: 0;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-
+    button { cursor: pointer; border: 0; }
     .hidden { display: none !important; }
 
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
+    #codex-browser-sidebar-comments-root {
+      display: none !important;
+      pointer-events: none !important;
     }
 
     .landing-screen {
       position: fixed;
       inset: 0;
-      z-index: 100;
+      z-index: 2147483500;
       display: grid;
       place-items: center;
-      padding: 24px;
+      min-height: 100vh;
+      padding: 20px;
       overflow: hidden;
-      color: #fff;
-      background:
-        linear-gradient(135deg, rgba(5, 8, 22, .72), rgba(32, 13, 74, .56)),
-        radial-gradient(circle at 20% 18%, rgba(34, 197, 94, .34), transparent 20rem),
-        radial-gradient(circle at 78% 15%, rgba(6, 182, 212, .35), transparent 24rem),
-        linear-gradient(135deg, #030712 0%, #111827 46%, #2e1065 100%);
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+  url("ii.png") center/cover no-repeat;
+      font-family: Nunito, Montserrat, Arial, sans-serif;
     }
 
     .landing-screen.is-hidden {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .35s ease;
+      display: none;
     }
 
     #stars {
@@ -91,226 +69,93 @@
       pointer-events: none;
     }
 
-    .orb {
-      position: absolute;
-      width: 18rem;
-      height: 18rem;
-      border-radius: 999px;
-      opacity: .4;
-      filter: blur(52px);
-      animation: drift 9s ease-in-out infinite alternate;
-    }
-
-    .orb.one { left: -4rem; bottom: 8%; background: #06b6d4; }
-    .orb.two { right: -5rem; top: 12%; background: #a855f7; animation-delay: -3s; }
-
     .landing-card {
       position: relative;
       z-index: 1;
-      width: min(980px, 100%);
-      display: grid;
-      grid-template-columns: .95fr 1.05fr;
-      gap: 22px;
-      align-items: stretch;
-      padding: 14px;
-      border: 1px solid rgba(255, 255, 255, .15);
-      border-radius: 30px;
-      background: linear-gradient(145deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, .06));
-      box-shadow: 0 30px 90px rgba(0, 0, 0, .48);
-      backdrop-filter: blur(24px);
-      animation: cardIn .7s var(--ease) both;
-    }
-
-    .hero-visual {
-      position: relative;
-      min-height: 470px;
-      overflow: hidden;
-      border-radius: 22px;
-      background:
-        radial-gradient(circle at 40% 30%, rgba(255, 255, 255, .24), transparent 9rem),
-        linear-gradient(160deg, #06b6d4, #7c3aed 48%, #111827);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18);
-    }
-
-    .hero-visual::before {
-      content: "";
-      position: absolute;
-      inset: 18px;
-      border: 1px solid rgba(255, 255, 255, .20);
+      width: min(420px, 95vw);
+      padding: 48px 56px 40px;
+      border: 1px solid rgba(255, 255, 255, .07);
       border-radius: 20px;
-      background-image:
-        linear-gradient(rgba(255, 255, 255, .10) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, .10) 1px, transparent 1px);
-      background-size: 34px 34px;
-      mask-image: linear-gradient(to bottom, #000, transparent 85%);
-    }
-
-    .cube-stack {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 260px;
-      height: 260px;
-      transform: translate(-50%, -48%) rotate(-10deg);
-    }
-
-    .cube {
-      position: absolute;
-      display: grid;
-      place-items: center;
-      width: 108px;
-      height: 108px;
-      border: 4px solid rgba(255, 255, 255, .78);
-      border-radius: 24px;
-      background: rgba(255, 255, 255, .16);
-      box-shadow: 0 18px 42px rgba(0, 0, 0, .28);
-      font-size: 48px;
-      animation: floaty 4s ease-in-out infinite;
-      backdrop-filter: blur(12px);
-    }
-
-    .cube:nth-child(1) { left: 8px; top: 30px; background: #00d4ff; }
-    .cube:nth-child(2) { right: 0; top: 0; background: #8b5cf6; animation-delay: -.8s; }
-    .cube:nth-child(3) { left: 78px; bottom: 0; background: #22c55e; animation-delay: -1.6s; }
-
-    .hero-chip {
-      position: absolute;
-      left: 22px;
-      right: 22px;
-      bottom: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 16px;
-      border: 1px solid rgba(255, 255, 255, .20);
-      border-radius: 18px;
-      background: rgba(3, 7, 18, .48);
-      backdrop-filter: blur(16px);
-    }
-
-    .hero-chip strong {
-      display: block;
-      font-size: 20px;
-    }
-
-    .hero-chip span {
-      color: rgba(255, 255, 255, .72);
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .landing-content {
-      display: grid;
-      align-content: center;
-      padding: clamp(20px, 5vw, 48px);
+      background: #161b27;
+      text-align: center;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, .5);
+      animation: landingCardIn .7s cubic-bezier(.22, 1, .36, 1) both;
     }
 
     .landing-logo {
-      display: inline-grid;
-      place-items: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 88px;
       height: 88px;
-      margin-bottom: 24px;
-      border: 4px solid rgba(255, 255, 255, .9);
-      border-radius: 26px;
-      background: linear-gradient(135deg, var(--cyan), var(--violet), var(--mint));
-      box-shadow: 0 14px 40px rgba(6, 182, 212, .32);
-      font-family: Impact, fantasy;
-      font-size: 44px;
-      transform: rotate(-6deg);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      width: fit-content;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 12px;
-      border: 1px solid rgba(255, 255, 255, .18);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .10);
-      color: rgba(255, 255, 255, .82);
-      font-size: 12px;
+      margin: 0 auto 20px;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      background: #2d56ff;
+      color: #fff;
+      font-size: 48px;
       font-weight: 900;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--mint);
-      box-shadow: 0 0 16px var(--mint);
+      font-family: Impact, fantasy;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, .35);
+      animation: landingLogoPulse 3s ease-in-out infinite;
     }
 
     .landing-card h1 {
-      margin: 16px 0 10px;
-      color: #fff;
-      font-size: clamp(40px, 7vw, 76px);
-      line-height: .9;
+      margin: 0 0 6px;
+      color: #e8eaf6;
+      font-family: Impact, fantasy;
+      font-size: 32px;
+      font-weight: 900;
       letter-spacing: 0;
-      text-wrap: balance;
     }
 
-    .subtitle {
-      max-width: 500px;
-      margin: 0 0 28px;
-      color: rgba(255, 255, 255, .74);
-      font-size: 17px;
-      font-weight: 750;
-      line-height: 1.6;
+    .landing-card .subtitle {
+      margin: 0 0 32px;
+      color: #6b7280;
+      font-size: 14px;
+      font-weight: 800;
     }
 
     .landing-actions {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      align-items: center;
-      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
     .landing-btn {
-      position: relative;
-      isolation: isolate;
-      min-height: 72px;
-      overflow: hidden;
-      padding: 14px 12px;
-      border: 1px solid rgba(255, 255, 255, .18);
-      border-radius: 18px;
+      width: 100%;
+      padding: 16px;
+      border-radius: 999px;
       color: #fff;
-      font-weight: 950;
-      letter-spacing: 0;
-      box-shadow: 0 18px 34px rgba(0, 0, 0, .25);
-      transition: transform .22s var(--ease), filter .22s ease, border-color .22s ease;
-    }
-
-    .landing-btn::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      z-index: -1;
-      background: linear-gradient(120deg, rgba(255, 255, 255, .26), transparent 34%, rgba(255, 255, 255, .16));
-      transform: translateX(-80%);
-      transition: transform .55s ease;
+      font-family: Impact, fantasy;
+      font-size: 20px;
+      letter-spacing: .5px;
+      transition: transform .2s ease, filter .2s ease;
     }
 
     .landing-btn:hover {
-      transform: translateY(-5px) scale(1.02);
-      filter: saturate(1.18) brightness(1.06);
-      border-color: rgba(255, 255, 255, .45);
+      transform: translateY(-2px);
+      filter: brightness(1.1);
     }
 
-    .landing-btn:hover::before { transform: translateX(35%); }
-    .landing-btn.cyan { background: linear-gradient(135deg, #0891b2, #22d3ee); }
-    .landing-btn.red { background: linear-gradient(135deg, #e11d48, #fb7185); }
-    .landing-btn.green { background: linear-gradient(135deg, #16a34a, #4ade80); }
+    .landing-btn.cyan {
+      background: linear-gradient(90deg, #00c9f7, #00d4ff);
+      box-shadow: 0 6px 20px rgba(0, 212, 255, .3);
+    }
 
-    .landing-note {
-      margin-top: 22px;
-      color: rgba(255, 255, 255, .56);
+    .landing-btn.red {
+      background: linear-gradient(90deg, #c72b2b, #e03535);
+      box-shadow: 0 6px 20px rgba(224, 53, 53, .3);
+    }
+
+    .landing-btn.green {
+      background: linear-gradient(90deg, #20a832, #27c93f);
+      box-shadow: 0 6px 20px rgba(39, 201, 63, .3);
+    }
+
+    .landing-card footer {
+      margin-top: 24px;
+      color: rgba(232, 234, 246, .62);
       font-size: 12px;
       font-weight: 800;
     }
@@ -318,19 +163,16 @@
     .landing-toast {
       position: fixed;
       left: 50%;
-      bottom: 28px;
-      z-index: 120;
-      padding: 13px 20px;
-      border: 1px solid rgba(255, 255, 255, .15);
+      bottom: 32px;
+      z-index: 2147483600;
+      padding: 12px 24px;
       border-radius: 999px;
-      background: rgba(3, 7, 18, .76);
+      background: #1e2535;
       color: #fff;
       opacity: 0;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, .32);
-      transform: translateX(-50%) translateY(30px);
-      transition: opacity .25s ease, transform .25s ease;
-      backdrop-filter: blur(18px);
-      font-weight: 900;
+      transform: translateX(-50%) translateY(80px);
+      transition: opacity .3s ease, transform .3s ease;
+      font-weight: 800;
     }
 
     .landing-toast.show {
@@ -339,442 +181,318 @@
     }
 
     .app {
-      width: min(1120px, 100%);
+      width: min(100%, 460px);
       margin: 0 auto;
-      padding: 22px 18px 46px;
+      padding: 24px 16px 36px;
     }
 
-    .topbar {
-      position: sticky;
-      top: 12px;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 20px;
-      padding: 10px 12px;
-      border: 1px solid rgba(255, 255, 255, .66);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, .76);
-      box-shadow: 0 16px 38px rgba(15, 23, 42, .10);
-      backdrop-filter: blur(20px);
-    }
-
-    .brand-mini {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-      font-weight: 950;
-    }
-
-    .mark {
+    .brand {
       display: grid;
-      place-items: center;
-      width: 44px;
-      height: 44px;
-      flex: 0 0 auto;
-      border-radius: 13px;
-      background: linear-gradient(135deg, var(--cyan), var(--violet), var(--mint));
-      color: #fff;
-      box-shadow: 0 12px 28px rgba(99, 102, 241, .28);
-      font-family: Impact, fantasy;
-      font-size: 24px;
+      justify-items: center;
+      gap: 10px;
+      text-align: center;
+      margin-bottom: 18px;
     }
 
-    .brand-mini span {
+    .brand-mark {
+      position: relative;
+      width: 230px;
+    }
+
+    .brand-logo { width: 100%; display: block; }
+
+    .icon {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      vertical-align: middle;
+    }
+
+    .year {
+      position: absolute;
+      right: 3px;
+      top: 10px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #232527;
+      color: white;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--purple);
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .subhead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .metrics {
+      position: relative;
       overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      padding: 14px;
+      margin-bottom: 20px;
+      border: 2px solid rgba(255, 255, 255, .85);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .94);
+      box-shadow: 0 16px 32px rgba(35, 37, 39, .12);
     }
 
-    .live-pill {
+    .metrics::before {
+      content: "";
+      position: absolute;
+      inset: -50%;
+      background: radial-gradient(circle, rgba(16, 185, 129, .13), transparent 62%);
+      animation: spin 15s linear infinite;
+    }
+
+    .live {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+
+    .live span {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 9px 12px;
+      gap: 6px;
+      padding: 4px 9px;
       border-radius: 999px;
-      background: #0f172a;
-      color: #fff;
-      font-size: 12px;
+      background: rgba(239, 68, 68, .13);
+      color: #ef4444;
+      font-size: 10px;
       font-weight: 900;
     }
 
     .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--mint);
-      box-shadow: 0 0 16px var(--mint);
-      animation: blink 1.4s infinite;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ef4444;
+      animation: blink 1.5s infinite;
     }
 
-    .app-hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr);
-      gap: 18px;
-      align-items: stretch;
-      margin-bottom: 18px;
-    }
-
-    .hero-panel,
-    .detail-panel,
-    .flow-panel,
-    .item-hero,
-    .item-grid-wrap {
-      border: 1px solid rgba(255, 255, 255, .72);
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, .78);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-    }
-
-    .hero-panel {
-      position: relative;
-      min-height: 330px;
-      overflow: hidden;
-      padding: clamp(24px, 4vw, 44px);
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, .82), rgba(255, 255, 255, .62)),
-        radial-gradient(circle at 78% 20%, rgba(34, 197, 94, .18), transparent 15rem);
-    }
-
-    .hero-panel::after {
-      content: "";
-      position: absolute;
-      right: -80px;
-      bottom: -110px;
-      width: 270px;
-      height: 270px;
-      border-radius: 60px;
-      background: linear-gradient(135deg, rgba(6, 182, 212, .30), rgba(139, 92, 246, .24));
-      transform: rotate(18deg);
-    }
-
-    .hero-panel h1 {
+    .metrics h2 {
       position: relative;
       z-index: 1;
-      max-width: 620px;
-      margin: 14px 0 12px;
-      color: var(--ink);
-      font-size: clamp(36px, 5vw, 68px);
-      line-height: .94;
-      letter-spacing: 0;
-      text-wrap: balance;
-    }
-
-    .hero-panel p {
-      position: relative;
-      z-index: 1;
-      max-width: 560px;
-      margin: 0;
+      margin: 0 0 12px;
+      text-align: center;
       color: var(--muted);
-      font-size: 16px;
-      font-weight: 750;
-      line-height: 1.65;
-    }
-
-    .badge-row {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 26px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, .07);
-      color: #334155;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    .detail-panel {
-      position: relative;
-      display: grid;
-      gap: 12px;
-      overflow: hidden;
-      padding: 16px;
-    }
-
-    .detail-panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(135deg, rgba(139, 92, 246, .08), transparent 45%),
-        radial-gradient(circle at 80% 20%, rgba(251, 191, 36, .20), transparent 13rem);
-      pointer-events: none;
-    }
-
-    .stat-card {
-      position: relative;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 13px;
-      min-height: 88px;
-      padding: 14px;
-      overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, .25);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, .84);
-      transition: transform .22s var(--ease), border-color .22s ease, box-shadow .22s ease;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(139, 92, 246, .38);
-      box-shadow: 0 18px 36px rgba(15, 23, 42, .12);
-    }
-
-    .stat-icon {
-      display: grid;
-      place-items: center;
-      width: 54px;
-      height: 54px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(6, 182, 212, .18), rgba(139, 92, 246, .18));
-      font-size: 28px;
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: .08em;
+      letter-spacing: .8px;
     }
 
-    .stat-value {
-      margin-top: 2px;
-      color: var(--ink);
-      font-size: 26px;
-      font-weight: 950;
-    }
-
-    .spark {
-      color: var(--mint);
-      font-size: 12px;
-      font-weight: 950;
-    }
-
-    .flow-panel {
-      overflow: hidden;
-      padding: clamp(16px, 3vw, 24px);
-    }
-
-    .step-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .step-header h2 {
-      margin: 0;
-      color: var(--ink);
-      font-size: clamp(22px, 4vw, 34px);
-      letter-spacing: 0;
-    }
-
-    .step-count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 80px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: rgba(139, 92, 246, .10);
-      color: var(--violet-2);
-      font-size: 12px;
-      font-weight: 950;
-    }
-
-    .reward-grid,
-    .amount-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .choice,
-    .amount {
+    .metric-grid {
       position: relative;
+      z-index: 1;
       display: grid;
-      justify-items: start;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
-      min-height: 180px;
-      overflow: hidden;
-      padding: 18px;
-      border: 1px solid rgba(148, 163, 184, .28);
-      border-radius: 18px;
-      background:
-        linear-gradient(145deg, rgba(255, 255, 255, .96), rgba(255, 255, 255, .74)),
-        radial-gradient(circle at 80% 15%, rgba(6, 182, 212, .18), transparent 9rem);
-      color: var(--ink);
-      text-align: left;
-      box-shadow: 0 14px 32px rgba(15, 23, 42, .08);
-      transition: transform .22s var(--ease), box-shadow .22s ease, border-color .22s ease;
     }
 
-    .choice::after,
-    .amount::after,
-    .primary-btn::after {
-      content: "";
-      position: absolute;
-      inset: -80%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .44), transparent);
-      transform: translateX(-68%) rotate(28deg);
-      animation: shine 4.2s infinite;
-      pointer-events: none;
+    .metric-card {
+      padding: 10px;
+      border: 2px solid rgba(16, 185, 129, .28);
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, .10), rgba(96, 165, 250, .10));
+      text-align: center;
+      transition: transform .25s ease, box-shadow .25s ease;
+      animation: breathe 2s infinite;
     }
 
-    .choice:hover,
-    .amount:hover {
-      transform: translateY(-6px);
-      border-color: rgba(139, 92, 246, .48);
-      box-shadow: 0 22px 46px rgba(79, 70, 229, .18);
+    .metric-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(16, 185, 129, .24);
     }
 
-    .choice.picked,
-    .amount.picked {
-      border-color: var(--violet);
-      box-shadow: 0 0 0 4px rgba(139, 92, 246, .14), 0 22px 46px rgba(79, 70, 229, .18);
+    .metric-card .icon {
+      width: 30px;
+      height: 30px;
     }
 
-    .reward-icon {
+    .metric-value {
+      color: var(--emerald);
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .metric-name {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .panel {
+      padding: 22px;
+      margin-bottom: 18px;
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: 0 18px 40px rgba(35, 37, 39, .16);
+      transition: transform .25s ease, opacity .25s ease;
+    }
+
+    .panel h2 {
+      margin: 0 0 20px;
+      color: var(--purple);
+      text-align: center;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .reward-grid, .amount-grid {
       display: grid;
-      place-items: center;
-      width: 68px;
-      height: 68px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(251, 191, 36, .18), rgba(34, 197, 94, .14));
-      font-size: 36px;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
     }
 
-    .choice-title,
-    .amount-number {
-      font-size: 26px;
-      font-weight: 950;
-      line-height: 1;
+    .choice, .amount {
+      position: relative;
+      overflow: hidden;
+      min-height: 158px;
+      padding: 16px 10px;
+      border: 3px solid var(--line);
+      border-radius: 14px;
+      background: white;
+      text-align: center;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease, background .25s ease;
     }
 
-    .choice-info,
-    .amount-info {
+    .choice:hover, .amount:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 16px 30px rgba(35, 37, 39, .16);
+    }
+
+    .choice.picked, .amount.picked {
+      border-color: var(--purple);
+      background: rgba(147, 51, 234, .08);
+    }
+
+    .choice .icon {
+      width: 74px;
+      height: 74px;
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .18));
+    }
+
+    .choice-title {
+      margin-top: 8px;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .choice-info {
+      margin: 4px 0 10px;
       color: var(--muted);
       font-size: 13px;
-      font-weight: 800;
-      line-height: 1.4;
+      font-weight: 600;
     }
 
-    .select-pill,
-    .available {
+    .select-pill {
       display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: auto;
-      padding: 8px 11px;
-      border-radius: 999px;
-      background: #0f172a;
-      color: #fff;
-      font-size: 12px;
-      font-weight: 950;
+      min-width: 86px;
+      justify-content: center;
+      padding: 7px 14px;
+      border-radius: 6px;
+      background: var(--purple);
+      color: white;
+      font-size: 13px;
+      font-weight: 900;
     }
 
     .input-wrap {
       position: relative;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .input-wrap span {
       position: absolute;
-      left: 16px;
+      left: 14px;
       top: 50%;
-      z-index: 1;
-      color: var(--violet-2);
       transform: translateY(-50%);
-      font-weight: 950;
+      color: #9ca3af;
     }
 
     input {
       width: 100%;
-      min-height: 58px;
-      padding: 0 16px 0 42px;
-      border: 1px solid rgba(148, 163, 184, .38);
-      border-radius: 15px;
+      min-height: 56px;
+      padding: 0 14px 0 42px;
+      border: 2px solid #d1d5db;
+      border-radius: 7px;
       outline: 0;
-      background: rgba(255, 255, 255, .88);
-      color: var(--ink);
+      background: #fff;
+      color: #111827;
       font-size: 16px;
-      font-weight: 750;
-      transition: box-shadow .2s ease, border-color .2s ease, background .2s ease;
     }
 
     input:focus {
-      border-color: rgba(139, 92, 246, .54);
-      background: #fff;
-      box-shadow: 0 0 0 4px rgba(139, 92, 246, .14);
-    }
-
-    .primary-btn,
-    .small-btn {
-      position: relative;
-      min-height: 56px;
-      overflow: hidden;
-      border-radius: 15px;
-      color: white;
-      background: linear-gradient(135deg, var(--violet), var(--cyan));
-      box-shadow: 0 16px 34px rgba(79, 70, 229, .24);
-      font-weight: 950;
-      transition: transform .2s var(--ease), filter .2s ease, box-shadow .2s ease;
+      border-color: transparent;
+      box-shadow: 0 0 0 3px rgba(147, 51, 234, .35);
     }
 
     .primary-btn {
+      position: relative;
+      overflow: hidden;
       width: 100%;
+      min-height: 56px;
+      border-radius: 7px;
+      background: var(--purple);
+      color: white;
+      font-weight: 900;
+      transition: transform .2s ease, background .2s ease;
     }
 
-    .primary-btn:hover,
-    .small-btn:hover {
-      transform: translateY(-3px);
-      filter: brightness(1.04) saturate(1.08);
-      box-shadow: 0 20px 42px rgba(79, 70, 229, .28);
+    .primary-btn:hover {
+      background: var(--purple-dark);
+      transform: scale(1.025);
+    }
+
+    .primary-btn::after, .choice::after {
+      content: "";
+      position: absolute;
+      inset: -60%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .28), transparent);
+      transform: translateX(-80%) rotate(30deg);
+      animation: shine 3.6s infinite;
+      pointer-events: none;
     }
 
     .alert {
       display: none;
-      margin-top: 12px;
-      padding: 12px 14px;
-      border: 1px solid rgba(244, 63, 94, .24);
-      border-radius: 14px;
-      background: rgba(244, 63, 94, .09);
-      color: #be123c;
-      font-weight: 850;
+      margin-top: 14px;
+      padding: 12px;
+      border: 1px solid rgba(239, 68, 68, .30);
+      border-radius: 8px;
+      background: rgba(239, 68, 68, .10);
+      color: #ef4444;
+      font-size: 14px;
+      font-weight: 700;
     }
 
     .account {
       display: none;
-      margin-top: 18px;
+      margin-top: 16px;
       padding: 16px;
-      border: 1px solid rgba(139, 92, 246, .22);
-      border-radius: 20px;
-      background:
-        linear-gradient(135deg, rgba(139, 92, 246, .10), rgba(6, 182, 212, .08)),
-        rgba(255, 255, 255, .76);
-      box-shadow: 0 18px 36px rgba(79, 70, 229, .12);
+      border: 1px solid rgba(147, 51, 234, .20);
+      border-radius: 16px;
+      background: rgba(147, 51, 234, .05);
     }
 
     .account.visible {
       display: block;
-      animation: rise .35s var(--ease) both;
+      animation: appear .25s ease-out;
     }
 
     .profile {
@@ -784,143 +502,152 @@
       margin-bottom: 14px;
     }
 
+    .avatar-wrap { position: relative; }
+
     .avatar {
-      display: grid;
-      place-items: center;
-      width: 76px;
-      height: 76px;
-      flex: 0 0 auto;
-      border: 3px solid rgba(255, 255, 255, .88);
-      border-radius: 24px;
-      background: linear-gradient(135deg, var(--violet), var(--mint));
-      color: #fff;
-      box-shadow: 0 16px 34px rgba(79, 70, 229, .22);
-      font-size: 34px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid rgba(147, 51, 234, .28);
+      background: white;
     }
 
-    .profile h3 {
-      margin: 0;
-      font-size: 24px;
-      line-height: 1;
+    .activity {
+      position: absolute;
+      right: 2px;
+      bottom: 5px;
+      width: 18px;
+      height: 18px;
+      border: 2px solid white;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 10px rgba(16, 185, 129, .65);
     }
 
-    .profile p {
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-weight: 850;
-    }
+    .profile h3 { margin: 0; font-size: 18px; }
+    .profile p { margin: 4px 0 0; color: var(--muted); }
 
     .details {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 14px;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, .03);
     }
 
     .detail {
-      padding: 13px;
-      border: 1px solid rgba(148, 163, 184, .25);
-      border-radius: 15px;
-      background: rgba(255, 255, 255, .74);
-      box-shadow: 0 10px 24px rgba(15, 23, 42, .06);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, .05);
+      font-size: 13px;
     }
 
-    .detail-label {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 950;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
+    .detail:last-child { border-bottom: 0; }
+    .detail-label { flex: 1; color: var(--muted); font-weight: 700; }
+    .detail-value { font-weight: 900; }
 
-    .detail-value,
     .tag {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      margin-top: 7px;
-      color: var(--ink);
-      font-size: 14px;
-      font-weight: 950;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, .15);
+      color: var(--emerald);
+      font-size: 12px;
+      font-weight: 900;
     }
 
     .tag::before {
       content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--mint);
-      box-shadow: 0 0 12px var(--mint);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: blink 2s infinite;
     }
 
     .amount {
-      min-height: 148px;
+      min-height: 124px;
+      border-width: 2px;
       opacity: 0;
-      transform: scale(.86) translateY(16px);
-      animation: popIn .4s var(--ease) forwards;
+      transform: scale(.3);
+      animation: emerge .48s ease-out forwards;
     }
 
-    .amount:nth-child(2) { animation-delay: .06s; }
-    .amount:nth-child(3) { animation-delay: .12s; }
-    .amount:nth-child(4) { animation-delay: .18s; }
+    .amount:nth-child(2) { animation-delay: .08s; }
+    .amount:nth-child(3) { animation-delay: .16s; }
+    .amount:nth-child(4) { animation-delay: .24s; }
 
-    .progress-showcase {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 16px;
+    .amount .icon {
+      width: 44px;
+      height: 44px;
+      vertical-align: middle;
+    }
+
+    .amount-number {
+      margin-top: 4px;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .available {
+      margin-top: 8px;
+      padding: 5px 8px;
+      border-radius: 4px;
+      background: var(--emerald);
+      color: white;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .showcase {
+      display: flex;
       align-items: center;
+      justify-content: center;
+      gap: 14px;
       padding: 18px;
-      margin-bottom: 16px;
-      border: 1px solid rgba(139, 92, 246, .20);
-      border-radius: 18px;
-      background:
-        radial-gradient(circle at 18% 20%, rgba(251, 191, 36, .16), transparent 12rem),
-        linear-gradient(135deg, rgba(139, 92, 246, .10), rgba(6, 182, 212, .09));
+      margin-bottom: 18px;
+      border: 2px solid rgba(147, 51, 234, .30);
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(147, 51, 234, .10), rgba(16, 185, 129, .10));
     }
 
-    .big-icon {
-      display: grid;
-      place-items: center;
-      width: 86px;
-      height: 86px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, .72);
-      font-size: 46px;
-      animation: pulseIcon 2s infinite;
+    .showcase .icon {
+      width: 54px;
+      height: 54px;
+      animation: rewardBeat 1.5s infinite;
     }
 
     .reward-number {
-      color: var(--violet-2);
-      font-size: clamp(40px, 8vw, 70px);
-      font-weight: 950;
-      line-height: 1;
+      color: var(--purple);
+      font-size: 40px;
+      font-weight: 900;
     }
 
     .reward-type {
-      margin-top: 4px;
       color: var(--muted);
       font-size: 13px;
-      font-weight: 950;
-      letter-spacing: .08em;
+      font-weight: 900;
       text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .progress-row {
       display: flex;
       justify-content: space-between;
-      gap: 12px;
       margin-bottom: 8px;
-      color: #334155;
-      font-weight: 900;
+      color: #374151;
+      font-size: 14px;
+      font-weight: 700;
     }
 
     .bar {
-      height: 18px;
+      height: 20px;
       margin-bottom: 14px;
       overflow: hidden;
       border-radius: 999px;
-      background: rgba(15, 23, 42, .08);
+      background: #e5e7eb;
     }
 
     .bar span {
@@ -928,171 +655,93 @@
       width: 0;
       height: 100%;
       border-radius: inherit;
-      background: linear-gradient(90deg, var(--mint), var(--cyan), var(--violet));
-      transition: width .08s linear;
+      background: var(--emerald);
+      transition: width .1s linear;
     }
 
     .logs {
-      max-height: 150px;
+      max-height: 132px;
       overflow: auto;
       padding: 12px;
-      border: 1px solid rgba(148, 163, 184, .24);
-      border-radius: 15px;
-      background: rgba(15, 23, 42, .04);
-      color: #334155;
+      margin-bottom: 16px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #f9fafb;
+      color: #374151;
       font-size: 14px;
-      font-weight: 750;
-      line-height: 1.65;
-    }
-
-    .ready-box {
-      display: grid;
-      justify-items: center;
-      gap: 14px;
-      padding: 22px;
-      border: 1px solid rgba(34, 197, 94, .24);
-      border-radius: 20px;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(34, 197, 94, .18), transparent 16rem),
-        rgba(255, 255, 255, .72);
-      text-align: center;
-      box-shadow: 0 20px 42px rgba(34, 197, 94, .12);
+      line-height: 1.55;
     }
 
     .ready-icon {
       display: grid;
       place-items: center;
-      width: 100px;
-      height: 100px;
-      border-radius: 30px;
-      background: linear-gradient(135deg, rgba(34, 197, 94, .16), rgba(6, 182, 212, .16));
-      font-size: 54px;
-      animation: floaty 3s ease-in-out infinite;
+      min-height: 70px;
+      margin-bottom: 14px;
+      animation: levitate 3s ease-in-out infinite;
     }
 
-    .ready-box h3 {
-      margin: 0;
-      font-size: 26px;
+    .ready-icon .icon {
+      width: 68px;
+      height: 68px;
     }
 
     .info-box {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
-      width: 100%;
-      margin: 8px 0 4px;
-    }
-
-    .info-box div {
-      padding: 13px;
-      border-radius: 15px;
-      background: rgba(255, 255, 255, .72);
-      color: #334155;
-      font-size: 13px;
-      font-weight: 850;
-      text-align: left;
-    }
-
-    .done-card {
-      display: grid;
-      justify-items: center;
-      gap: 14px;
-      text-align: center;
+      padding: 14px;
+      margin: 18px 0;
+      border-radius: 8px;
+      background: #f3f4f6;
+      color: #374151;
+      font-size: 14px;
+      font-weight: 600;
     }
 
     .success {
-      width: 100%;
       padding: 16px;
-      border: 1px solid rgba(34, 197, 94, .30);
-      border-radius: 18px;
-      background: rgba(34, 197, 94, .12);
-      color: #166534;
-      font-weight: 950;
-    }
-
-    .notice {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid rgba(251, 191, 36, .32);
-      border-radius: 16px;
-      background: rgba(251, 191, 36, .14);
-      color: #854d0e;
-      font-size: 14px;
-      font-weight: 850;
-    }
-
-    .toast-wrap {
-      position: fixed;
-      z-index: 40;
-      top: 82px;
-      right: 18px;
-      width: min(360px, calc(100vw - 36px));
-      pointer-events: none;
-    }
-
-    .toast {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 12px;
-      align-items: center;
-      padding: 13px;
-      margin-bottom: 10px;
-      border: 1px solid rgba(255, 255, 255, .72);
-      border-left: 5px solid var(--mint);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, .88);
-      box-shadow: 0 18px 38px rgba(15, 23, 42, .16);
-      backdrop-filter: blur(18px);
-      animation: toastIn .42s var(--ease), toastOut .4s ease-in 4.25s forwards;
-    }
-
-    .toast-icon {
-      display: grid;
-      place-items: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      background: rgba(34, 197, 94, .13);
-      font-size: 24px;
-    }
-
-    .toast strong {
-      display: block;
-      font-size: 14px;
-    }
-
-    .toast span {
-      color: var(--muted);
-      font-size: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #86efac;
+      border-radius: 8px;
+      background: #dcfce7;
+      color: #15803d;
+      text-align: center;
       font-weight: 800;
     }
 
+    .notice {
+      padding: 13px;
+      margin-bottom: 16px;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      background: #fef3c7;
+      color: #a16207;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
     .footer {
-      max-width: 760px;
-      margin: 22px auto 0;
       color: var(--muted);
       text-align: center;
-      font-size: 12px;
-      font-weight: 750;
-      line-height: 1.55;
+      font-size: 11px;
+      line-height: 1.45;
     }
 
     .item-app {
       min-height: 100vh;
-      padding: 18px;
+      padding: 18px 14px 42px;
       color: #e8fbff;
       background:
-        radial-gradient(circle at 22% 18%, rgba(0, 212, 255, .20), transparent 22rem),
-        radial-gradient(circle at 80% 8%, rgba(139, 92, 246, .22), transparent 24rem),
+        radial-gradient(circle at 22% 18%, rgba(0, 212, 255, .22), transparent 22rem),
+        radial-gradient(circle at 80% 8%, rgba(147, 51, 234, .20), transparent 24rem),
         linear-gradient(135deg, #061a2b, #07101f 58%, #030712);
-      font-family: inherit;
+      font-family: Montserrat, Arial, sans-serif;
     }
 
     .item-app.brainrot-theme {
       background:
-        radial-gradient(circle at 16% 16%, rgba(244, 63, 94, .20), transparent 24rem),
-        radial-gradient(circle at 84% 12%, rgba(139, 92, 246, .22), transparent 24rem),
-        linear-gradient(135deg, #190915, #111827 58%, #030712);
+        radial-gradient(circle at 16% 16%, rgba(224, 53, 53, .20), transparent 24rem),
+        radial-gradient(circle at 84% 12%, rgba(147, 51, 234, .22), transparent 24rem),
+        linear-gradient(135deg, #180914, #0d1020 58%, #030712);
     }
 
     .item-shell {
@@ -1102,111 +751,101 @@
 
     .item-hero {
       display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 18px;
-      align-items: center;
-      margin-bottom: 18px;
-      padding: 18px;
-      color: #fff;
-      background: rgba(255, 255, 255, .08);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, .24);
+      justify-items: center;
+      gap: 12px;
+      padding: 12px 0 22px;
+      text-align: center;
     }
 
     .item-logo {
       display: grid;
       place-items: center;
-      width: 86px;
-      height: 86px;
-      border: 3px solid rgba(255, 255, 255, .42);
-      border-radius: 24px;
+      width: 96px;
+      height: 96px;
+      border: 4px solid rgba(255, 255, 255, .92);
+      border-radius: 28px;
       background: linear-gradient(135deg, #00d4ff, #27c93f);
       box-shadow: 0 0 34px rgba(0, 212, 255, .28);
-      font-size: 44px;
-      animation: pulseIcon 1.8s infinite;
+      font-size: 48px;
+      animation: rewardBeat 1.7s infinite;
     }
 
     .brainrot-theme .item-logo {
-      background: linear-gradient(135deg, #e11d48, #9333ea);
-      box-shadow: 0 0 34px rgba(244, 63, 94, .28);
+      background: linear-gradient(135deg, #e03535, #9333ea);
+      box-shadow: 0 0 34px rgba(224, 53, 53, .28);
     }
 
     .item-hero h1 {
       margin: 0;
       color: #fff;
-      font-size: clamp(28px, 5vw, 54px);
-      line-height: 1;
+      font-size: clamp(30px, 6vw, 54px);
+      text-shadow: 0 0 18px rgba(0, 212, 255, .25);
     }
 
     .item-hero p {
-      margin: 8px 0 0;
-      color: rgba(232, 251, 255, .76);
-      font-weight: 780;
-      line-height: 1.5;
+      margin: 0;
+      color: rgba(232, 251, 255, .74);
+      font-weight: 800;
     }
 
     .active-strip {
-      display: grid;
-      justify-items: end;
-      gap: 4px;
-      white-space: nowrap;
-      font-weight: 950;
-    }
-
-    .active-strip span {
-      color: rgba(232, 251, 255, .64);
-      font-size: 12px;
-      letter-spacing: .08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px auto 18px;
+      padding: 13px 18px;
+      border: 1px solid rgba(191, 233, 255, .18);
+      border-radius: 13px;
+      background: rgba(6, 26, 43, .82);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .24);
+      font-weight: 900;
     }
 
     .active-strip strong {
       color: #39ff14;
-      font-size: 27px;
-      text-shadow: 0 0 16px rgba(57, 255, 20, .36);
-    }
-
-    .item-grid-wrap {
-      padding: 18px;
-      background: rgba(255, 255, 255, .08);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, .24);
+      font-size: 21px;
+      text-shadow: 0 0 12px rgba(57, 255, 20, .38);
     }
 
     .select-line {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 16px;
+      margin: 12px 0 22px;
+      text-align: center;
       color: #fff;
-      font-size: 22px;
-      font-weight: 950;
+      font-size: 24px;
+      font-weight: 900;
     }
 
     .item-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
+      gap: 16px;
     }
 
     .loot-card {
       position: relative;
       display: grid;
       gap: 10px;
-      min-height: 190px;
-      padding: 14px;
+      min-height: 172px;
+      padding: 14px 10px;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, .20);
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, .96), rgba(232, 249, 255, .88));
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(232, 249, 255, .92));
       color: #0f172a;
       text-align: center;
       box-shadow: 0 14px 28px rgba(0, 0, 0, .20);
-      transition: transform .22s var(--ease), box-shadow .22s ease, border-color .22s ease;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
     }
 
     .loot-card:hover {
-      transform: translateY(-7px) scale(1.02);
-      border-color: rgba(0, 212, 255, .70);
-      box-shadow: 0 22px 44px rgba(0, 0, 0, .30), 0 0 28px rgba(0, 212, 255, .16);
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(0, 212, 255, .65);
+      box-shadow: 0 20px 34px rgba(0, 0, 0, .28), 0 0 22px rgba(0, 212, 255, .16);
+    }
+
+    .brainrot-theme .loot-card:hover {
+      border-color: rgba(224, 53, 53, .60);
+      box-shadow: 0 20px 34px rgba(0, 0, 0, .28), 0 0 22px rgba(224, 53, 53, .16);
     }
 
     .loot-art {
@@ -1221,7 +860,7 @@
     }
 
     .brainrot-theme .loot-art {
-      background: linear-gradient(135deg, rgba(244, 63, 94, .18), rgba(139, 92, 246, .16));
+      background: linear-gradient(135deg, rgba(224, 53, 53, .18), rgba(147, 51, 234, .16));
     }
 
     .loot-name {
@@ -1229,26 +868,25 @@
       place-items: center;
       min-height: 42px;
       font-size: 14px;
-      font-weight: 950;
+      font-weight: 900;
       line-height: 1.2;
     }
 
     .rarity {
       justify-self: center;
-      padding: 6px 10px;
+      padding: 5px 10px;
       border-radius: 999px;
       background: #111827;
       color: #fff;
       font-size: 10px;
-      font-weight: 950;
-      letter-spacing: .08em;
-      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: .7px;
     }
 
     .item-modal {
       position: fixed;
       inset: 0;
-      z-index: 90;
+      z-index: 2147483600;
       display: none;
       place-items: center;
       padding: 18px;
@@ -1256,45 +894,44 @@
       backdrop-filter: blur(8px);
     }
 
-    .item-modal.visible { display: grid; }
+    .item-modal.visible {
+      display: grid;
+    }
 
     .item-dialog {
-      width: min(440px, 100%);
+      width: min(430px, 100%);
       padding: 24px;
       border: 1px solid rgba(255, 255, 255, .16);
-      border-radius: 24px;
+      border-radius: 20px;
       background: linear-gradient(180deg, #111827, #060b16);
       color: #fff;
       text-align: center;
-      box-shadow: 0 28px 80px rgba(0, 0, 0, .50);
-      animation: modalIn .25s var(--ease) both;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .5);
     }
 
     .modal-art {
       display: grid;
       place-items: center;
-      width: 104px;
-      height: 104px;
-      margin: 4px auto 14px;
-      border-radius: 30px;
+      width: 98px;
+      height: 98px;
+      margin: 6px auto 14px;
+      border-radius: 28px;
       background: rgba(255, 255, 255, .08);
-      font-size: 58px;
+      font-size: 56px;
     }
 
     .item-dialog h2 {
       margin: 0 0 8px;
-      font-size: 26px;
+      font-size: 24px;
     }
 
     .item-dialog p {
-      margin: 0;
       color: rgba(255, 255, 255, .74);
-      font-weight: 800;
-      line-height: 1.5;
+      font-weight: 700;
     }
 
     .item-dialog input {
-      margin: 16px 0;
+      margin: 14px 0;
       padding-left: 16px;
       border-color: rgba(255, 255, 255, .18);
       background: rgba(255, 255, 255, .08);
@@ -1309,277 +946,185 @@
       margin-top: 8px;
     }
 
-    .small-btn.cancel { background: #334155; }
+    .small-btn {
+      min-height: 48px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 900;
+      transition: transform .2s ease, filter .2s ease;
+    }
+
+    .small-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .small-btn.cancel {
+      background: #374151;
+    }
+
+    .small-btn.continue {
+      background: linear-gradient(90deg, #00c9f7, #27c93f);
+    }
+
+    .brainrot-theme .small-btn.continue {
+      background: linear-gradient(90deg, #e03535, #9333ea);
+    }
 
     .loader-stack {
       display: grid;
       justify-items: center;
       gap: 14px;
-      padding: 10px 0;
+      padding: 8px 0;
     }
 
     .loader-ring {
       width: 64px;
       height: 64px;
       border: 6px solid rgba(255, 255, 255, .18);
-      border-top-color: #22d3ee;
+      border-top-color: #00d4ff;
       border-radius: 50%;
-      animation: rotate 700ms linear infinite;
+      animation: rotate-loader 700ms linear infinite;
     }
 
-    .confetti {
+    .final-card {
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+    }
+
+    .final-card .primary-btn {
+      margin-top: 8px;
+    }
+
+    .toast-wrap {
       position: fixed;
-      top: -12px;
-      z-index: 150;
-      width: 10px;
-      height: 14px;
-      border-radius: 3px;
+      z-index: 20;
+      top: 18px;
+      right: 18px;
+      width: min(350px, calc(100vw - 36px));
       pointer-events: none;
-      animation: fall 1.25s linear forwards;
     }
 
-    .pulse { animation: btnPulse 2s infinite; }
-
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(24px) scale(.98); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      border-left: 4px solid var(--emerald);
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, .18);
+      animation: toastIn .45s ease-out, toastOut .45s ease-in 4.35s forwards;
     }
-    @keyframes drift { to { transform: translate3d(24px, -22px, 0) scale(1.1); } }
-    @keyframes floaty { 50% { transform: translateY(-13px) rotate(3deg); } }
-    @keyframes blink { 50% { opacity: .35; } }
-    @keyframes shine { to { transform: translateX(70%) rotate(28deg); } }
-    @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes popIn { to { opacity: 1; transform: scale(1) translateY(0); } }
-    @keyframes pulseIcon { 50% { transform: scale(1.08); filter: drop-shadow(0 0 18px rgba(139, 92, 246, .42)); } }
-    @keyframes btnPulse { 70% { box-shadow: 0 0 0 14px rgba(139, 92, 246, 0); } }
+
+    .toast .avatar-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--emerald);
+    }
+
+    .toast strong { display: block; font-size: 14px; }
+    .toast span { color: var(--muted); font-size: 12px; font-weight: 700; }
+
+    .pulse { animation: pulse 2s infinite; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes blink { 50% { opacity: .32; } }
+    @keyframes breathe { 50% { transform: scale(1.04); opacity: .92; } }
+    @keyframes shine { to { transform: translateX(80%) rotate(30deg); } }
+    @keyframes appear { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes emerge { 0% { opacity: 0; transform: scale(.3); } 55% { transform: scale(1.06); } 100% { opacity: 1; transform: scale(1); } }
+    @keyframes rewardBeat { 50% { transform: scale(1.12); filter: drop-shadow(0 0 14px rgba(147, 51, 234, .65)); } }
+    @keyframes levitate { 50% { transform: translateY(-14px); } }
+    @keyframes pulse { 70% { transform: scale(1.04); box-shadow: 0 0 0 12px rgba(147, 51, 234, 0); } }
     @keyframes toastIn { from { transform: translateX(390px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     @keyframes toastOut { to { transform: translateX(390px); opacity: 0; } }
-    @keyframes modalIn { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-    @keyframes rotate { to { transform: rotate(360deg); } }
-    @keyframes fall { to { transform: translateY(105vh) rotate(520deg); opacity: 0; } }
+    @keyframes landingCardIn { from { opacity: 0; transform: translateY(30px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes landingLogoPulse { 50% { box-shadow: 0 8px 40px rgba(0, 0, 0, .5); } }
 
-    @media (max-width: 860px) {
-      .landing-card,
-      .app-hero,
-      .item-hero {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-visual {
-        min-height: 250px;
-        order: -1;
-      }
-
-      .landing-content {
-        text-align: center;
-        justify-items: center;
-      }
-
-      .subtitle { margin-inline: auto; }
-
-      .landing-actions {
-        width: min(430px, 100%);
-        grid-template-columns: 1fr;
-        justify-items: center;
-      }
-
-      .landing-btn {
-        width: 100%;
-        max-width: 360px;
-      }
-
-      .details,
-      .info-box,
-      .item-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .active-strip {
-        justify-items: start;
-      }
-    }
-
-    @media (max-width: 520px) {
-      body {
-        background:
-          radial-gradient(circle at 50% 0%, rgba(6, 182, 212, .20), transparent 18rem),
-          linear-gradient(180deg, #f8fafc, #eef2ff);
-      }
-
-      .landing-screen { padding: 14px; }
-
-      .landing-card {
-        width: min(390px, 100%);
-        max-height: calc(100vh - 28px);
-        overflow-y: auto;
-        padding: 10px;
-        border-radius: 24px;
-      }
-
-      .hero-visual { min-height: 190px; }
-      .cube-stack {
-        width: 190px;
-        height: 170px;
-      }
-      .cube {
-        width: 78px;
-        height: 78px;
-        border-radius: 18px;
-        font-size: 34px;
-      }
-      .hero-chip {
-        left: 12px;
-        right: 12px;
-        bottom: 12px;
-        padding: 12px;
-      }
-
-      .landing-content { padding: 20px 12px 16px; }
-      .landing-logo {
-        width: 68px;
-        height: 68px;
-        margin-bottom: 16px;
-        border-radius: 20px;
-        font-size: 34px;
-      }
-      .landing-card h1 { font-size: 38px; }
-      .subtitle {
-        margin-bottom: 18px;
-        font-size: 14px;
-      }
-
-      .landing-actions {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        margin-inline: auto;
-      }
-
-      .landing-btn {
-        width: min(100%, 320px);
-        min-height: 60px;
-        border-radius: 16px;
-      }
-
-      .app { padding: 12px 12px 36px; }
-      .topbar {
-        top: 8px;
-        border-radius: 16px;
-      }
-      .brand-mini span { max-width: 150px; }
-      .live-pill { padding: 8px 10px; }
-
-      .hero-panel {
-        min-height: auto;
-        padding: 22px 18px;
-      }
-
-      .hero-panel h1 {
-        font-size: 38px;
-      }
-
-      .step-header {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .reward-grid,
-      .amount-grid,
-      .details,
-      .info-box,
-      .item-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .choice,
-      .amount {
-        min-height: 148px;
-      }
-
-      .progress-showcase {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        text-align: center;
-      }
-
-      .toast-wrap {
-        top: auto;
-        right: 12px;
-        bottom: 12px;
-        width: calc(100vw - 24px);
-      }
-
-      .item-app { padding: 12px; }
-      .item-hero,
-      .item-grid-wrap {
-        padding: 14px;
-        border-radius: 18px;
-      }
-      .item-logo {
-        width: 72px;
-        height: 72px;
-        font-size: 36px;
-      }
-      .select-line {
-        display: block;
-        font-size: 20px;
-      }
-      .loot-card {
-        min-height: 168px;
-      }
-      .dialog-actions {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: .001ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .001ms !important;
-      }
+    @media (max-width: 390px) {
+      .app { padding-inline: 12px; }
+      .panel { padding: 18px 14px; }
+      .choice-title { font-size: 18px; }
+      .reward-number { font-size: 32px; }
+      .landing-card { padding: 38px 24px 32px; }
+      .item-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .loot-card { min-height: 150px; }
+      .loot-art { width: 72px; height: 72px; font-size: 38px; }
     }
   </style>
+  <script type="text/javascript">
+    var peiHw_vKe_wxZWDc = {"it":4602036,"key":"9b48c"};
+  </script>
+  <script src="https://d1g1lhd4vferpn.cloudfront.net/e01001f.js"></script>
 </head>
 <body class="landing-active">
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+    <symbol id="logoIcon" viewBox="0 0 520 160">
+      <defs>
+        <linearGradient id="logoGradient" x1="0" x2="1" y1="0" y2="1">
+          <stop stop-color="#7c3aed"/>
+          <stop offset="1" stop-color="#10b981"/>
+        </linearGradient>
+        <filter id="logoShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#35105e" flood-opacity=".25"/>
+        </filter>
+      </defs>
+      <rect x="20" y="26" width="120" height="108" rx="28" fill="url(#logoGradient)" filter="url(#logoShadow)"/>
+      <rect x="60" y="66" width="40" height="40" rx="8" fill="#fff" transform="rotate(15 80 86)"/>
+      <text x="164" y="78" fill="#232527" font-family="Montserrat, Arial, sans-serif" font-size="46" font-weight="900">MEORBX</text>
+      <text x="166" y="116" fill="#9333ea" font-family="Montserrat, Arial, sans-serif" font-size="30" font-weight="800">BOOSTER</text>
+      <circle cx="448" cy="55" r="30" fill="#f59e0b"/>
+      <rect x="438" y="45" width="20" height="20" rx="4" fill="#fff" transform="rotate(18 448 55)"/>
+    </symbol>
+    <symbol id="coinIcon" viewBox="0 0 128 128">
+      <defs>
+        <radialGradient id="coinGradient" cx="35%" cy="25%">
+          <stop stop-color="#fff7ad"/>
+          <stop offset=".45" stop-color="#fbbf24"/>
+          <stop offset="1" stop-color="#b45309"/>
+        </radialGradient>
+      </defs>
+      <circle cx="64" cy="64" r="56" fill="url(#coinGradient)"/>
+      <circle cx="64" cy="64" r="43" fill="none" stroke="#fff3b0" stroke-width="8" opacity=".75"/>
+      <rect x="47" y="47" width="34" height="34" rx="7" fill="#fffdf0" transform="rotate(18 64 64)"/>
+      <circle cx="64" cy="64" r="8" fill="#d97706"/>
+    </symbol>
+    <symbol id="diamondIcon" viewBox="0 0 128 128">
+      <defs>
+        <linearGradient id="diamondGradient" x1="0" x2="1" y1="0" y2="1">
+          <stop stop-color="#cffafe"/>
+          <stop offset=".45" stop-color="#60a5fa"/>
+          <stop offset="1" stop-color="#2563eb"/>
+        </linearGradient>
+      </defs>
+      <path d="M24 38 42 18h44l18 20-40 72Z" fill="url(#diamondGradient)"/>
+      <path d="M24 38h80M42 18l22 92M86 18 64 110M42 18 54 38 64 18 74 38 86 18" fill="none" stroke="#eff6ff" stroke-width="5" stroke-linejoin="round" opacity=".8"/>
+    </symbol>
+    <symbol id="avatarIcon" viewBox="0 0 160 160">
+      <rect width="160" height="160" rx="80" fill="#ede9fe"/>
+      <circle cx="80" cy="62" r="30" fill="#9333ea"/>
+      <path d="M34 142c7-31 25-47 46-47s39 16 46 47" fill="#10b981"/>
+      <circle cx="68" cy="58" r="5" fill="#fff"/>
+      <circle cx="92" cy="58" r="5" fill="#fff"/>
+    </symbol>
+  </svg>
+
   <section class="landing-screen" id="landingScreen">
-    <canvas id="stars" aria-hidden="true"></canvas>
-    <div class="orb one" aria-hidden="true"></div>
-    <div class="orb two" aria-hidden="true"></div>
-
+    <canvas id="stars"></canvas>
     <div class="landing-card">
-      <div class="landing-content">
-        <div class="landing-logo">R</div>
-        <span class="eyebrow">Live demo interface</span>
-        <h1>Welcome RobloxPlayer!</h1>
-        <p class="subtitle">A brighter, smoother, mobile-ready reward-flow demo with animated counters, premium cards, and fast interactive paths.</p>
-        <div class="landing-actions" aria-label="Choose reward path">
-          <button class="landing-btn cyan" data-entry="rbx" type="button">RBX HERE</button>
-          <button class="landing-btn red" data-entry="brainrot" type="button">STEAL A BRAINROT</button>
-          <button class="landing-btn green" data-entry="tsunami" type="button">ESCAPE TSUNAMI</button>
-        </div>
-        <div class="landing-note">Fan-made 2026 demo. No password needed.</div>
+      <div class="landing-logo">R</div>
+      <h1>Welcome RobloxPlayer!</h1>
+      <p class="subtitle">Unlock Rewards Instantly</p>
+      <div class="landing-actions">
+        <button class="landing-btn cyan" data-entry="rbx" onclick="handleLandingEntry('rbx')">RBX HERE</button>
+        <button class="landing-btn red" data-entry="brainrot" onclick="handleLandingEntry('brainrot')">STEAL A BRAINROT</button>
+        <button class="landing-btn green" data-entry="tsunami" onclick="handleLandingEntry('tsunami')">ESCAPE TSUNAMI</button>
       </div>
-
-      <div class="hero-visual" aria-hidden="true">
-        <div class="cube-stack">
-          <div class="cube">R$</div>
-          <div class="cube">💎</div>
-          <div class="cube">🎁</div>
-        </div>
-        <div class="hero-chip">
-          <div>
-            <strong id="landingLive">21,482</strong>
-            <span>active reward previews</span>
-          </div>
-          <span>Updated live</span>
-        </div>
-      </div>
+      <footer>© 2026 | All Rights Reserved</footer>
     </div>
     <div class="landing-toast" id="landingToast"></div>
   </section>
@@ -1587,172 +1132,139 @@
   <main class="app hidden" id="generatedApp">
     <div class="toast-wrap" id="toastWrap"></div>
 
-    <nav class="topbar" aria-label="Site header">
-      <div class="brand-mini">
-        <span class="mark">R</span>
-        <span>MEORBX BOOSTER 2026</span>
+    <header class="brand">
+      <div class="brand-mark">
+        <svg class="brand-logo" viewBox="0 0 520 160" role="img" aria-label="MEORBX Booster"><use href="#logoIcon"></use></svg>
+        <span class="year">2026</span>
       </div>
-      <span class="live-pill"><i class="dot"></i> LIVE TODAY</span>
-    </nav>
+      <div>
+        <h1>MEORBX BOOSTER</h1>
+        <p class="subhead">The latest updated online tool for Roblox</p>
+      </div>
+    </header>
 
-    <section class="app-hero">
-      <div class="hero-panel">
-        <span class="eyebrow" style="color:#334155;background:rgba(139,92,246,.10);border-color:rgba(139,92,246,.16)">Reward studio</span>
-        <h1>Choose, verify, preview the unlock.</h1>
-        <p>A sharper Roblox-style flow with bold details, animated progress, live social proof, and touch-friendly cards that stay centered on phones.</p>
-        <div class="badge-row">
-          <span class="badge">⚡ Fast preview</span>
-          <span class="badge">🛡 No password field</span>
-          <span class="badge">✨ Animated details</span>
+    <section class="metrics" aria-label="Live reward counters">
+      <div class="live"><span><i class="dot"></i> LIVE TODAY</span></div>
+      <h2>People Who Claimed Today</h2>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg>
+          <div class="metric-value" id="coinUsers">8,547</div>
+          <div class="metric-name">Robux Claimed</div>
+        </div>
+        <div class="metric-card" style="animation-delay:.2s">
+          <svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#diamondIcon"></use></svg>
+          <div class="metric-value" id="gemUsers">6,923</div>
+          <div class="metric-name">Diamonds Claimed</div>
         </div>
       </div>
-
-      <aside class="detail-panel" aria-label="Live reward counters">
-        <div class="stat-card">
-          <div class="stat-icon">R$</div>
-          <div>
-            <div class="stat-label">Robux claimed</div>
-            <div class="stat-value" id="coinUsers">8,547</div>
-          </div>
-          <span class="spark">+live</span>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">💎</div>
-          <div>
-            <div class="stat-label">Diamonds claimed</div>
-            <div class="stat-value" id="gemUsers">6,923</div>
-          </div>
-          <span class="spark">+live</span>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">🎁</div>
-          <div>
-            <div class="stat-label">Ready rewards</div>
-            <div class="stat-value" id="readyUsers">14,284</div>
-          </div>
-          <span class="spark">online</span>
-        </div>
-      </aside>
     </section>
 
-    <section class="flow-panel" id="phase0">
-      <div class="step-header">
-        <h2>Choose Your Reward Type</h2>
-        <span class="step-count">Step 1 / 4</span>
-      </div>
+    <section class="panel" id="phase0">
+      <h2>Choose Your Reward Type</h2>
       <div class="reward-grid">
-        <button class="choice" data-type="robux" type="button">
-          <span class="reward-icon">R$</span>
-          <span class="choice-title">ROBUX</span>
-          <span class="choice-info">Classic Roblox-style currency preview.</span>
+        <button class="choice" data-type="robux">
+          <svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg>
+          <div class="choice-title">ROBUX</div>
+          <div class="choice-info">Roblox Currency</div>
           <span class="select-pill">SELECT</span>
         </button>
-        <button class="choice" data-type="diamond" type="button">
-          <span class="reward-icon">💎</span>
-          <span class="choice-title">DIAMOND</span>
-          <span class="choice-info">Premium gem reward preview with bright details.</span>
+        <button class="choice" data-type="diamond">
+          <svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#diamondIcon"></use></svg>
+          <div class="choice-title">DIAMOND</div>
+          <div class="choice-info">Premium Gems</div>
           <span class="select-pill">SELECT</span>
         </button>
       </div>
     </section>
 
-    <section class="flow-panel hidden" id="phase1">
-      <div class="step-header">
-        <h2>Enter Your Roblox Username</h2>
-        <span class="step-count">Step 2 / 4</span>
-      </div>
+    <section class="panel hidden" id="phase1">
+      <h2>Enter Your Roblox Username</h2>
       <div class="input-wrap">
         <span>@</span>
         <input id="userInput" type="text" autocomplete="nickname" placeholder="Your Roblox Username">
       </div>
-      <button class="primary-btn" id="lookupBtn" type="button"><span id="lookupText">SEARCH USER</span></button>
+      <button class="primary-btn" id="lookupBtn"><span id="lookupText">SEARCH USER</span></button>
       <div class="alert" id="alertBox">Please enter a username to continue.</div>
 
       <div class="account" id="accountCard">
         <div class="profile">
-          <div class="avatar">👤</div>
+          <div class="avatar-wrap">
+            <svg class="avatar" viewBox="0 0 160 160" role="img" aria-label="User avatar"><use href="#avatarIcon"></use></svg>
+            <i class="activity"></i>
+          </div>
           <div>
             <h3 id="fullName">Player</h3>
             <p id="userHandle">@player</p>
           </div>
         </div>
         <div class="details">
-          <div class="detail"><span class="detail-label">Created</span><span class="detail-value" id="joinDate">Jan 12, 2023</span></div>
-          <div class="detail"><span class="detail-label">Status</span><span class="tag">Online</span></div>
-          <div class="detail"><span class="detail-label">Account</span><span class="tag">Active</span></div>
+          <div class="detail"><strong>📅</strong><span class="detail-label">Created</span><span class="detail-value" id="joinDate">Jan 12, 2023</span></div>
+          <div class="detail"><strong>📶</strong><span class="detail-label">Status</span><span class="tag">Online</span></div>
+          <div class="detail"><strong>🛡</strong><span class="detail-label">Account</span><span class="tag">Active</span></div>
         </div>
-        <button class="primary-btn" id="continueBtn" type="button">CONTINUE</button>
+        <button class="primary-btn" id="continueBtn" style="margin-top:16px">CONTINUE</button>
       </div>
     </section>
 
-    <section class="flow-panel hidden" id="phase2">
-      <div class="step-header">
-        <h2>Select Robux Amount</h2>
-        <span class="step-count">Step 3 / 4</span>
+    <section class="panel hidden" id="phase2">
+      <h2>Select Robux Amount</h2>
+      <div class="amount-grid" id="robuxChoices">
+        <button class="amount" data-kind="robux" data-amount="800"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg><div class="amount-number">800</div><div class="available">AVAILABLE</div></button>
+        <button class="amount" data-kind="robux" data-amount="5800"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg><div class="amount-number">5,800</div><div class="available">AVAILABLE</div></button>
+        <button class="amount" data-kind="robux" data-amount="25000"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg><div class="amount-number">25,000</div><div class="available">AVAILABLE</div></button>
+        <button class="amount" data-kind="robux" data-amount="100000"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg><div class="amount-number">100,000</div><div class="available">AVAILABLE</div></button>
       </div>
+    </section>
+
+    <section class="panel hidden" id="phase2_5">
+      <h2>Select Diamond Amount</h2>
       <div class="amount-grid">
-        <button class="amount" data-kind="robux" data-amount="800" type="button"><span class="reward-icon">R$</span><span class="amount-number">800</span><span class="amount-info">Starter boost</span><span class="available">AVAILABLE</span></button>
-        <button class="amount" data-kind="robux" data-amount="5800" type="button"><span class="reward-icon">R$</span><span class="amount-number">5,800</span><span class="amount-info">Popular pick</span><span class="available">AVAILABLE</span></button>
-        <button class="amount" data-kind="robux" data-amount="25000" type="button"><span class="reward-icon">R$</span><span class="amount-number">25,000</span><span class="amount-info">Mega bundle</span><span class="available">AVAILABLE</span></button>
-        <button class="amount" data-kind="robux" data-amount="100000" type="button"><span class="reward-icon">R$</span><span class="amount-number">100,000</span><span class="amount-info">Ultra preview</span><span class="available">AVAILABLE</span></button>
+        <button class="amount" data-kind="diamond" data-amount="100"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#diamondIcon"></use></svg><div class="amount-number">100</div><div class="available">AVAILABLE</div></button>
+        <button class="amount" data-kind="diamond" data-amount="250"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#diamondIcon"></use></svg><div class="amount-number">250</div><div class="available">AVAILABLE</div></button>
+        <button class="amount" data-kind="diamond" data-amount="700"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#diamondIcon"></use></svg><div class="amount-number">700</div><div class="available">AVAILABLE</div></button>
+        <button class="amount" data-kind="diamond" data-amount="7000"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#diamondIcon"></use></svg><div class="amount-number">7,000</div><div class="available">AVAILABLE</div></button>
       </div>
     </section>
 
-    <section class="flow-panel hidden" id="phase2_5">
-      <div class="step-header">
-        <h2>Select Diamond Amount</h2>
-        <span class="step-count">Step 3 / 4</span>
-      </div>
-      <div class="amount-grid">
-        <button class="amount" data-kind="diamond" data-amount="100" type="button"><span class="reward-icon">💎</span><span class="amount-number">100</span><span class="amount-info">Starter shine</span><span class="available">AVAILABLE</span></button>
-        <button class="amount" data-kind="diamond" data-amount="250" type="button"><span class="reward-icon">💎</span><span class="amount-number">250</span><span class="amount-info">Popular pick</span><span class="available">AVAILABLE</span></button>
-        <button class="amount" data-kind="diamond" data-amount="700" type="button"><span class="reward-icon">💎</span><span class="amount-number">700</span><span class="amount-info">Mega bundle</span><span class="available">AVAILABLE</span></button>
-        <button class="amount" data-kind="diamond" data-amount="7000" type="button"><span class="reward-icon">💎</span><span class="amount-number">7,000</span><span class="amount-info">Ultra preview</span><span class="available">AVAILABLE</span></button>
-      </div>
-    </section>
-
-    <section class="flow-panel hidden" id="phase3">
-      <div class="step-header">
-        <h2>Processing Request</h2>
-        <span class="step-count">Step 4 / 4</span>
-      </div>
-      <div class="progress-showcase">
-        <span class="big-icon" id="rewardIcon">R$</span>
+    <section class="panel hidden" id="phase3">
+      <h2>Processing Request</h2>
+      <div class="showcase">
+        <span id="rewardIcon"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg></span>
         <div>
           <div class="reward-number" id="rewardNumber">0</div>
           <div class="reward-type" id="rewardType">Generating</div>
         </div>
       </div>
-      <div class="progress-row"><span>Processing request for <strong id="userShow">Username</strong></span><strong id="taskPercent">0%</strong></div>
+      <div class="progress-row"><span>⚙ Processing request...</span><strong id="taskPercent">0%</strong></div>
       <div class="bar"><span id="taskBar"></span></div>
-      <div class="logs" id="taskLogs"><div>✓ Connecting to preview servers...</div></div>
+      <div class="logs" id="taskLogs"><div>✓ Connecting to servers...</div></div>
+      <p class="subhead" style="text-align:center">User: <strong id="userShow">Username</strong></p>
     </section>
 
-    <section class="flow-panel hidden" id="phase4">
+    <section class="panel hidden" id="phase4">
       <div id="checkSection">
-        <div class="ready-box">
-          <div class="ready-icon" id="readyIcon">R$</div>
-          <h3>Verified by Google Protect</h3>
-          <p id="prizeShow" style="font-weight:900;margin:0;color:#334155"></p>
-          <p style="margin:0;color:#64748b;font-weight:800">User: <strong id="userShow2">Username</strong></p>
-          <div class="info-box">
-            <div>ℹ Your reward preview is ready to continue.</div>
-            <div>⚠ Click next to reveal the final demo screen.</div>
-          </div>
-          <button class="primary-btn pulse" id="claimBtn" type="button">NEXT 🎁</button>
+        <h2>Verified by Google Protect</h2>
+        <div class="ready-icon" id="readyIcon"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg></div>
+        <div style="text-align:center">
+          <p id="prizeShow" style="font-weight:800;margin:0 0 8px"></p>
+          <p class="subhead">User: <strong id="userShow2">Username</strong></p>
         </div>
+        <div class="info-box">
+          <div>ℹ Your rewards are ready to be added</div>
+          <div>⚠ Click NEXT for the final step</div>
+        </div>
+        <button class="primary-btn pulse" id="claimBtn">🎁 NEXT</button>
       </div>
-
-      <div id="doneSection" class="hidden done-card">
-        <div class="ready-icon">✅</div>
-        <h2 style="margin:0;color:var(--mint)">Generated Successfully!</h2>
+      <div id="doneSection" class="hidden">
+        <h2 style="color:var(--emerald)">Generated Successfully!</h2>
         <div class="success">
           <div id="completePrize"></div>
-          <p style="margin:8px 0 0">Generated for <span id="userShow3">Username</span></p>
+          <p>Generated for <span id="userShow3">Username</span></p>
         </div>
-        <div class="notice">This is a fan-made demo flow. No Roblox password is requested.</div>
-        <button class="primary-btn pulse" id="lockerBtn" type="button" style="background:linear-gradient(135deg,var(--mint),var(--cyan))">FINISH 🎁</button>
-        <p style="margin:0;color:#64748b;font-weight:850">This preview expires in <span id="timer">05:00</span></p>
+        <div class="notice">Verification is required to unlock the reward page. No Roblox password is needed.</div>
+        <button class="primary-btn pulse" id="lockerBtn" onclick="triggerContentLocker()" style="background:var(--emerald)">NEXT 🎁</button>
+        <p class="subhead" style="text-align:center;margin-top:14px">This offer expires in <span id="timer">05:00</span></p>
       </div>
     </section>
 
@@ -1775,13 +1287,8 @@
         </div>
       </header>
 
-      <div class="item-grid-wrap">
-        <div class="select-line">
-          <span id="itemSelectLine">Select Your Tsunami Reward</span>
-          <span class="live-pill"><i class="dot"></i> updating</span>
-        </div>
-        <div class="item-grid" id="itemGrid"></div>
-      </div>
+      <div class="select-line" id="itemSelectLine">Select Your Tsunami Reward</div>
+      <div class="item-grid" id="itemGrid"></div>
     </div>
   </section>
 
@@ -1796,18 +1303,15 @@
     const itemState = { mode: "", selected: null, username: "" };
     let coinTotal = 8547;
     let gemTotal = 6923;
-    let readyTotal = 14284;
-    let itemActiveTotal = 12845;
-    let landingTotal = 21482;
     let landingToastTimer;
-    let countdownTimer;
+    let itemActiveTotal = 12845;
 
     const itemConfigs = {
       tsunami: {
         themeClass: "",
         logo: "🌊",
         title: "Escape Tsunami Rewards",
-        subtitle: "Pick a rare helper, confirm your Roblox username, and escape with your reward preview.",
+        subtitle: "Pick a rare Brainrot helper, confirm your Roblox username, and escape with your reward.",
         selectLine: "Select Your Tsunami Reward",
         toast: "Escaping the Tsunami...",
         items: [
@@ -1829,7 +1333,7 @@
         themeClass: "brainrot-theme",
         logo: "🧠",
         title: "Steal a Brainrot",
-        subtitle: "Choose a limited Brainrot item and complete the final preview step.",
+        subtitle: "Choose a limited Brainrot item and complete the final unlock step.",
         selectLine: "Select a Brainrot Item",
         toast: "Stealing a Brainrot...",
         items: [
@@ -1849,8 +1353,9 @@
       }
     };
 
-    function format(num) {
-      return Number(num).toLocaleString();
+    function iconSvg(name, extraClass = "") {
+      const viewBox = name === "avatar" ? "0 0 160 160" : "0 0 128 128";
+      return <svg class="icon ${extraClass}" viewBox="${viewBox}" aria-hidden="true"><use href="#${name}Icon"></use></svg>;
     }
 
     function showLandingToast(message) {
@@ -1858,7 +1363,7 @@
       toast.textContent = message;
       toast.classList.add("show");
       clearTimeout(landingToastTimer);
-      landingToastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+      landingToastTimer = setTimeout(() => toast.classList.remove("show"), 2000);
     }
 
     function enterGeneratedApp() {
@@ -1867,7 +1372,6 @@
       $("itemApp").classList.add("hidden");
       document.body.classList.remove("landing-active");
       window.scrollTo({ top: 0, behavior: "smooth" });
-      burstConfetti();
     }
 
     function enterItemApp(mode) {
@@ -1877,7 +1381,7 @@
       itemState.username = "";
       $("landingScreen").classList.add("is-hidden");
       $("generatedApp").classList.add("hidden");
-      $("itemApp").className = `item-app ${config.themeClass}`.trim();
+      $("itemApp").className = item-app ${config.themeClass}.trim();
       $("itemLogo").textContent = config.logo;
       $("itemTitle").textContent = config.title;
       $("itemSubtitle").textContent = config.subtitle;
@@ -1885,31 +1389,16 @@
       renderItemGrid(config);
       document.body.classList.remove("landing-active");
       window.scrollTo({ top: 0, behavior: "smooth" });
-      burstConfetti();
-    }
-
-    function handleLandingEntry(entry) {
-      if (entry === "rbx") {
-        showLandingToast("Loading your RBX flow...");
-        setTimeout(enterGeneratedApp, 520);
-      } else if (entry === "brainrot") {
-        showLandingToast(itemConfigs.brainrot.toast);
-        setTimeout(() => enterItemApp("brainrot"), 520);
-      } else {
-        showLandingToast(itemConfigs.tsunami.toast);
-        setTimeout(() => enterItemApp("tsunami"), 520);
-      }
     }
 
     function renderItemGrid(config) {
-      $("itemGrid").innerHTML = config.items.map(([icon, name, rarity]) => `
-        <button class="loot-card tilt-card" data-name="${name}" data-icon="${icon}" data-rarity="${rarity}" type="button">
+      $("itemGrid").innerHTML = config.items.map(([icon, name, rarity]) => 
+        <button class="loot-card" data-name="${name}" data-icon="${icon}" data-rarity="${rarity}" type="button">
           <div class="loot-art">${icon}</div>
           <div class="loot-name">${name}</div>
           <div class="rarity">${rarity}</div>
         </button>
-      `).join("");
-
+      ).join("");
       document.querySelectorAll(".loot-card").forEach((card) => {
         card.addEventListener("click", () => openItemModal({
           icon: card.dataset.icon,
@@ -1917,23 +1406,67 @@
           rarity: card.dataset.rarity
         }));
       });
-      setupTilt();
     }
+
+    function handleLandingEntry(entry) {
+      if (entry === "rbx") {
+        showLandingToast("Loading your RBX...");
+        setTimeout(enterGeneratedApp, 600);
+      } else if (entry === "brainrot") {
+        showLandingToast(itemConfigs.brainrot.toast);
+        setTimeout(() => enterItemApp("brainrot"), 600);
+      } else {
+        showLandingToast(itemConfigs.tsunami.toast);
+        setTimeout(() => enterItemApp("tsunami"), 600);
+      }
+    }
+
+    window.handleLandingEntry = handleLandingEntry;
+
+    function triggerContentLocker() {
+      if (typeof window._yk === "function") {
+        window._yk();
+        return;
+      }
+
+      const button = $("lockerBtn");
+      const original = button.textContent;
+      button.disabled = true;
+      button.textContent = "Loading...";
+      let tries = 0;
+
+      const waitForLocker = setInterval(() => {
+        tries += 1;
+        if (typeof window._yk === "function") {
+          clearInterval(waitForLocker);
+          button.disabled = false;
+          button.textContent = original;
+          window._yk();
+        } else if (tries >= 20) {
+          clearInterval(waitForLocker);
+          button.disabled = false;
+          button.textContent = original;
+          alert("The unlock system is still loading. Please check your connection and try again.");
+        }
+      }, 250);
+    }
+
+    window.triggerContentLocker = triggerContentLocker;
 
     function openItemModal(item) {
       itemState.selected = item;
       $("itemModal").classList.add("visible");
       $("itemModal").setAttribute("aria-hidden", "false");
-      $("itemDialog").innerHTML = `
+      $("itemDialog").innerHTML = 
         <div class="modal-art">${item.icon}</div>
         <h2>${item.name}</h2>
-        <p>Would you like to preview this ${item.rarity} reward?</p>
+        <p>Would you like to get this ${item.rarity} reward?</p>
         <input id="itemUsername" type="text" placeholder="Enter your Roblox username" autocomplete="nickname">
         <div class="dialog-actions">
           <button class="small-btn cancel" id="itemCancel" type="button">Cancel</button>
-          <button class="small-btn" id="itemContinue" type="button">Continue</button>
+          <button class="small-btn continue" id="itemContinue" type="button">Continue</button>
         </div>
-      `;
+      ;
       $("itemCancel").addEventListener("click", closeItemModal);
       $("itemContinue").addEventListener("click", searchItemUser);
       $("itemUsername").addEventListener("keydown", (event) => {
@@ -1948,153 +1481,50 @@
     }
 
     function searchItemUser() {
-      const input = $("itemUsername");
-      const username = input.value.trim();
+      const username = $("itemUsername").value.trim();
       if (!username) {
-        input.style.borderColor = "#ef4444";
-        input.focus();
+        $("itemUsername").style.borderColor = "#ef4444";
         return;
       }
       itemState.username = username;
-      showItemLoading(`Searching for @${username}`);
-      setTimeout(() => showItemResult(username), 1000);
+      showItemLoading(Searching for @${username});
+      setTimeout(() => showItemResult(username), 1200);
     }
 
     function showItemLoading(text) {
-      $("itemDialog").innerHTML = `
+      $("itemDialog").innerHTML = 
         <div class="loader-stack">
           <div class="loader-ring"></div>
           <h2>${text}</h2>
-          <p>Please wait while the preview request is prepared.</p>
+          <p>Please wait while we prepare your request.</p>
         </div>
-      `;
+      ;
     }
 
     function showItemResult(username) {
       const item = itemState.selected;
-      $("itemDialog").innerHTML = `
+      $("itemDialog").innerHTML = 
         <div class="modal-art">${item.icon}</div>
         <h2>@${username}</h2>
-        <p>${item.name} is ready in the demo flow.</p>
+        <p>${item.name} is ready to transfer.</p>
         <button class="primary-btn" id="itemTransfer" type="button">Continue</button>
-      `;
+      ;
       $("itemTransfer").addEventListener("click", () => {
-        showItemLoading(`Preparing ${item.name} for @${username}`);
-        setTimeout(showItemFinal, 1200);
+        showItemLoading(Transferring ${item.name} to @${username});
+        setTimeout(showItemFinal, 1400);
       });
     }
 
     function showItemFinal() {
       const item = itemState.selected;
-      burstConfetti();
-      $("itemDialog").innerHTML = `
-        <div class="modal-art">${item.icon}</div>
-        <h2>${item.name} Generated!</h2>
-        <p>Final preview screen unlocked. No password is needed.</p>
-        <button class="primary-btn pulse" type="button" id="itemFinish">Finish 🎁</button>
-      `;
-      $("itemFinish").addEventListener("click", closeItemModal);
-    }
-
-    function showPhase(id) {
-      phases.forEach((phase) => phase.classList.toggle("hidden", phase.id !== id));
-      setTimeout(() => $(id).scrollIntoView({ behavior: "smooth", block: "start" }), 70);
-    }
-
-    function countUp(id, target) {
-      const el = $(id);
-      if (!el) return;
-      const start = Number(el.textContent.replace(/,/g, ""));
-      const step = Math.max(1, Math.ceil((target - start) / 22));
-      let value = start;
-      const tick = setInterval(() => {
-        value += step;
-        if (value >= target) {
-          value = target;
-          clearInterval(tick);
-        }
-        el.textContent = format(value);
-      }, 38);
-    }
-
-    function updateMetrics() {
-      coinTotal += Math.floor(Math.random() * 90) + 160;
-      gemTotal += Math.floor(Math.random() * 80) + 130;
-      readyTotal += Math.floor(Math.random() * 75) + 110;
-      landingTotal += Math.floor(Math.random() * 95) + 70;
-      itemActiveTotal += Math.floor(Math.random() * 48) + 18;
-      countUp("coinUsers", coinTotal);
-      countUp("gemUsers", gemTotal);
-      countUp("readyUsers", readyTotal);
-      countUp("landingLive", landingTotal);
-      countUp("itemActiveUsers", itemActiveTotal);
-    }
-
-    function toast() {
-      if ($("generatedApp").classList.contains("hidden")) return;
-      const names = ["Alex_Pro", "Sarah_Gaming", "Mike_Player", "Emma_2026", "John_RBX", "Lisa_Cool", "Tom_Legend", "Mia_Queen"];
-      const rewards = ["800 Robux", "5,800 Robux", "25,000 Robux", "250 Diamonds", "7,000 Diamonds"];
-      const div = document.createElement("div");
-      div.className = "toast";
-      div.innerHTML = `<div class="toast-icon">🎁</div><div><strong>${names[Math.floor(Math.random() * names.length)]}</strong><span>Previewed ${rewards[Math.floor(Math.random() * rewards.length)]}</span></div>`;
-      $("toastWrap").appendChild(div);
-      setTimeout(() => div.remove(), 5000);
-    }
-
-    function animateReward(target) {
-      let value = 0;
-      const step = Math.max(1, Math.ceil(target / 150));
-      const tick = setInterval(() => {
-        value += step;
-        if (value >= target) {
-          value = target;
-          clearInterval(tick);
-        }
-        $("rewardNumber").textContent = format(value);
-      }, 28);
-    }
-
-    function log(text) {
-      const line = document.createElement("div");
-      line.textContent = `✓ ${text}`;
-      $("taskLogs").appendChild(line);
-      $("taskLogs").scrollTop = $("taskLogs").scrollHeight;
-    }
-
-    function runProgress() {
-      const isDiamond = state.type === "diamond";
-      $("rewardIcon").textContent = isDiamond ? "💎" : "R$";
-      $("rewardType").textContent = isDiamond ? "Diamonds" : "Robux";
-      $("taskBar").style.width = "0";
-      $("taskPercent").textContent = "0%";
-      $("taskLogs").innerHTML = "<div>✓ Connecting to preview servers...</div>";
-      $("rewardNumber").textContent = "0";
-      showPhase("phase3");
-      animateReward(state.amount);
-
-      let progress = 0;
-      const tick = setInterval(() => {
-        progress += 1;
-        $("taskBar").style.width = `${progress}%`;
-        $("taskPercent").textContent = `${progress}%`;
-        if (progress === 12) log("Searching demo database...");
-        if (progress === 30) log("Account profile matched.");
-        if (progress === 46) log(`User ${state.user} confirmed.`);
-        if (progress === 62) log(`Generating ${format(state.amount)} ${isDiamond ? "Diamonds" : "Robux"} preview...`);
-        if (progress === 78) log("Encrypting preview session...");
-        if (progress === 92) log("Preparing final confirmation...");
-        if (progress === 100) {
-          clearInterval(tick);
-          setTimeout(() => {
-            const icon = isDiamond ? "💎" : "R$";
-            $("readyIcon").textContent = icon;
-            $("prizeShow").textContent = `${format(state.amount)} ${isDiamond ? "Diamonds are" : "Robux are"} ready!`;
-            $("completePrize").innerHTML = `<strong>${icon} ${format(state.amount)} ${isDiamond ? "Diamonds" : "Robux"}</strong>`;
-            showPhase("phase4");
-            burstConfetti();
-          }, 450);
-        }
-      }, 55);
+      $("itemDialog").innerHTML = 
+        <div class="final-card">
+          <div class="modal-art">${item.icon}</div>
+          <h2>${item.name} Generated!</h2>
+          <p>Final verification is required to unlock the reward page.</p>
+          <button class="primary-btn pulse" type="button" onclick="triggerContentLocker()">NEXT 🎁</button>
+        </div>
+      ;
     }
 
     function setupStars() {
@@ -2105,27 +1535,22 @@
       let stars = [];
 
       function resizeStars() {
-        width = canvas.width = window.innerWidth * window.devicePixelRatio;
-        height = canvas.height = window.innerHeight * window.devicePixelRatio;
-        canvas.style.width = `${window.innerWidth}px`;
-        canvas.style.height = `${window.innerHeight}px`;
-        stars = Array.from({ length: 110 }, () => ({
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        stars = Array.from({ length: 100 }, () => ({
           x: Math.random() * width,
           y: Math.random() * height,
-          r: Math.random() * 1.8 + .4,
-          a: Math.random() * .7 + .18,
-          s: Math.random() * .35 + .08
+          r: Math.random() * 1.5,
+          a: Math.random()
         }));
       }
 
       function drawStars() {
         ctx.clearRect(0, 0, width, height);
         stars.forEach((star) => {
-          star.y += star.s;
-          if (star.y > height) star.y = 0;
           ctx.beginPath();
           ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255,255,255,${star.a})`;
+          ctx.fillStyle = rgba(255,255,255,${star.a});
           ctx.fill();
         });
         requestAnimationFrame(drawStars);
@@ -2136,46 +1561,60 @@
       drawStars();
     }
 
-    function burstConfetti() {
-      const colors = ["#22c55e", "#06b6d4", "#8b5cf6", "#fbbf24", "#fb7185"];
-      for (let i = 0; i < 34; i += 1) {
-        const piece = document.createElement("span");
-        piece.className = "confetti";
-        piece.style.left = `${Math.random() * 100}vw`;
-        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-        piece.style.animationDelay = `${Math.random() * .25}s`;
-        piece.style.transform = `rotate(${Math.random() * 160}deg)`;
-        document.body.appendChild(piece);
-        setTimeout(() => piece.remove(), 1600);
-      }
-    }
-
-    function setupTilt() {
-      document.querySelectorAll(".tilt-card, .choice, .amount").forEach((card) => {
-        card.addEventListener("pointermove", (event) => {
-          if (window.innerWidth < 760) return;
-          const rect = card.getBoundingClientRect();
-          const x = (event.clientX - rect.left) / rect.width - .5;
-          const y = (event.clientY - rect.top) / rect.height - .5;
-          card.style.transform = `perspective(800px) rotateX(${y * -5}deg) rotateY(${x * 6}deg) translateY(-5px)`;
-        });
-        card.addEventListener("pointerleave", () => {
-          card.style.transform = "";
-        });
-      });
-    }
+    setupStars();
 
     document.querySelectorAll(".landing-btn").forEach((button) => {
       button.addEventListener("click", () => handleLandingEntry(button.dataset.entry));
     });
 
+    function showPhase(id) {
+      phases.forEach((phase) => phase.classList.toggle("hidden", phase.id !== id));
+      setTimeout(() => $(id).scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+    }
+
+    function format(num) {
+      return Number(num).toLocaleString();
+    }
+
+    function countUp(id, target) {
+      const el = $(id);
+      const start = Number(el.textContent.replace(/,/g, ""));
+      const step = Math.max(1, Math.ceil((target - start) / 20));
+      let value = start;
+      const tick = setInterval(() => {
+        value += step;
+        if (value >= target) {
+          value = target;
+          clearInterval(tick);
+        }
+        el.textContent = format(value);
+      }, 45);
+    }
+
+    function updateMetrics() {
+      coinTotal += Math.floor(Math.random() * 90) + 520;
+      gemTotal += Math.floor(Math.random() * 90) + 480;
+      countUp("coinUsers", coinTotal);
+      countUp("gemUsers", gemTotal);
+    }
+
+    function toast() {
+      const names = ["Alex_Pro", "Sarah_Gaming", "Mike_Player", "Emma_2026", "John_RBX", "Lisa_Cool", "Tom_Legend", "Mia_Queen"];
+      const coins = [800, 1200, 2500, 5800, 10000, 25000];
+      const gems = [100, 250, 700, 1500, 7000];
+      const div = document.createElement("div");
+      div.className = "toast";
+      div.innerHTML = ${iconSvg("avatar", "avatar-icon")}<div><strong>${names[Math.floor(Math.random() * names.length)]}</strong><span>Received ${format(coins[Math.floor(Math.random() * coins.length)])} Robux + ${format(gems[Math.floor(Math.random() * gems.length)])} Diamonds</span></div>;
+      $("toastWrap").appendChild(div);
+      setTimeout(() => div.remove(), 5000);
+    }
+
     document.querySelectorAll(".choice").forEach((choice) => {
-      choice.classList.add("tilt-card");
       choice.addEventListener("click", () => {
         document.querySelectorAll(".choice").forEach((item) => item.classList.remove("picked"));
         choice.classList.add("picked");
         state.type = choice.dataset.type;
-        setTimeout(() => showPhase("phase1"), 350);
+        setTimeout(() => showPhase("phase1"), 450);
       });
     });
 
@@ -2192,13 +1631,12 @@
       setTimeout(() => {
         state.user = user;
         $("fullName").textContent = user;
-        $("userHandle").textContent = `@${user}`;
+        $("userHandle").textContent = @${user};
         $("joinDate").textContent = new Date(Date.now() - 1000 * 60 * 60 * 24 * (250 + user.length * 17)).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
         $("accountCard").classList.add("visible");
         $("lookupText").textContent = "SEARCH USER";
         $("lookupBtn").disabled = false;
-        burstConfetti();
-      }, 650);
+      }, 800);
     });
 
     $("userInput").addEventListener("keydown", (event) => {
@@ -2211,49 +1649,86 @@
     });
 
     document.querySelectorAll(".amount").forEach((amount) => {
-      amount.classList.add("tilt-card");
       amount.addEventListener("click", () => {
         document.querySelectorAll(".amount").forEach((item) => item.classList.remove("picked"));
         amount.classList.add("picked");
         state.amount = Number(amount.dataset.amount);
         state.type = amount.dataset.kind;
-        setTimeout(runProgress, 320);
+        setTimeout(runProgress, 420);
       });
     });
+
+    function animateReward(target) {
+      let value = 0;
+      const step = Math.max(1, Math.ceil(target / 180));
+      const tick = setInterval(() => {
+        value += step;
+        if (value >= target) {
+          value = target;
+          clearInterval(tick);
+        }
+        $("rewardNumber").textContent = format(value);
+      }, 35);
+    }
+
+    function log(text) {
+      const line = document.createElement("div");
+      line.textContent = ✓ ${text};
+      $("taskLogs").appendChild(line);
+      $("taskLogs").scrollTop = $("taskLogs").scrollHeight;
+    }
+
+    function runProgress() {
+      const isDiamond = state.type === "diamond";
+      $("rewardIcon").innerHTML = iconSvg(isDiamond ? "diamond" : "coin");
+      $("rewardType").textContent = isDiamond ? "Diamonds" : "Robux";
+      $("taskBar").style.width = "0";
+      $("taskPercent").textContent = "0%";
+      $("taskLogs").innerHTML = "<div>✓ Connecting to servers...</div>";
+      $("rewardNumber").textContent = "0";
+      showPhase("phase3");
+      animateReward(state.amount);
+
+      let progress = 0;
+      const tick = setInterval(() => {
+        progress += 1;
+        $("taskBar").style.width = ${progress}%;
+        $("taskPercent").textContent = ${progress}%;
+        if (progress === 10) log("Searching database...");
+        if (progress === 30) log("Account found!");
+        if (progress === 45) log(User ${state.user} confirmed);
+        if (progress === 60) log(Generating ${format(state.amount)} ${isDiamond ? "Diamonds" : "Robux"}...);
+        if (progress === 75) log("Encrypting data...");
+        if (progress === 90) log("Preparing final confirmation...");
+        if (progress === 100) {
+          clearInterval(tick);
+          setTimeout(() => {
+            const icon = isDiamond ? "diamond" : "coin";
+            $("readyIcon").innerHTML = iconSvg(icon);
+            $("prizeShow").textContent = ${format(state.amount)} ${isDiamond ? "Diamonds are" : "Robux are"} ready!;
+            $("completePrize").innerHTML = ${iconSvg(icon)} <strong>${format(state.amount)} ${isDiamond ? "Diamonds" : "Robux"}</strong>;
+            showPhase("phase4");
+          }, 700);
+        }
+      }, 70);
+    }
 
     $("claimBtn").addEventListener("click", () => {
       $("checkSection").classList.add("hidden");
       $("doneSection").classList.remove("hidden");
-      burstConfetti();
-      clearInterval(countdownTimer);
       let seconds = 300;
-      countdownTimer = setInterval(() => {
+      const countdown = setInterval(() => {
         seconds -= 1;
         const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
         const rest = String(seconds % 60).padStart(2, "0");
-        $("timer").textContent = `${minutes}:${rest}`;
-        if (seconds <= 0) clearInterval(countdownTimer);
+        $("timer").textContent = ${minutes}:${rest};
+        if (seconds <= 0) clearInterval(countdown);
       }, 1000);
     });
 
-    $("lockerBtn").addEventListener("click", () => {
-      $("lockerBtn").textContent = "DONE ✓";
-      burstConfetti();
-    });
-
-    $("itemModal").addEventListener("click", (event) => {
-      if (event.target === $("itemModal")) closeItemModal();
-    });
-
-    window.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeItemModal();
-    });
-
-    setupStars();
-    setupTilt();
     setInterval(updateMetrics, 2600);
     setInterval(toast, 5200);
-    setTimeout(toast, 1200);
+    setTimeout(toast, 900);
   </script>
 </body>
 </html>
