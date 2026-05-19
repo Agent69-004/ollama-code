@@ -110,23 +110,29 @@ backdrop-filter: blur(40px);
 }
 
     .landing-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   width: 88px;
   height: 88px;
+
   margin: 0 auto 20px;
 
   border: 4px solid #fff;
   border-radius: 50%;
 
-  overflow: hidden; /* makes image stay inside circle */
+  overflow: hidden; /* VERY IMPORTANT */
 
-  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   box-shadow: 0 8px 32px rgba(0, 0, 0, .35);
   animation: landingLogoPulse 3s ease-in-out infinite;
+}
+
+.landing-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* keeps it inside circle */
+  display: block;    /* removes weird spacing */
 }
 
 .landing-logo img {
