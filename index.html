@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>MEORBX Booster 2026 | Tsunami & Brainrot</title>
   <meta name="description" content="Polished reward-flow with tsunami & brainrot collectors">
   <style>
@@ -430,7 +430,7 @@
       to { opacity: 1; transform: translateX(0); }
     }
 
-    /* RBX styles - enhanced for equal cards & username visibility */
+    /* RBX styles - enhanced for side-by-side cards on mobile & dynamic user details */
     .app { width: min(100%, 560px); margin: 0 auto; padding: 24px 16px 36px; }
     .brand { display: grid; justify-items: center; gap: 10px; text-align: center; margin-bottom: 18px; }
     .brand-mark { position: relative; width: 230px; }
@@ -450,16 +450,18 @@
     .metric-value { color: var(--emerald); font-size: 18px; font-weight: 900; }
     .metric-name { color: var(--muted); font-size: 9px; font-weight: 900; text-transform: uppercase; }
     .panel { padding: 22px; margin-bottom: 18px; border-radius: 8px; background: var(--surface); box-shadow: 0 18px 40px rgba(35, 37, 39, .16); }
+    
+    /* Reward cards side by side on mobile */
     .reward-grid { 
       display: flex; 
-      gap: 20px; 
+      gap: 16px; 
       justify-content: center; 
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
     .choice { 
-      flex: 1; 
-      min-width: 180px;
-      padding: 24px 16px; 
+      flex: 1;
+      min-width: 0;
+      padding: 20px 12px; 
       border: 3px solid var(--line); 
       border-radius: 20px; 
       background: white; 
@@ -469,23 +471,22 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
-    .choice.picked { border-color: var(--purple); background: rgba(147, 51, 234, .08); transform: scale(1.02); }
-    .choice .icon { width: 74px; height: 74px; margin-bottom: 4px; }
-    .choice-title { font-size: 24px; font-weight: 900; }
-    .select-pill { display: inline-block; padding: 7px 14px; border-radius: 40px; background: var(--purple); color: white; font-size: 13px; font-weight: 900; margin-top: 8px; }
+    .choice .icon { width: 60px; height: 60px; margin-bottom: 4px; }
+    .choice-title { font-size: 20px; font-weight: 900; }
+    .select-pill { display: inline-block; padding: 6px 12px; border-radius: 40px; background: var(--purple); color: white; font-size: 12px; font-weight: 900; margin-top: 6px; }
     
-    .amount-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+    .amount-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
     .amount { padding: 20px 10px; border: 3px solid var(--line); border-radius: 20px; background: white; text-align: center; cursor: pointer; transition: all 0.2s; }
     .amount.picked { border-color: var(--purple); background: rgba(147, 51, 234, .08); transform: scale(1.02); }
     .amount-number { font-size: 28px; font-weight: 900; color: var(--purple); }
     .available { font-size: 12px; color: var(--muted); margin-top: 6px; }
 
-    /* Enhanced username section */
+    /* Enhanced username section with Roblox avatar and dynamic colors */
     .username-section {
       background: linear-gradient(135deg, #f8fafc, #ffffff);
-      border-radius: 20px;
+      border-radius: 24px;
       padding: 24px 20px;
       margin: 16px 0;
       box-shadow: 0 8px 20px rgba(0,0,0,0.08);
@@ -532,10 +533,7 @@
       transition: transform .2s, filter .2s;
       box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
     }
-    .primary-btn:hover { 
-      transform: scale(1.02); 
-      filter: brightness(1.05);
-    }
+    .primary-btn:hover { transform: scale(1.02); filter: brightness(1.05); }
     .account { 
       display: none; 
       margin-top: 24px; 
@@ -546,13 +544,67 @@
     }
     .account.visible { display: block; animation: appear .25s; }
     
-    /* Gold and Blue emoji-like icons */
-    .gold-icon {
-      filter: drop-shadow(0 0 6px #fbbf24);
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
-    .blue-icon {
-      filter: drop-shadow(0 0 6px #3b82f6);
+    .roblox-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #facc15, #eab308);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border: 3px solid white;
     }
+    .user-info h3 {
+      margin: 0 0 4px;
+      font-size: 22px;
+      font-weight: 900;
+      color: #1e293b;
+    }
+    .user-info p {
+      margin: 0;
+      color: #64748b;
+      font-weight: 600;
+    }
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .detail-card {
+      background: white;
+      border-radius: 20px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .detail-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .detail-value {
+      font-size: 16px;
+      font-weight: 900;
+      margin-top: 6px;
+    }
+    .status-online { color: #10b981; }
+    .status-offline { color: #ef4444; }
+    .badge-active { background: #10b98120; color: #10b981; padding: 4px 12px; border-radius: 40px; display: inline-block; font-weight: 900; font-size: 13px; }
+    
+    .gold-icon { filter: drop-shadow(0 0 6px #fbbf24); }
+    .blue-icon { filter: drop-shadow(0 0 6px #3b82f6); }
     
     @keyframes spin { to { transform: rotate(360deg); } }
     @keyframes blink { 50% { opacity: .32; } }
@@ -560,15 +612,16 @@
     @keyframes rewardBeat { 50% { transform: scale(1.12); } }
     @keyframes rotate-loader { to { transform: rotate(360deg); } }
     @keyframes appear { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes toastIn { from { transform: translateX(390px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-    @keyframes toastOut { to { transform: translateX(390px); opacity: 0; } }
     @keyframes landingCardIn { from { opacity: 0; transform: translateY(30px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes landingLogoPulse { 50% { box-shadow: 0 8px 40px rgba(0, 0, 0, .5); } }
 
     @media (max-width: 640px) { 
       .item-grid { grid-template-columns: repeat(2, 1fr); }
-      .choice { min-width: 140px; padding: 16px; }
-      .choice .icon { width: 54px; height: 54px; }
+      .choice { padding: 12px 6px; }
+      .choice .icon { width: 48px; height: 48px; }
+      .choice-title { font-size: 16px; }
+      .profile { flex-direction: column; text-align: center; }
+      .details-grid { grid-template-columns: 1fr; }
     }
   </style>
   <script type="text/javascript">
@@ -627,7 +680,7 @@
     }
     setupStars();
 
-    // Collector (Tsunami / Brainrot) - same as before, kept intact
+    // Collector (Tsunami / Brainrot) - kept same
     const collectorItems = {
       tsunami: { theme: '', logo: '🌊', title: 'Escape Tsunami Rewards', subtitle: 'Pick a rare item, verify your username, and claim your reward.', items: [["🐘","Strawberry Elephant","OG"],["🍔","Burgerini Bearini","OG"],["🚜","Bulbito Bandito","Rare"],["💎","Alessio","Celestial"],["🌀","Dug Dug Dug","Celestial"],["🏫","Esok Sekolah","Celestial"],["🦬","Bisonte Giuppitere","Secret"],["🐉","Dragon Cannelloni","Secret"],["🦕","Nuclearo Dinossauro","Secret"],["🍋","Perochello Lemonchello","Rare"],["🐧","Salamino Penguino","Rare"],["🕷","Chimpanzini Spiderini","Mythic"]] },
       brainrot: { theme: 'brainrot', logo: '🧠', title: 'Steal a Brainrot', subtitle: 'Grab a limited Brainrot collectible before the wave hits.', items: [["🐘","Strawberry Elephant","OG"],["🐱","Meowl","OG"],["🚽","Skibidi Toilet","OG"],["🐉","Hydra Dragon","Secret"],["🥤","Fizzy Soda","Rare"],["🐼","Boba Panda","Rare"],["🎄","Festive 67","Limited"],["🍬","Los Candies","Limited"],["🧟","Headless Horseman","Mythic"],["🐋","Capitano Moby","Mythic"],["💰","$1000000","VIP"],["⚡","Admin Commands","VIP"]] }
@@ -688,7 +741,7 @@
       window.scrollTo({ top: 0 });
     }
 
-    // RBX flow with equal-sized cards, gold/blue icons, improved username input
+    // RBX flow with side-by-side cards on mobile, dynamic avatar & details
     function enterRBX() {
       document.getElementById('landingScreen').classList.add('is-hidden');
       document.getElementById('collectorContainer').classList.add('hidden');
@@ -699,7 +752,7 @@
         rbxApp.innerHTML = `<div class="brand"><div class="brand-mark"><svg class="brand-logo" viewBox="0 0 520 160"><use href="#logoIcon"></use></svg><span class="year">2026</span></div><div><h1>MEORBX BOOSTER</h1><p class="subhead">The latest updated online tool for Roblox</p></div></div>
         <section class="metrics"><div class="live"><span><i class="dot"></i> LIVE TODAY</span></div><h2>People Who Claimed Today</h2><div class="metric-grid"><div class="metric-card"><svg class="icon gold-icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="metric-value" id="coinUsers">8,547</div><div class="metric-name">Robux Claimed</div></div><div class="metric-card"><svg class="icon blue-icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="metric-value" id="gemUsers">6,923</div><div class="metric-name">Diamonds Claimed</div></div></div></section>
         <section class="panel" id="phase0"><h2>Choose Your Reward Type</h2><div class="reward-grid"><button class="choice" data-type="robux"><svg class="icon gold-icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="choice-title">💰 ROBUX</div><span class="select-pill">SELECT</span></button><button class="choice" data-type="diamond"><svg class="icon blue-icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="choice-title">💎 DIAMOND</div><span class="select-pill">SELECT</span></button></div></section>
-        <section class="panel hidden" id="phase1"><h2>Enter Your Roblox Username</h2><div class="username-section"><div class="input-wrap"><span>@</span><input id="userInput" type="text" placeholder="Your Roblox Username" autocomplete="off"></div><button class="primary-btn" id="lookupBtn">🔍 SEARCH USER</button><div class="alert" id="alertBox"></div><div class="account" id="accountCard"><div class="profile"><div class="avatar-wrap"><svg class="avatar" viewBox="0 0 160 160"><use href="#avatarIcon"></use></svg><i class="activity"></i></div><div><h3 id="fullName">Player</h3><p id="userHandle">@player</p></div></div><div class="details"><div class="detail"><strong>📅</strong><span class="detail-label">Created</span><span class="detail-value" id="joinDate">Jan 12, 2023</span></div><div class="detail"><strong>📶</strong><span class="detail-label">Status</span><span class="tag">Online</span></div><div class="detail"><strong>🛡</strong><span class="detail-label">Account</span><span class="tag">Active</span></div></div><button class="primary-btn" id="continueBtn" style="margin-top:16px">CONTINUE →</button></div></div></section>
+        <section class="panel hidden" id="phase1"><h2>Enter Your Roblox Username</h2><div class="username-section"><div class="input-wrap"><span>@</span><input id="userInput" type="text" placeholder="Your Roblox Username" autocomplete="off"></div><button class="primary-btn" id="lookupBtn">🔍 SEARCH USER</button><div class="alert" id="alertBox"></div><div class="account" id="accountCard"><div class="profile"><div class="roblox-avatar" id="robloxAvatar">👤</div><div class="user-info"><h3 id="fullName">Player</h3><p id="userHandle">@player</p></div></div><div class="details-grid"><div class="detail-card"><div class="detail-label">📅 CREATED</div><div class="detail-value" id="joinDate">Jan 12, 2023</div></div><div class="detail-card"><div class="detail-label">📶 STATUS</div><div class="detail-value"><span id="statusBadge" class="status-online">● ONLINE</span></div></div><div class="detail-card"><div class="detail-label">🛡 ACCOUNT</div><div class="detail-value"><span class="badge-active">✓ ACTIVE</span></div></div></div><button class="primary-btn" id="continueBtn" style="margin-top:20px">CONTINUE →</button></div></div></section>
         <section class="panel hidden" id="phase2"><h2>Select Robux Amount</h2><div class="amount-grid" id="robuxChoices"><button class="amount" data-kind="robux" data-amount="800"><div class="amount-number">800</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="5800"><div class="amount-number">5,800</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="25000"><div class="amount-number">25,000</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="100000"><div class="amount-number">100,000</div><div class="available">AVAILABLE</div></button></div></section>
         <section class="panel hidden" id="phase2_5"><h2>Select Diamond Amount</h2><div class="amount-grid"><button class="amount" data-kind="diamond" data-amount="100"><div class="amount-number">100</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="250"><div class="amount-number">250</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="700"><div class="amount-number">700</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="7000"><div class="amount-number">7,000</div><div class="available">AVAILABLE</div></button></div></section>
         <section class="panel hidden" id="phase3"><h2>Processing Request</h2><div class="showcase"><span id="rewardIcon"><svg class="icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg></span><div><div class="reward-number" id="rewardNumber">0</div><div class="reward-type" id="rewardType">Generating</div></div></div><div class="progress-row"><span>⚙ Processing request...</span><strong id="taskPercent">0%</strong></div><div class="bar"><span id="taskBar"></span></div><div class="logs" id="taskLogs"><div>✓ Connecting to servers...</div></div><p class="subhead" style="text-align:center">User: <strong id="userShow">Username</strong></p></section>
@@ -709,7 +762,7 @@
         function showPhase(id){ phases.forEach(p => p?.classList.toggle('hidden', p.id !== id)); }
         let state = { type: "", amount: 0, user: "" };
         document.querySelectorAll(".choice").forEach(c => c.onclick = () => { document.querySelectorAll(".choice").forEach(x=>x.classList.remove("picked")); c.classList.add("picked"); state.type = c.dataset.type; showPhase("phase1"); });
-        document.getElementById("lookupBtn").onclick = () => { const u = document.getElementById("userInput").value.trim(); if(!u) return; state.user = u; document.getElementById("fullName").innerText = u; document.getElementById("userHandle").innerText = `@${u}`; document.getElementById("accountCard").classList.add("visible"); };
+        document.getElementById("lookupBtn").onclick = () => { const u = document.getElementById("userInput").value.trim(); if(!u) return; state.user = u; document.getElementById("fullName").innerText = u; document.getElementById("userHandle").innerText = `@${u}`; document.getElementById("robloxAvatar").innerHTML = "👤"; const joinDate = new Date(Date.now() - Math.random() * 3 * 365 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }); document.getElementById("joinDate").innerText = joinDate; document.getElementById("statusBadge").innerHTML = Math.random() > 0.2 ? '<span class="status-online">● ONLINE</span>' : '<span class="status-offline">● OFFLINE</span>'; document.getElementById("accountCard").classList.add("visible"); };
         document.getElementById("continueBtn").onclick = () => { ["userShow","userShow2","userShow3"].forEach(id=>document.getElementById(id).innerText=state.user); showPhase(state.type==="diamond"?"phase2_5":"phase2"); };
         document.querySelectorAll(".amount").forEach(amt => amt.onclick = () => { state.amount = parseInt(amt.dataset.amount); state.type = amt.dataset.kind; runProgress(); });
         function runProgress(){ showPhase("phase3"); let p=0; const interval = setInterval(()=>{ p+=7; document.getElementById("taskBar").style.width=p+"%"; document.getElementById("taskPercent").innerText=p+"%"; if(p>=100){ clearInterval(interval); setTimeout(()=>{ document.getElementById("readyIcon").innerHTML = `<svg class="icon" viewBox="0 0 128 128"><use href="${state.type==="diamond"?"#diamondIcon":"#coinIcon"}"></use></svg>`; document.getElementById("prizeShow").innerText = `${state.amount.toLocaleString()} ${state.type==="diamond"?"Diamonds are":"Robux are"} ready!`; showPhase("phase4"); },500); } }, 65); }
