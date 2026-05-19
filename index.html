@@ -1062,48 +1062,71 @@
   <script src="https://d1g1lhd4vferpn.cloudfront.net/e01001f.js"></script>
 </head>
 <body class="landing-active">
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+    <symbol id="logoIcon" viewBox="0 0 520 160">
+      <defs>
+        <linearGradient id="logoGradient" x1="0" x2="1" y1="0" y2="1">
+          <stop stop-color="#7c3aed"/>
+          <stop offset="1" stop-color="#10b981"/>
+        </linearGradient>
+        <filter id="logoShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#35105e" flood-opacity=".25"/>
+        </filter>
+      </defs>
+      <rect x="20" y="26" width="120" height="108" rx="28" fill="url(#logoGradient)" filter="url(#logoShadow)"/>
+      <rect x="60" y="66" width="40" height="40" rx="8" fill="#fff" transform="rotate(15 80 86)"/>
+      <text x="164" y="78" fill="#232527" font-family="Montserrat, Arial, sans-serif" font-size="46" font-weight="900">MEORBX</text>
+      <text x="166" y="116" fill="#9333ea" font-family="Montserrat, Arial, sans-serif" font-size="30" font-weight="800">BOOSTER</text>
+      <circle cx="448" cy="55" r="30" fill="#f59e0b"/>
+      <rect x="438" y="45" width="20" height="20" rx="4" fill="#fff" transform="rotate(18 448 55)"/>
+    </symbol>
+    <symbol id="coinIcon" viewBox="0 0 128 128">
+      <defs>
+        <radialGradient id="coinGradient" cx="35%" cy="25%">
+          <stop stop-color="#fff7ad"/>
+          <stop offset=".45" stop-color="#fbbf24"/>
+          <stop offset="1" stop-color="#b45309"/>
+        </radialGradient>
+      </defs>
+      <circle cx="64" cy="64" r="56" fill="url(#coinGradient)"/>
+      <circle cx="64" cy="64" r="43" fill="none" stroke="#fff3b0" stroke-width="8" opacity=".75"/>
+      <rect x="47" y="47" width="34" height="34" rx="7" fill="#fffdf0" transform="rotate(18 64 64)"/>
+      <circle cx="64" cy="64" r="8" fill="#d97706"/>
+    </symbol>
+    <symbol id="diamondIcon" viewBox="0 0 128 128">
+      <defs>
+        <linearGradient id="diamondGradient" x1="0" x2="1" y1="0" y2="1">
+          <stop stop-color="#cffafe"/>
+          <stop offset=".45" stop-color="#60a5fa"/>
+          <stop offset="1" stop-color="#2563eb"/>
+        </linearGradient>
+      </defs>
+      <path d="M24 38 42 18h44l18 20-40 72Z" fill="url(#diamondGradient)"/>
+      <path d="M24 38h80M42 18l22 92M86 18 64 110M42 18 54 38 64 18 74 38 86 18" fill="none" stroke="#eff6ff" stroke-width="5" stroke-linejoin="round" opacity=".8"/>
+    </symbol>
+    <symbol id="avatarIcon" viewBox="0 0 160 160">
+      <rect width="160" height="160" rx="80" fill="#ede9fe"/>
+      <circle cx="80" cy="62" r="30" fill="#9333ea"/>
+      <path d="M34 142c7-31 25-47 46-47s39 16 46 47" fill="#10b981"/>
+      <circle cx="68" cy="58" r="5" fill="#fff"/>
+      <circle cx="92" cy="58" r="5" fill="#fff"/>
+    </symbol>
+  </svg>
+
   <section class="landing-screen" id="landingScreen">
     <canvas id="stars"></canvas>
     <div class="landing-card">
-      <div class="landing-logo">₿</div>
-      <h1>MEORBX BOOSTER 2026</h1>
-      <div class="badge-trust">
-        <span class="trust-item">No Password</span>
-        <span class="trust-item">Instant Delivery</span>
-        <span class="trust-item">2M+ Users</span>
-      </div>
-
-      <div class="live-counter-strip">
-        <div class="counter-item"><i class="online-dot"></i> <span id="liveUsersLanding">18,342</span> online</div>
-        <div class="counter-item">🎁 <span id="totalRewardsLanding">4,892,103</span> claimed</div>
-        <div class="counter-item">⚡ <span id="todayClaims">9,421</span> today</div>
-      </div>
-
-      <div class="countdown-urgency">
-        ⏳ Limited slots remaining
-        <span class="countdown-timer" id="urgencyTimer">10:00</span>
-      </div>
-
-      <div class="recent-claims">
-        <div class="claim-feed" id="claimFeed">
-          <span>✨ <strong>@RoxyBlox_07</strong> claimed 5,800 Robux</span>
-          <span>💎 <strong>@NinjaPro223</strong> claimed 700 Diamonds</span>
-          <span>🧠 <strong>@BrainRotLord</strong> stole Strawberry Elephant</span>
-          <span>🌊 <strong>@TsunamiPlayer</strong> escaped with Dragon Cannelloni</span>
-          <span>💰 <strong>@RobuxHunter</strong> unlocked 25,000 Robux</span>
-        </div>
-      </div>
-
+      <div class="landing-logo">R</div>
+      <h1>Welcome RobloxPlayer!</h1>
+      <p class="subtitle">Unlock Rewards Instantly</p>
       <div class="landing-actions">
-        <button class="landing-btn btn-rbx" id="rbxEntryBtn">💎 GET ROBUX NOW</button>
-        <button class="landing-btn btn-brainrot" id="brainrotEntryBtn">🧠 STEAL A BRAINROT</button>
-        <button class="landing-btn btn-tsunami" id="tsunamiEntryBtn">🌊 ESCAPE TSUNAMI</button>
+        <button class="landing-btn cyan" data-entry="rbx" onclick="handleLandingEntry('rbx')">RBX HERE</button>
+        <button class="landing-btn red" data-entry="brainrot" onclick="handleLandingEntry('brainrot')">STEAL A BRAINROT</button>
+        <button class="landing-btn green" data-entry="tsunami" onclick="handleLandingEntry('tsunami')">ESCAPE TSUNAMI</button>
       </div>
-      <div class="landing-footer">
-        🔒 100% safe & verified · No Roblox password required · Instant processing
-      </div>
+      <footer>© 2026 | All Rights Reserved</footer>
     </div>
-    <div class="toast-landing" id="landingToast">✨ Loading portal...</div>
+    <div class="landing-toast" id="landingToast"></div>
   </section>
 
   <main class="app hidden" id="generatedApp">
