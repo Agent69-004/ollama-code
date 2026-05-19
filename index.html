@@ -164,15 +164,17 @@ backdrop-filter: blur(40px);
 
     .landing-btn {
   width: 100%;
-  padding: 10px 20px;
+  max-width: 420px;   /* 👈 makes them longer visually */
+  margin: 0 auto;     /* 👈 centers them */
+  padding: 14px 28px; /* 👈 more left/right space */
   border-radius: 999px;
   color: #fff;
   font-family: Impact, fantasy;
-  font-size: 16px;
-  letter-spacing: .3px;
+  font-size: 18px;    /* slightly smaller = cleaner */
+  letter-spacing: .5px;
   transition: transform .2s ease, filter .2s ease;
+  display: block;
 }
-
     .landing-btn:hover {
       transform: translateY(-2px);
       filter: brightness(1.1);
