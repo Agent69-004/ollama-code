@@ -82,9 +82,8 @@ backdrop-filter: blur(40px);
   padding: 48px 56px 40px;
 
   border-radius: 28px; /* MORE CURVED CORNERS */
-  background: linear-gradient(135deg, #101828, #0b1220, #111a2e);
-background-size: 300% 300%;
-animation: cardBreath 6s ease infinite;
+  background: linear-gradient(180deg, #121826, #0b0f1a);
+border: 1px solid rgba(255,255,255,0.06);
   text-align: center;
   box-shadow: 0 24px 64px rgba(0, 0, 0, .5);
 
@@ -1058,15 +1057,21 @@ animation: cardBreath 6s ease infinite;
     @keyframes toastOut { to { transform: translateX(390px); opacity: 0; } }
     @keyframes landingCardIn { from { opacity: 0; transform: translateY(30px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes landingLogoPulse { 50% { box-shadow: 0 8px 40px rgba(0, 0, 0, .5); } }
-    @keyframes liquidMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-      @keyframes cardBreath {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+    @keyframes cardFloat {
+  0% {
+    transform: translateY(0px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+
+  50% {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+  }
+
+  100% {
+    transform: translateY(0px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
 }
     @media (max-width: 390px) {
       .app { padding-inline: 12px; }
