@@ -82,7 +82,22 @@ backdrop-filter: blur(40px);
   padding: 48px 56px 40px;
 
   border-radius: 28px; /* MORE CURVED CORNERS */
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  background:
+  linear-gradient(180deg, #0b1020, #070a14),
+  repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.04) 0px,
+    rgba(255,255,255,0.04) 1px,
+    transparent 1px,
+    transparent 20px
+  ),
+  repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 0px,
+    rgba(255,255,255,0.04) 1px,
+    transparent 1px,
+    transparent 20px
+  );
   text-align: center;
   box-shadow: 0 24px 64px rgba(0, 0, 0, .5);
 
